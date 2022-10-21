@@ -6,9 +6,9 @@ CFLAGS = -Wall -Wextra -Werror
 SRCS = main.c \
 	   exit_write_message.c \
 	   is_atoi.c validation_args.c \
-	   create_node.c search_sentinel.c stack_clear.c \
-	   create_stack_a.c
-
+	   create_node.c create_stack_a.c stack_clear.c \
+	   
+# search_sentinel.c 
 INCLUDES_DIR = ./includes
 SRCS_DIR = ./srcs
 OBJS_DIR = ./objs

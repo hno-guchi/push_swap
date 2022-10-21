@@ -6,13 +6,13 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/20 15:02:45 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:47:07 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_bidrect_circle_list	*create_node(int num, int role)
+t_bidrect_circle_list	*create_node(int num)
 {
 	t_bidrect_circle_list	*new_node;
 
@@ -22,7 +22,6 @@ t_bidrect_circle_list	*create_node(int num, int role)
 		return (NULL);
 	}
 	new_node->num = num;
-	new_node->role = role;
 	new_node->index = 0;
 	new_node->prev = NULL;
 	new_node->next = NULL;

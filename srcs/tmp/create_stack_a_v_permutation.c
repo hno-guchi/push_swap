@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/21 12:26:35 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:20:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static t_bidrect_circle_list	*create_sentinel(void)
 	return (sentinel);
 }
 
-// Version. stack
+// Version. Permutation
 static void	connect_node(t_bidrect_circle_list *head,t_bidrect_circle_list *new_node)
 {
-	new_node->prev = head;
-	new_node->next = head->next;
-	head->next->prev = new_node;
-	head->next = new_node;
+	new_node->next = head;
+	new_node->prev = head->prev;
+	head->prev->next = new_node;
+	head->prev = new_node;
 }
 
 t_bidrect_circle_list	*create_stack_a(int argc, char **argv)

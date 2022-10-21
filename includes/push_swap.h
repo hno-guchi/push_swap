@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/20 16:09:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:17:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum	enm {
 
 typedef struct	s_bidrect_circle_list {
 	int								num;
-	int								role;
+	// int								role;
 	int								index;
 	struct s_bidrect_circle_list	*prev;
 	struct s_bidrect_circle_list	*next;
@@ -49,10 +49,10 @@ typedef struct	s_stack {
 void					exit_write_message(error_num num);
 bool					is_atoi(const char *str);
 void					validation_args(int argc, char **argv);
-t_bidrect_circle_list	*create_node(int num, int role);
-t_bidrect_circle_list	*search_sentinel(t_bidrect_circle_list *node);
+t_bidrect_circle_list	*create_node(int num);
+// t_bidrect_circle_list	*search_sentinel(t_bidrect_circle_list *node);
 t_bidrect_circle_list	*create_stack_a(int argc, char **argv);
-void					add_node_stack_back(t_bidrect_circle_list **stack, t_bidrect_circle_list *new);
-void					stack_clear(t_bidrect_circle_list **stack);
+// void					add_node_stack_back(t_bidrect_circle_list **stack, t_bidrect_circle_list *new);
+void					stack_clear(t_bidrect_circle_list **head);
 
 # endif

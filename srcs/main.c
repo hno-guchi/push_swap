@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/20 16:14:54 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:13:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@
 
 #include <stdio.h>
 
+
+
 int	main(int argc, char **argv)
 {
 	int						i;
+	t_bidrect_circle_list	*head;
 	t_bidrect_circle_list	*stack_a;
 
 	i = 0;
@@ -27,8 +30,9 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	validation_args(argc, argv);
-	stack_a = create_stack_a(argc, argv);
-	while (stack_a->role != SENTINEL)
+	head = create_stack_a(argc, argv);
+	stack_a = head->next;
+	while (stack_a != head)
 	{
 		printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
 		stack_a = stack_a->next;
@@ -36,9 +40,8 @@ int	main(int argc, char **argv)
 
 	}
 	printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
-	stack_a = stack_a->next;
 	// execute_push_swap();
-	stack_clear(&stack_a);
+	stack_clear(&head);
 	system("leaks -q push_swap");
 	return (0);
 }

@@ -6,27 +6,29 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/20 16:15:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:16:10 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void	stack_clear(t_bidrect_circle_list **stack)
+void	stack_clear(t_bidrect_circle_list **head)
 {
-	t_bidrect_circle_list	*next_node;
+	t_bidrect_circle_list	*node_p;
+	t_bidrect_circle_list	*next_node_p;
 
-	if (!stack[0])
+	if (!head[0])
 	{
 		return ;
 	}
-	while (stack[0]->role != SENTINEL)
+	node_p = head[0]->next;
+	while (node_p != head[0])
 	{
-		next_node = stack[0]->next;
-		free(stack[0]);
-		stack[0] = next_node;
+		next_node_p = node_p->next;
+		free(node_p);
+		node_p = next_node_p;
 	}
-	free(stack[0]);
-	stack = NULL;
+	free(head[0]);
+	head = NULL;
 }
