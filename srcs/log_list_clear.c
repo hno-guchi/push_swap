@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   log_list_clear.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/21 17:25:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:05:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_printf.h"
 #include "push_swap.h"
 
-#include <stdio.h>
-
-t_operation_num	push(t_bidrect_circle_list *head_p, t_operation_num log)
+void	log_list_clear(t_operation_log_list **list)
 {
-	t_bidrect_circle_list	*first_node;
-	t_bidrect_circle_list	*second_node;
+	t_operation_log_list	*next_node;
 
-	first_node = head_p->next;
-	second_node = first_node->next;
-	first_node->next = second_node->next;
-	second_node->next->prev = first_node;
-	first_node->prev = second_node;
-	second_node->next = first_node;
-	second_node->prev = head_p;
-	head_p->next = second_node;
-	return (log);
+	if (!list || !list[0])
+	{
+		return ;
+	}
+	while (list[0])
+	{
+		next_node = list[0]->next;
+		free(list[0]);
+		list[0] = next_node;
+	}
+	list = NULL;
 }
 
+/*
+#include <stdio.h>
 int	main(int argc, char **argv)
 {
 	int						i;
@@ -47,8 +46,6 @@ int	main(int argc, char **argv)
 	validation_args(argc, argv);
 	log = NULL;
 	head_p = create_stack_a(argc, argv);
-	add_back_list_log_node(&log, create_log_node(push(head_p, Push_a)));
-	add_back_list_log_node(&log, create_log_node(push(head_p, Push_a)));
 	add_back_list_log_node(&log, create_log_node(push(head_p, Push_a)));
 	stack_a = head_p->next;
 	while (stack_a != head_p)
@@ -66,7 +63,4 @@ int	main(int argc, char **argv)
 	return (0);
 }
 // printf(GREEN"[OK]"END); printf(" : is_digits();\n");
-// search_max();
-// compress();
-// sort();
-// execute_push_swap();
+*/

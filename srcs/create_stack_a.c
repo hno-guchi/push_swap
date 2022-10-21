@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/21 12:26:35 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 13:57:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,24 @@ static t_bidrect_circle_list	*create_sentinel(void)
 	return (sentinel);
 }
 
-// Version. stack
-static void	connect_node(t_bidrect_circle_list *head,t_bidrect_circle_list *new_node)
+static void	connect_node(t_bidrect_circle_list *head_p
+		,t_bidrect_circle_list *new_node)
 {
-	new_node->prev = head;
-	new_node->next = head->next;
-	head->next->prev = new_node;
-	head->next = new_node;
+	new_node->prev = head_p;
+	new_node->next = head_p->next;
+	head_p->next->prev = new_node;
+	head_p->next = new_node;
 }
 
 t_bidrect_circle_list	*create_stack_a(int argc, char **argv)
 {
 	int						i;
-	t_bidrect_circle_list	*head;
+	t_bidrect_circle_list	*head_p;
 	t_bidrect_circle_list	*new_node;
 
 	i = 1;
-	head = create_sentinel();
-	if (!head)
+	head_p = create_sentinel();
+	if (!head_p)
 	{
 		exit_write_message (Malloc_error);
 	}
@@ -55,84 +55,27 @@ t_bidrect_circle_list	*create_stack_a(int argc, char **argv)
 		new_node = create_node(ft_atoi(argv[i]));
 		if (!new_node)
 		{
-			stack_clear(&head);
+			stack_clear(&head_p);
 			exit_write_message(Malloc_error);
 		}
-		connect_node(head, new_node);
+		connect_node(head_p, new_node);
 		i += 1;
 	}
-	return (head);
+	return (head_p);
 }
 
 /*
-void	make_circle_list(t_bidrect_circle_list *stack_a
-		, t_bidrect_circle_list *last_node)
-{
-	t_bidrect_circle_list	*sentinel;
-
-	sentinel = create_node(0, SENTINEL);
-	if (!sentinel)
-	{
-		stack_clear(&last_node);
-		stack_clear(&stack_a);
-		exit_write_message(Malloc_error);
-	}
-	last_node->next = sentinel;
-	sentinel->next = stack_a;
-	stack_a->prev = sentinel;
-	sentinel->prev = last_node;
-}
-
-void	connect_node(t_bidrect_circle_list *present_node
-		, t_bidrect_circle_list *new_node)
-{
-	present_node->next = new_node;
-	new_node->prev = present_node;
-}
-
-t_bidrect_circle_list	*create_stack_a(int argc, char **argv)
-{
-	int						i;
-	t_bidrect_circle_list	*new_node;
-	t_bidrect_circle_list	*stack_a;
-	t_bidrect_circle_list	*present_node;
-
-	i = 2;
-	stack_a = create_node(ft_atoi(argv[1]), NODE);
-	present_node = stack_a;
-	if (!stack_a)
-	{
-		exit_write_message(Malloc_error);
-	}
-	while (i < argc)
-	{
-		new_node = NULL;
-		new_node = create_node(ft_atoi(argv[i]), NODE);
-		if (!new_node)
-		{
-			stack_clear(&stack_a);
-			exit_write_message(Malloc_error);
-		}
-		connect_node(present_node, new_node);
-		present_node = new_node;
-		i += 1;
-	}
-	make_circle_list(stack_a, present_node);
-	return (stack_a);
-}
-*/
-/*
+#include <stdio.h>
 int	main(int argc, char **argv)
 {
-	int		i;
-	t_stack	*stack_a;
+	int						i;
+	t_bidrect_circle_list	*head_p;
+	t_bidrect_circle_list	*stack_a;
 
-	if (!(stack_a = create_stack_a(argc, argv)))
-	{
-		exit_write_message("Error\n");
-	}
 	i = 0;
-	while (stack_a->next)
+	head_p = create_stack_a(argc, argv);
+	stack_a = head_p->next;
+	while (stack_a != head_p)
 	{
 		printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
 		stack_a = stack_a->next;
@@ -140,9 +83,7 @@ int	main(int argc, char **argv)
 
 	}
 	printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
-	stack_clear(&stack_a);
-	// execute_push_swap
-	//
+	stack_clear(&head_p);
 	system("leaks -q push_swap");
 	return (0);
 }

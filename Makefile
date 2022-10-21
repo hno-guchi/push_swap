@@ -7,6 +7,8 @@ SRCS = main.c \
 	   exit_write_message.c \
 	   is_atoi.c validation_args.c \
 	   create_node.c create_stack_a.c stack_clear.c \
+	   create_log_node.c add_back_list_log_node.c log_list_clear.c \
+	   putstr_log.c
 	   
 # search_sentinel.c 
 INCLUDES_DIR = ./includes
