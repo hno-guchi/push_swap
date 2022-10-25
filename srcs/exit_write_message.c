@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:54:25 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/19 17:36:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:01:44 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-void	exit_write_message(error_num num)
+void	exit_write_message(t_error_num num)
 {
 	ft_putstr_fd(RED"Error\n", STDERR_FILENO);
 	if (num == Malloc_error)

@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/21 16:56:54 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:02:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-static void	putstr_reverse_rotate(operation_num log)
+static void	putstr_reverse_rotate(t_operation_num log)
 {
 	if (log == Reverse_rotate_a)
 	{
@@ -29,7 +29,7 @@ static void	putstr_reverse_rotate(operation_num log)
 	}
 }
 
-static void	putstr_rotate(operation_num log)
+static void	putstr_rotate(t_operation_num log)
 {
 	if (log == Rotate_a)
 	{
@@ -45,7 +45,7 @@ static void	putstr_rotate(operation_num log)
 	}
 }
 
-static void	putstr_push(operation_num log)
+static void	putstr_push(t_operation_num log)
 {
 	if (log == Push_a)
 	{
@@ -57,7 +57,7 @@ static void	putstr_push(operation_num log)
 	}
 }
 
-static void	putstr_swap(operation_num log)
+static void	putstr_swap(t_operation_num log)
 {
 	if (log == Swap_a)
 	{

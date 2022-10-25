@@ -1,21 +1,81 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   operation_reverse_rotate.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/25 19:57:13 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:59:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_printf.h"
 #include "push_swap.h"
 
-#include <stdio.h>
+static bool	reverse_rotate(t_bidrect_circle_list *head_p)
+{
+	t_bidrect_circle_list	*last_node;
+	t_bidrect_circle_list	*last_prev_node;
 
+	if (head_p == head_p->next || head_p == head_p->next->next)
+	{
+		return (false);
+	}
+	last_node = head_p->prev;
+	last_prev_node = head_p->prev->prev;
+	connect_node(head_p, last_node);
+	last_prev_node->next = head_p;
+	head_p->prev = last_prev_node;
+	return (true);
+}
+
+char	*reverse_rotate_a(t_bidrect_circle_list *stack_a)
+{
+	if (!stack_a)
+	{
+		return (NULL);
+	}
+	if (!reverse_rotate(stack_a))
+	{
+		return (NULL);
+	}
+	return ("rra");
+}
+
+char	*reverse_rotate_b(t_bidrect_circle_list *stack_b)
+{
+	if (!stack_b)
+	{
+		return (NULL);
+	}
+	if (!reverse_rotate(stack_b))
+	{
+		return (NULL);
+	}
+	return ("rrb");
+}
+
+char	*reverse_rotate_r(t_bidrect_circle_list *stack_a,
+		t_bidrect_circle_list *stack_b)
+{
+	if (!stack_a || !stack_b)
+	{
+		return (NULL);
+	}
+	if (stack_a == stack_a->next || stack_a == stack_a->next->next)
+	{
+		return (NULL);
+	}
+	if (stack_b == stack_b->next || stack_b == stack_b->next->next)
+	{
+		return (NULL);
+	}
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
+	return ("rrr");
+}
+
+/*
 int	main(int argc, char **argv)
 {
 	t_bidrect_circle_list	*head_p_stack_a;
@@ -142,87 +202,4 @@ int	main(int argc, char **argv)
 	return (0);
 }
 // printf(GREEN"[OK]"END); printf(" : is_digits();\n");
-// search_max();
-// compress();
-// sort();
-// execute_push_swap();
-/*
-	log_node = ft_lstnew(swap_a(stack_a));
-	ft_lstadd_back(&log_list, log_node);
-	head_p_log = log_list;
-
-	log_node = ft_lstnew(swap_b(stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(swap_s(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(push_a(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(push_b(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-	head_p_log = log_list;
-	log_node = ft_lstnew(push_b(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(swap_b(stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(swap_s(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_a(stack_a));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_b(stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_r(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(push_b(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_a(stack_a));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_r(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(push_b(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_a(stack_a));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_r(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(push_a(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-	log_node = ft_lstnew(push_a(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-	log_node = ft_lstnew(push_a(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_b(stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_r(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(push_a(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_b(stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(rotate_r(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
-	log_node = ft_lstnew(push_a(stack_a, stack_b));
-	ft_lstadd_back(&log_list, log_node);
-
 */
-
