@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:58:49 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/18 16:53:40 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:25:43 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 size_t	ft_strclen(const char *s, const char c);
-int	ft_isspace(int c);
+int		ft_isspace(int c);
 
 #endif

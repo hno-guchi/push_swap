@@ -6,39 +6,12 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/25 15:25:52 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/26 16:14:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
-
-/*
-static t_bidrect_circle_list	*create_sentinel(void)
-{
-	t_bidrect_circle_list	*sentinel;
-
-	sentinel = (t_bidrect_circle_list *)malloc(sizeof(t_bidrect_circle_list));
-	if (!sentinel)
-	{
-		return (NULL);
-	}
-	sentinel->num = 0;
-	sentinel->index = 0;
-	sentinel->prev = sentinel;
-	sentinel->next = sentinel;
-	return (sentinel);
-}
-
-static void	connect_node(t_bidrect_circle_list *head_p
-		,t_bidrect_circle_list *new_node)
-{
-	new_node->prev = head_p;
-	new_node->next = head_p->next;
-	head_p->next->prev = new_node;
-	head_p->next = new_node;
-}
-*/
 
 t_bidrect_circle_list	*create_stack_a(int argc, char **argv)
 {

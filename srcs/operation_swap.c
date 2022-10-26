@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/25 19:59:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:41:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,52 +78,86 @@ char	*swap_s(t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 }
 
 /*
+void	test_operation_swap(t_bidrect_circle_list *head_p_stack_a)
+{
+	t_bidrect_circle_list	*stack_a;
+	t_bidrect_circle_list	*head_p_stack_b;
+	t_bidrect_circle_list	*stack_b;
+
+	stack_a = head_p_stack_a;
+	head_p_stack_b = create_sentinel();
+	stack_b = head_p_stack_b;
+
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(RED_BACK"\n[TEST] swap();"END_BACK);
+
+	printf(GREEN_BACK"\nswap_a(); return = [%s]"END_BACK, swap_a(stack_a));
+	printf("\n"); output_stack(stack_a, stack_b);
+	
+	printf(GREEN_BACK"\nswap_b(); return = [%s]"END_BACK, swap_b(stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_b(); return = [%s]"END_BACK, swap_b(stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_b(); return = [%s]"END_BACK, swap_b(stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_a(); return = [%s]"END_BACK, swap_a(stack_a));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_a(); return = [%s]"END_BACK, swap_a(stack_a));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	stack_clear(&head_p_stack_a);
+	stack_clear(&head_p_stack_b);
+}
+
 int	main(int argc, char **argv)
 {
-	int						i;
 	t_bidrect_circle_list	*head_p_stack_a;
-	t_bidrect_circle_list	*stack_a;
 
-	t_list					*log_node;
-	t_list					*log_list;
-	t_list					*log_head_p;
-
-	i = 0;
 	if (argc <= 1)
 	{
 		return (0);
 	}
 	validation_args(argc, argv);
 	head_p_stack_a = create_stack_a(argc, argv);
-	stack_a = head_p_stack_a;
-
-	log_list = NULL;
-	log_node = ft_lstnew(swap_a(stack_a));
-	log_head_p = log_node;
-	ft_lstadd_back(&log_list, log_node);
-	log_node = ft_lstnew(swap_b(stack_a));
-	ft_lstadd_back(&log_list, log_node);
-	log_node = ft_lstnew(swap_a(stack_a));
-	ft_lstadd_back(&log_list, log_node);
-
-	stack_a = head_p_stack_a->next;
-	while (stack_a != head_p_stack_a)
-	{
-		printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
-		stack_a = stack_a->next;
-		i += 1;
-
-	}
-	printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
-	while (log_list)
-	{
-		ft_printf("[%s]\n", (char *)log_list->content);
-		log_list = log_list->next;
-	}
-	ft_lstclear(&log_head_p, NULL);
-	stack_clear(&head_p_stack_a);
+	test_operation_swap(head_p_stack_a);
 	system("leaks -q push_swap");
 	return (0);
 }
-// printf(GREEN"[OK]"END); printf(" : is_digits();\n");
 */
