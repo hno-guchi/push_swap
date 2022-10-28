@@ -6,14 +6,15 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/26 16:05:00 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:19:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-static t_list	*execute_reverse_rotate(t_operation type, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
+static t_list	*execute_reverse_rotate(t_operation type
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Reverse_rotate_a)
 	{
@@ -30,7 +31,8 @@ static t_list	*execute_reverse_rotate(t_operation type, t_bidrect_circle_list *s
 	return (NULL);
 }
 
-static t_list	*execute_rotate(t_operation type, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
+static t_list	*execute_rotate(t_operation type
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Rotate_a)
 	{
@@ -47,7 +49,8 @@ static t_list	*execute_rotate(t_operation type, t_bidrect_circle_list *stack_a, 
 	return (NULL);
 }
 
-static t_list	*execute_push(t_operation type, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
+static t_list	*execute_push(t_operation type
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Push_a)
 	{
@@ -60,7 +63,8 @@ static t_list	*execute_push(t_operation type, t_bidrect_circle_list *stack_a, t_
 	return (NULL);
 }
 
-static t_list	*execute_swap(t_operation type, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
+static t_list	*execute_swap(t_operation type
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Swap_a)
 	{
@@ -77,7 +81,8 @@ static t_list	*execute_swap(t_operation type, t_bidrect_circle_list *stack_a, t_
 	return (NULL);
 }
 
-t_list	*execute_operation(t_operation type, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
+t_list	*execute_operation(t_operation type
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Swap_a || type == Swap_b || type == Swap_s)
 	{
@@ -91,7 +96,8 @@ t_list	*execute_operation(t_operation type, t_bidrect_circle_list *stack_a, t_bi
 	{
 		return (execute_rotate(type, stack_a, stack_b));
 	}
-	else if (type == Reverse_rotate_a || type == Reverse_rotate_b || type == Reverse_rotate_r)
+	else if (type == Reverse_rotate_a
+		|| type == Reverse_rotate_b || type == Reverse_rotate_r)
 	{
 		return (execute_reverse_rotate(type, stack_a, stack_b));
 	}

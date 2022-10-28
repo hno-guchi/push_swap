@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/26 20:40:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:27:43 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 #include <stdio.h>
 
-void	output_stack(t_bidrect_circle_list *head_p_stack_a, t_bidrect_circle_list *head_p_stack_b)
+void	output_stack(t_bidrect_circle_list *head_p_stack_a
+		, t_bidrect_circle_list *head_p_stack_b)
 {
 	t_bidrect_circle_list	*stack_a;
 	t_bidrect_circle_list	*stack_b;
@@ -97,10 +98,7 @@ int	main(int argc, char **argv)
 	}
 	validation_args(argc, argv);
 	head_p_stack_a = create_stack_a(argc, argv);
-	// head_p_stack_a = prepare_sort(t_bidrect_circle_list *head_p_stack_a);
-						// copy_stack_a(t_bidrect_circle_list *head_p_stack_a);
-						// compress(t_bidrect_circle_list *stack_a);
-						// check_duplication_number(t_bidrect_circle_list *tmp_list);
+	head_p_stack_a = prepare_sort(argc - 1, &argv[1], head_p_stack_a);
 	head_p_log = execute_push_swap(argc, head_p_stack_a);
 	putstr_log(head_p_log);
 	stack_clear(&head_p_stack_a);

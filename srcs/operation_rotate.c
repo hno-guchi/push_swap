@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/26 17:48:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:18:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void	test_operation_rotate(t_bidrect_circle_list *head_p_stack_a)
 	printf(GREEN_BACK"\nrotate_b(); return = [%s]"END_BACK, rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK, rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK
+	, rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
@@ -110,7 +111,8 @@ void	test_operation_rotate(t_bidrect_circle_list *head_p_stack_a)
 	printf(GREEN_BACK"\nrotate_b(); return = [%s]"END_BACK, rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK, rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK
+	, rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
@@ -120,7 +122,8 @@ void	test_operation_rotate(t_bidrect_circle_list *head_p_stack_a)
 	printf(GREEN_BACK"\nrotate_b(); return = [%s]"END_BACK, rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK, rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK
+	, rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
@@ -130,7 +133,8 @@ void	test_operation_rotate(t_bidrect_circle_list *head_p_stack_a)
 	printf(GREEN_BACK"\nrotate_a(); return = [%s]"END_BACK, rotate_a(stack_a));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK, rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK
+	, rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
@@ -140,7 +144,8 @@ void	test_operation_rotate(t_bidrect_circle_list *head_p_stack_a)
 	printf(GREEN_BACK"\nrotate_a(); return = [%s]"END_BACK, rotate_a(stack_a));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK, rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nrotate_r(); return = [%s]"END_BACK
+	, rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	stack_clear(&head_p_stack_a);

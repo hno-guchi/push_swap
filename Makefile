@@ -5,14 +5,16 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = main.c \
 	   exit_write_message.c \
-	   is_atoi.c validation_args.c \
+	   is_atoi.c create_array_atoi.c validation_args.c \
 	   create_node.c create_sentinel.c connect_node.c create_stack_a.c stack_clear.c \
-	   copy_stack_a.c \
+	   prepare_sort.c \
 	   operation_swap.c operation_push.c operation_rotate.c operation_reverse_rotate.c \
-	   execute_operation.c putstr_log.c
+	   execute_operation.c putstr_log.c \
+	   quick_sort.c
 
 # search_sentinel.c
 # create_log_node.c add_back_list_log_node.c log_list_clear.c
+# quick_sort_utils_1.c quick_sort_utils_2.c
 
 INCLUDES_DIR = ./includes
 SRCS_DIR = ./srcs

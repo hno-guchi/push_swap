@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/26 17:04:57 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:11:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct s_list	t_list;
 typedef enum enm {
 	Malloc_error,
 	Not_int,
-	Duplicate
+	Duplicate,
+	Failed_sort
 }	t_error_num;
 
 typedef enum operation {
@@ -58,12 +59,16 @@ typedef struct s_bidrect_circle_list {
 
 void					exit_write_message(t_error_num num);
 bool					is_atoi(const char *str);
+int						*create_array_atoi(int size, char **elements);
+void					quick_sort(int *array, int size);
 void					validation_args(int argc, char **argv);
 t_bidrect_circle_list	*create_node(int num);
 t_bidrect_circle_list	*create_sentinel(void);
 void					connect_node(t_bidrect_circle_list *head_p,
 							t_bidrect_circle_list *new_node);
 t_bidrect_circle_list	*create_stack_a(int argc, char **argv);
+t_bidrect_circle_list	*prepare_sort(int size, char **elements,
+							t_bidrect_circle_list *head_p);
 void					stack_clear(t_bidrect_circle_list **head_p);
 char					*swap_a(t_bidrect_circle_list *stack_a);
 char					*swap_b(t_bidrect_circle_list *stack_b);
@@ -85,6 +90,5 @@ t_list					*execute_operation(t_operation type,
 							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b);
 void					putstr_log(t_list *head_p);
-t_bidrect_circle_list	*copy_stack_a(t_bidrect_circle_list *src_head_p);
 
 #endif

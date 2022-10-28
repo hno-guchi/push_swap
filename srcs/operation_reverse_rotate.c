@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/26 17:52:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:21:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,53 +91,64 @@ void	test_operation_reverse_rotate(t_bidrect_circle_list *head_p_stack_a)
 
 	printf(RED_BACK"\n[TEST] reverse_rotate();"END_BACK);
 
-	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK, reverse_rotate_a(stack_a));
+	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK
+	, reverse_rotate_a(stack_a));
 	printf("\n"); output_stack(stack_a, stack_b);
 	
-	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK, reverse_rotate_b(stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK
+	, reverse_rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK, reverse_rotate_r(stack_a, stack_b));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	(void)push_b(stack_a, stack_b);
-	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
-	output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK, reverse_rotate_b(stack_b));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK, reverse_rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
 	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
 	output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK, reverse_rotate_b(stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK
+	, reverse_rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK, reverse_rotate_r(stack_a, stack_b));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	(void)push_b(stack_a, stack_b);
-	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
-	output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK, reverse_rotate_a(stack_a));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK, reverse_rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
 	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
 	output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK, reverse_rotate_a(stack_a));
+	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK
+	, reverse_rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK, reverse_rotate_r(stack_a, stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK
+	, reverse_rotate_a(stack_a));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK
+	, reverse_rotate_a(stack_a));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+			, reverse_rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	stack_clear(&head_p_stack_a);
