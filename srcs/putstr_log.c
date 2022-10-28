@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 12:15:54 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:35:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	putstr_log(t_list *head_p)
 {
 	t_list	*list_log;
 
+	if (head_p == NULL)
+	{
+		return ;
+	}
 	list_log = head_p;
 	while (list_log)
 	{

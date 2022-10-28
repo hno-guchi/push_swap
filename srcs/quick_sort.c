@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 09:37:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 11:17:45 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:46:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	quick_sort(int *array, int size)
 #include <stdio.h>
 int	main(void)
 {
-	static int num_array[] = {41, 24, 76, 11, 45, 64, 21, 69, 19, 11};
+	static int num_array[] = {41, 24, 76, -11, 0, 64, -21, 69, 19, 11};
 
 	printf("[BEFORE] :");
 	for(int i = 0; i < 10; i++) {

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 12:11:16 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:17:55 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,19 @@ typedef enum operation {
 	Reverse_rotate_r
 }	t_operation;
 
+
 typedef struct s_bidrect_circle_list {
 	int								num;
 	int								index;
 	struct s_bidrect_circle_list	*prev;
 	struct s_bidrect_circle_list	*next;
 }	t_bidrect_circle_list;
+
+typedef struct s_stack_info {
+	int	stack_size;
+	int	median;
+	int	maximum;
+}	t_stack_info;
 
 void					exit_write_message(t_error_num num);
 bool					is_atoi(const char *str);

@@ -6,33 +6,12 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 11:48:30 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:28:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
-
-/*
-int	*create_array_atoi(int size, char **elements)
-{
-	int	i;
-	int	*array;
-
-	i = 0;
-	array = (int *)malloc(sizeof(int) * size);
-	if (!array)
-	{
-		return (NULL);
-	}
-	while (i < size)
-	{
-		array[i] = ft_atoi(elements[i]);
-		i += 1;
-	}
-	return (array);
-}
-*/
 
 static bool	is_duplication_num(int *num_ary, int ary_len)
 {
