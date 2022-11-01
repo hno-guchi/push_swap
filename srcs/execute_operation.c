@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 12:19:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/01 14:25:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,31 @@ static t_list	*execute_swap(t_operation type
 }
 
 t_list	*execute_operation(t_operation type
-		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b
+		, t_list *head_p_log)
 {
+	t_list	*node;
+
+	node = NULL;
 	if (type == Swap_a || type == Swap_b || type == Swap_s)
 	{
-		return (execute_swap(type, stack_a, stack_b));
+		node = execute_swap(type, stack_a, stack_b);
 	}
 	else if (type == Push_a || type == Push_b)
 	{
-		return (execute_push(type, stack_a, stack_b));
+		node = execute_push(type, stack_a, stack_b);
 	}
 	else if (type == Rotate_a || type == Rotate_b || type == Rotate_r)
 	{
-		return (execute_rotate(type, stack_a, stack_b));
+		node = execute_rotate(type, stack_a, stack_b);
 	}
 	else if (type == Reverse_rotate_a
 		|| type == Reverse_rotate_b || type == Reverse_rotate_r)
 	{
-		return (execute_reverse_rotate(type, stack_a, stack_b));
+		node = execute_reverse_rotate(type, stack_a, stack_b);
 	}
-	return (NULL);
+	ft_lstadd_back(&head_p_log, node);
+	return (head_p_log);
 }
 
 /*

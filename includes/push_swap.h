@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 14:17:55 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/01 19:19:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef enum operation {
 	Reverse_rotate_r
 }	t_operation;
 
+typedef enum order {
+	Min_mid_max,
+	Min_max_mid,
+	Max_mid_min,
+	Mid_min_max,
+	Max_min_mid,
+	Mid_max_min
+}	t_order;
 
 typedef struct s_bidrect_circle_list {
 	int								num;
@@ -95,7 +103,13 @@ char					*reverse_rotate_r(t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b);
 t_list					*execute_operation(t_operation type,
 							t_bidrect_circle_list *stack_a,
-							t_bidrect_circle_list *stack_b);
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
 void					putstr_log(t_list *head_p);
+t_list					*sort_n_2_ascending(t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+t_list					*sort_n_3_ascending(t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b, t_list *head_p_log);
 
 #endif

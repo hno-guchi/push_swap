@@ -6,12 +6,21 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/26 16:14:42 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:47:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
+
+static void	connect_node_in_last(t_bidrect_circle_list *head_p
+		, t_bidrect_circle_list *new_node)
+{
+	new_node->next = head_p;
+	new_node->prev = head_p->prev;
+	head_p->prev->next = new_node;
+	head_p->prev = new_node;
+}
 
 t_bidrect_circle_list	*create_stack_a(int argc, char **argv)
 {
@@ -33,7 +42,7 @@ t_bidrect_circle_list	*create_stack_a(int argc, char **argv)
 			stack_clear(&head_p);
 			exit_write_message(Malloc_error);
 		}
-		connect_node(head_p, new_node);
+		connect_node_in_last(head_p, new_node);
 		i += 1;
 	}
 	return (head_p);
