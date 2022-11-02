@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/01 20:11:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/02 10:03:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,27 @@ t_list	*sort_n_3_stack_b_descending(t_bidrect_circle_list *stack_a
 	return (head_p_log);
 }
 
+t_list	*push_a_and_swap_a(t_bidrect_circle_list *stack_a
+		, t_bidrect_circle_list *stack_b, t_list *head_p_log)
+{
+	t_bidrect_circle_list	*node_a;
+	t_bidrect_circle_list	*node_b;
+
+	node_a = NULL;
+	node_b = stack_b->next;
+	while (node_b != stack_b)
+	{
+		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+		node_a = stack_a->next;
+		if (node_a->next->index < node_a->index)
+		{
+			head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		}
+		node_b = stack_b->next;
+	}
+	return (head_p_log);
+}
+
 t_list	*sort_n_under_7(int size
 	, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b
 	, t_list *head_p_log)
@@ -183,7 +204,7 @@ t_list	*sort_n_under_7(int size
 			head_p_log = sort_n_3_stack_b_descending(stack_a, stack_b, head_p_log);
 		}
 	}
-	// head_p_log = push_a_and_swap_a(stack_a, stack_b, head_p_log);
+	head_p_log = push_a_and_swap_a(stack_a, stack_b, head_p_log);
 	return (head_p_log);
 }
 
@@ -206,7 +227,7 @@ t_list	*execute_push_swap_under_7(int size, t_bidrect_circle_list *stack_a
 	{
 		head_p_log = sort_n_under_7(size, stack_a, stack_b, head_p_log);
 	}
-	output_stack(stack_a, stack_b);
+	// output_stack(stack_a, stack_b);
 	return (head_p_log);
 }
 
@@ -250,7 +271,7 @@ int	main(int argc, char **argv)
 	putstr_log(head_p_log);
 	stack_clear(&head_p_stack_a);
 	ft_lstclear(&head_p_log, NULL);
-	system("leaks -q push_swap");
+	// system("leaks -q push_swap");
 	return (0);
 }
 
