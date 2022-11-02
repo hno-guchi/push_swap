@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push_swap_over_6_v2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/02 20:06:31 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/02 20:05:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,38 @@ t_list	*push_swap_over_6(int n, t_bidrect_circle_list *stack_a,
 	// head_p_log = first_push_swap_func(ranges, stack_a, stack_b, head_p_log);
 	int	count_stack_b_node;
 
+	count_stack_b_node = 0;
+	ranges.push_b = set_range_push_b(ranges.sorted, ranges.median, ranges.stack_a_size);
+	ranges.rotate_b = set_range_rotate_b(ranges.sorted, ranges.median);
+	while (count_stack_b_node < (ranges.push_b - ranges.sorted))
+	{
+		if (stack_a->next->index < ranges.push_b)
+		{
+			head_p_log = execute_operation(Push_b, stack_a, stack_b,
+					head_p_log);
+			count_stack_b_node += 1;
+			if (1 < count_stack_b_node)
+			{
+				if (stack_b->next->index < ranges.rotate_b)
+				{
+					head_p_log = execute_operation(Rotate_b, stack_a, stack_b,
+							head_p_log);
+				}
+			}
+		}
+		else
+		{
+			head_p_log = execute_operation(Rotate_a, stack_a, stack_b,
+					head_p_log);
+		}
+	}
+	head_p_log = push_a_and_rotate_a(stack_a, stack_b, head_p_log, &ranges.sorted);
+
+	// Second cicle
+	if (is_ascending_sorted(stack_a))
+	{
+		return (head_p_log);
+	}
 	while (ranges.sorted != ranges.stack_a_size)
 	{
 		count_stack_b_node = 0;
@@ -109,7 +141,7 @@ t_list	*push_swap_over_6(int n, t_bidrect_circle_list *stack_a,
 		ranges.rotate_b = set_range_rotate_b(ranges.sorted, ranges.median);
 		while (count_stack_b_node < (ranges.push_b - ranges.sorted))
 		{
-			if (0 < ranges.cycle && stack_a->next->index == ranges.sorted)
+			if (stack_a->next->index == ranges.sorted)
 			{
 				head_p_log = execute_operation(Rotate_a, stack_a, stack_b,
 						head_p_log);
@@ -136,7 +168,6 @@ t_list	*push_swap_over_6(int n, t_bidrect_circle_list *stack_a,
 			}
 		}
 		head_p_log = push_a_and_rotate_a(stack_a, stack_b, head_p_log, &ranges.sorted);
-		ranges.cycle += 1;
 	}
 	// output_stack(stack_a, stack_b);
 	return (head_p_log);
