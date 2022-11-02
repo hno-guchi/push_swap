@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_n_3_ascending.c                               :+:      :+:    :+:   */
+/*   sort_n_under_4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/01 19:20:23 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:17:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_order	compare_3_values(int first, int second, int third)
+static t_list	*sort_n_2_ascending(t_bidrect_circle_list *stack_a
+		, t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
-	if ((first < second) && (third < second) && (first < third))
+	t_bidrect_circle_list	*node;
+
+	node = stack_a->next;
+	if (node->next->index < node->index)
 	{
-		return (Min_max_mid);
+		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
 	}
-	else if ((second < first) && (third < first) && (third < second))
-	{
-		return (Max_mid_min);
-	}
-	else if ((second < first) && (second < third) && (first < third))
-	{
-		return (Mid_min_max);
-	}
-	else if ((second < first) && (third < first) && (second < third))
-	{
-		return (Max_min_mid);
-	}
-	else if ((first < second) && (third < second) && (third < first))
-	{
-		return (Mid_max_min);
-	}
-	return (Min_mid_max);
+	return (head_p_log);
 }
 
-t_list	*sort_n_3_ascending(t_bidrect_circle_list *stack_a
+static t_list	*sort_n_3_ascending(t_bidrect_circle_list *stack_a
 		, t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
 	t_bidrect_circle_list	*node;
@@ -58,6 +46,20 @@ t_list	*sort_n_3_ascending(t_bidrect_circle_list *stack_a
 	{
 		head_p_log = execute_operation(Reverse_rotate_a, stack_a, stack_b,
 				head_p_log);
+	}
+	return (head_p_log);
+}
+
+t_list	*sort_n_under_4(int n, t_bidrect_circle_list *stack_a
+		, t_bidrect_circle_list *stack_b, t_list *head_p_log)
+{
+	if (n == 2)
+	{
+		head_p_log = sort_n_2_ascending(stack_a, stack_b, head_p_log);
+	}
+	else if (n == 3)
+	{
+		head_p_log = sort_n_3_ascending(stack_a, stack_b, head_p_log);
 	}
 	return (head_p_log);
 }

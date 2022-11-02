@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/01 19:19:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:47:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,25 @@ t_list					*execute_operation(t_operation type,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
 void					putstr_log(t_list *head_p);
-t_list					*sort_n_2_ascending(t_bidrect_circle_list *stack_a,
+bool					is_ascending_sorted(t_bidrect_circle_list *head_p);
+bool					is_descending_sorted(t_bidrect_circle_list *head_p);
+t_order					compare_3_values(int first, int second, int third);
+t_list					*push_swap_under_7(int n,
+							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
-t_list					*sort_n_3_ascending(t_bidrect_circle_list *stack_a,
-							t_bidrect_circle_list *stack_b, t_list *head_p_log);
+t_list					*sort_n_under_4(int n,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+t_list					*sort_n_under_7(int n,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+t_list					*sort_n_under_4_descending(int n,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+
 
 #endif
