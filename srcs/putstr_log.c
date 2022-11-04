@@ -6,32 +6,38 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 14:35:12 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/04 13:39:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
+#include "ft_printf.h"
 void	putstr_log(t_list *head_p)
 {
+	int		count;
 	t_list	*list_log;
 
 	if (head_p == NULL)
 	{
 		return ;
 	}
+	count = 0;
 	list_log = head_p;
 	while (list_log)
 	{
-		// if (list_log->content)
-		// {
-			// ft_printf("[%s]\n", (char *)list_log->content);
-		ft_putstr_fd((char *)list_log->content, 1);
-		ft_putstr_fd("\n", 1);
-		//}
+		if (list_log->content)
+		{
+			//  ft_printf("[%s]\n", (char *)list_log->content);
+			ft_putstr_fd((char *)list_log->content, 1);
+			ft_putstr_fd("\n", 1);
+			count += 1;
+		}
 		list_log = list_log->next;
 	}
+	ft_putstr_fd("------------\n", 1);
+	ft_printf("Total : [%d]\n", count);
 }
 
 /*
