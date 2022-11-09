@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/02 12:47:23 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:10:33 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,24 @@ typedef struct s_bidrect_circle_list {
 	struct s_bidrect_circle_list	*next;
 }	t_bidrect_circle_list;
 
+/*
 typedef struct s_stack_info {
 	int	stack_size;
 	int	median;
 	int	maximum;
 }	t_stack_info;
+*/
+
+typedef struct	s_sort_range_index {
+	int	count_sorted;
+	int	begin;
+	int	end;
+	int	a_pivot;
+	int	b_pivot;
+	int	median;
+	int	count_pushed;
+	int	cycle;
+}	t_sort_range_index;
 
 void					exit_write_message(t_error_num num);
 bool					is_atoi(const char *str);
@@ -125,6 +138,21 @@ t_list					*sort_n_under_4_descending(int n,
 							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
-
-
+bool					is_swap_a(int sorted, t_bidrect_circle_list *stack);
+bool					is_swap_b(int pushed, t_bidrect_circle_list *stack);
+t_list					*try_swap(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+bool					is_rotate_a(int pivot, int index);
+bool					is_rotate_b(t_sort_range_index *ranges, int index);
+t_list					*try_rotate(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+bool					is_sort(int sorted, int index);
+t_list					*try_sort(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
 #endif

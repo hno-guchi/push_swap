@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/08 21:11:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/09 20:08:05 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,6 @@
 #include "push_swap.h"
 
 #include <stdio.h>
-
-typedef struct	s_sort_range_index {
-	int	count_sorted;
-	int	begin;
-	int	end;
-	int	a_pivot;
-	int	b_pivot;
-	int	median;
-	int	count_pushed;
-	int	cycle;
-}	t_sort_range_index;
 
 void	output_stack(t_bidrect_circle_list *head_p_stack_a,
 			t_bidrect_circle_list *head_p_stack_b);
@@ -45,15 +34,6 @@ int	calculate_median(int size)
 		median = (size - 1) / 2;
 	}
 	return (median);
-}
-
-int	set_range_push_b(int sorted, int median, int stack_size)
-{
-	if (sorted < median)
-	{
-		return (median);
-	}
-	return (stack_size);
 }
 
 void	initialize_ranges(t_sort_range_index *ranges, int stack_size)
@@ -127,90 +107,29 @@ void	set_ranges_stack_b(t_sort_range_index *ranges,
 t_list	*split_half(t_sort_range_index *ranges, t_bidrect_circle_list *stack_a,
 		t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
-	// t_list	*log;
-
-	// log = NULL;
 	ranges->b_pivot = calculate_median(ranges->begin + ranges->a_pivot);
 	while (1)
 	{
 		if (ranges->count_pushed == ranges->a_pivot)
 		{
-			// output_stack(stack_a, stack_b);
 			break ;
 		}
-		if (1 < ranges->count_pushed || ranges->a_pivot <= stack_a->next->index)
-		{
-			if (ranges->a_pivot <= stack_a->next->index)
-			{
-				if (1 < ranges->count_pushed)
-				{
-					if (stack_b->next->index < ranges->b_pivot)
-					{
-						head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
-						// log = execute_operation(Rotate_r, stack_a, stack_b, log);
-					}
-				}
-				else
-				{
-					head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Rotate_a, stack_a, stack_b, log);
-				}
-			}
-			else if (1 < ranges->count_pushed)
-			{
-				if (stack_b->next->index < ranges->b_pivot)
-				{
-					head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Rotate_b, stack_a, stack_b, log);
-				}
-			}
-		}
-		if (1 < ranges->count_pushed || stack_a->next->next->index < stack_a->next->index)
-		{
-			if (stack_a->next->next->index < stack_a->next->index)
-			{
-				if (1 < ranges->count_pushed)
-				{
-					if (stack_b->next->index < stack_b->next->next->index)
-					{
-						head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
-						// log = execute_operation(Swap_s, stack_a, stack_b, log);
-					}
-				}
-				else
-				{
-					head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_a, stack_a, stack_b, log);
-				}
-			}
-			else if (1 < ranges->count_pushed)
-			{
-				if (stack_b->next->index < stack_b->next->next->index)
-				{
-					head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_b, stack_a, stack_b, log);
-				}
-			}
-		}
+		head_p_log = try_rotate(ranges, stack_a, stack_b, head_p_log);
+		head_p_log = try_swap(ranges, stack_a, stack_b, head_p_log);
 		if (stack_a->prev->index < ranges->a_pivot || stack_a->next->index < ranges->a_pivot)
 		{
 			if (stack_a->prev->index < ranges->a_pivot)
 			{
 				head_p_log = execute_operation(Reverse_rotate_a, stack_a, stack_b, head_p_log);
-				// log = execute_operation(Reverse_rotate_a, stack_a, stack_b, log);
 			}
 			head_p_log = execute_operation(Push_b, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Push_b, stack_a, stack_b, log);
 			ranges->count_pushed += 1;
 		}
 		else
 		{
 			head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Rotate_a, stack_a, stack_b, log);
 		}
 	}
-	// putstr_log(log);
-	// ft_lstadd_back(&head_p_log, log);	
 	return (head_p_log);
 }
 
@@ -218,228 +137,149 @@ t_list	*sort_under_median(t_sort_range_index *ranges,
 		t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b,
 		t_list *head_p_log)
 {
-	// t_list	*log;
-
-	// log = NULL;
 	while (1)
 	{
-		if (1 < ranges->count_pushed || stack_a->next->index == ranges->count_sorted || stack_a->next->next->index == ranges->count_sorted)
-		{
-			if ((stack_a->next->index == ranges->count_sorted || stack_a->next->next->index == ranges->count_sorted))
-			{
-				if (stack_a->next->next->index == ranges->count_sorted)
-				{
-					head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_a, stack_a, stack_b, log);
-				}
-				if (1 < ranges->count_pushed)
-				{
-					if (stack_b->next->index < ranges->b_pivot)
-					{
-						head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
-						// log = execute_operation(Rotate_r, stack_a, stack_b, log);
-						ranges->count_sorted += 1;
-						continue ;
-					}
-				}
-				else
-				{
-					head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Rotate_a, stack_a, stack_b, log);
-					ranges->count_sorted += 1;
-					continue ;
-				}
-			}
-			else if (1 < ranges->count_pushed)
-			{
-				if (stack_b->next->index < ranges->b_pivot)
-				{
-					head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Rotate_b, stack_a, stack_b, log);
-				}
-			}
-		}
-		if (1 < ranges->count_pushed || stack_a->next->next->index < stack_a->next->index)
-		{
-			if (stack_a->next->next->index < stack_a->next->index)
-			{
-				if (1 < ranges->count_pushed)
-				{
-					if (stack_b->next->index < stack_b->next->next->index)
-					{
-						head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
-						// log = execute_operation(Swap_s, stack_a, stack_b, log);
-					}
-				}
-				else
-				{
-					head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_a, stack_a, stack_b, log);
-				}
-			}
-			else if (1 < ranges->count_pushed)
-			{
-				if (stack_b->next->index < stack_b->next->next->index)
-				{
-					head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_b, stack_a, stack_b, log);
-				}
-			}
-		}
 		if ((ranges->a_pivot - ranges->count_sorted) <= ranges->count_pushed)
 		{
-			// output_stack(stack_a, stack_b);
 			break ;
 		}
+		if (is_sort(ranges->count_sorted, stack_a->next->index) || is_sort(ranges->count_sorted, stack_a->next->next->index))
+		// if (is_sort(ranges->count_sorted, stack_a->next->index))
+		{
+			head_p_log = try_sort(ranges, stack_a, stack_b, head_p_log);
+			ranges->count_sorted += 1;
+			continue ;
+		}
+		if (is_rotate_b(ranges, stack_b->next->index))
+		{
+			head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
+		}
+		head_p_log = try_swap(ranges, stack_a, stack_b, head_p_log);
 		if (stack_a->next->index < ranges->a_pivot)
 		{
 			head_p_log = execute_operation(Push_b, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Push_b, stack_a, stack_b, log);
 			ranges->count_pushed += 1;
 		}
 	}
-	// putstr_log(log);
-	// ft_lstadd_back(&head_p_log, log);
 	return (head_p_log);
 }
 
 t_list	*sort_over_median(t_sort_range_index *ranges, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
-	// t_list	*log;
-
-	// log = NULL;
 	while (1)
 	{
-		if (1 < ranges->count_pushed || stack_a->next->index == ranges->count_sorted || stack_a->next->next->index == ranges->count_sorted)
-		{
-			if ((stack_a->next->index == ranges->count_sorted || stack_a->next->next->index == ranges->count_sorted))
-			{
-				if (stack_a->next->next->index == ranges->count_sorted)
-				{
-					head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_a, stack_a, stack_b, log);
-				}
-				if (1 < ranges->count_pushed)
-				{
-					if (stack_b->next->index < ranges->b_pivot)
-					{
-						head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
-						// log = execute_operation(Rotate_r, stack_a, stack_b, log);
-						ranges->count_sorted += 1;
-						continue ;
-					}
-				}
-				else
-				{
-					head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Rotate_a, stack_a, stack_b, log);
-					ranges->count_sorted += 1;
-					continue ;
-				}
-			}
-			else if (1 < ranges->count_pushed && stack_b->next->index < ranges->b_pivot)
-			{
-				head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
-				// log = execute_operation(Rotate_b, stack_a, stack_b, log);
-			}
-		}
-		if (1 < ranges->count_pushed || stack_a->next->next->index < stack_a->next->index)
-		{
-			if (stack_a->next->next->index < stack_a->next->index)
-			{
-				if (1 < ranges->count_pushed)
-				{
-					if (stack_b->next->index < stack_b->next->next->index)
-					{
-						head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
-						// log = execute_operation(Swap_s, stack_a, stack_b, log);
-					}
-				}
-				else
-				{
-					head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_a, stack_a, stack_b, log);
-				}
-			}
-			else if (1 < ranges->count_pushed)
-			{
-				if (stack_b->next->index < stack_b->next->next->index)
-				{
-					head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
-					// log = execute_operation(Swap_b, stack_a, stack_b, log);
-				}
-			}
-		}
-		// if ((ranges->end - ranges->count_sorted) <= ranges->count_pushed)
 		if (ranges->count_sorted + ranges->count_pushed == ranges->end)
 		{
-			// output_stack(stack_a, stack_b);
 			break ;
 		}
+		if (is_sort(ranges->count_sorted, stack_a->next->index) || is_sort(ranges->count_sorted, stack_a->next->next->index))
+		// if (is_sort(ranges->count_sorted, stack_a->next->index))
+		{
+			head_p_log = try_sort(ranges, stack_a, stack_b, head_p_log);
+			ranges->count_sorted += 1;
+			continue ;
+		}
+		if (is_rotate_b(ranges, stack_b->next->index))
+		{
+			head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
+		}
+		head_p_log = try_swap(ranges, stack_a, stack_b, head_p_log);
 		if (ranges->a_pivot <= stack_a->next->index)
 		{
 			head_p_log = execute_operation(Push_b, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Push_b, stack_a, stack_b, log);
 			ranges->count_pushed += 1;
 		}
-		print_ranges_info(ranges, 'a');
-		output_stack(stack_a, stack_b);
 	}
-	// putstr_log(log);
-	// ft_lstadd_back(&head_p_log, log);
 	return (head_p_log);
 }
 
 t_list	*push_a_half(t_sort_range_index *ranges, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
-	// t_list	*log;
-
-	// log = NULL;
 	while (1)
 	{
 		if (ranges->count_pushed == ranges->end)
 		{
-			// output_stack(stack_a, stack_b);
 			break;
 		}
-		if (10 < (ranges->end - ranges->count_pushed) && ranges->b_pivot <= stack_b->prev->index)
+		// print_ranges_info(ranges, 'b');
+		// output_stack(stack_a, stack_b);
+		if (3 < (ranges->end - ranges->count_pushed) && ranges->b_pivot <= stack_b->prev->index)
 		{
-			head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
+			if (stack_b->next->index < stack_b->prev->index)
+			{
+				head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
+			}
 		}
+		//if (ranges->b_pivot <= stack_b->prev->index)
+		//{
 		if (stack_b->next->index < stack_b->next->next->index)
 		{
-			head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Swap_b, stack_a, stack_b, log);
+			head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
 		}
-		if (ranges->b_pivot <= stack_b->next->index)
+		// }
+		if (is_swap_a(ranges->count_sorted, stack_a) || is_swap_b(2, stack_b))
 		{
-			head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Push_a, stack_a, stack_b, log);
+			if (is_swap_a(ranges->count_sorted, stack_a) && is_swap_b(2, stack_b))
+			{
+				head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
+			}
+			else if (is_swap_a(ranges->count_sorted, stack_a))
+			{
+				head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+			}
+			else if (is_swap_b(2, stack_b))
+			{
+				head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
+			}
+		}
+		// if (ranges->b_pivot <= stack_b->next->index)
+		if (ranges->b_pivot <= stack_b->next->index || ranges->b_pivot <= stack_b->prev->index)
+		{
+			if (ranges->b_pivot <= stack_b->next->index && ranges->b_pivot <= stack_b->prev->index)
+			{
+				if (stack_b->next->index < stack_b->prev->index)
+				{
+					head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
+					head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+				}
+				else
+				{
+					head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+				}
+			}
+			else if (ranges->b_pivot <= stack_b->next->index)
+			{
+					head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+			}
+			else if (ranges->b_pivot <= stack_b->prev->index)
+			{
+				head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
+				head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+			}
 			ranges->count_pushed += 1;
 		}
 		else
 		{
-			head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
-			// log = execute_operation(Rotate_b, stack_a, stack_b, log);
-		}
-		if (stack_a->next->next->index < stack_a->next->index)
-		{
-			if (ranges->count_sorted == 0 || (0 < ranges->count_sorted && stack_a->next->next->index != 0))
+			if (is_sort(ranges->count_sorted, stack_a->next->index))
 			{
-				head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-				// log = execute_operation(Swap_a, stack_a, stack_b, log);
+				head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
+				ranges->count_sorted += 1;
+			}
+			else
+			{
+				head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
 			}
 		}
+		// putstr_log(head_p_log);
+		// output_stack(stack_a, stack_b);
 	}
-	// putstr_log(log);
-	// ft_lstadd_back(&head_p_log, log);
 	return (head_p_log);
 }
 
 t_list	*push_swap_over_6(int n, t_bidrect_circle_list *stack_a,
 			t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
+	t_list	*log = NULL;
 	t_sort_range_index	ranges;
 
 	initialize_ranges(&ranges, n);
@@ -455,16 +295,31 @@ t_list	*push_swap_over_6(int n, t_bidrect_circle_list *stack_a,
 		if (ranges.cycle == 0)
 		{
 			head_p_log = split_half(&ranges, stack_a, stack_b, head_p_log);
+			// log = NULL;
+			// log = split_half(&ranges, stack_a, stack_b, log);
+			// output_stack(stack_a, stack_b);
+			// putstr_log(log);
+			// ft_lstadd_back(&head_p_log, log);
 		}
 		else if (ranges.count_sorted < ranges.median)
 		{
-			head_p_log = sort_under_median(&ranges, stack_a, stack_b,
-					head_p_log);
+			// output_stack(stack_a, stack_b);
+			head_p_log = sort_under_median(&ranges, stack_a, stack_b, head_p_log);
+			// log = NULL;
+			// log = sort_under_median(&ranges, stack_a, stack_b, log);
+			// putstr_log(log);
+			// output_stack(stack_a, stack_b);
+			// ft_lstadd_back(&head_p_log, log);
 		}
 		else if (ranges.median <= ranges.count_sorted)
 		{
-			head_p_log = sort_over_median(&ranges, stack_a, stack_b,
-					head_p_log);
+			output_stack(stack_a, stack_b);
+			// head_p_log = sort_over_median(&ranges, stack_a, stack_b, head_p_log);
+			log = NULL;
+			log = sort_over_median(&ranges, stack_a, stack_b, log);
+			putstr_log(log);
+			output_stack(stack_a, stack_b);
+			ft_lstadd_back(&head_p_log, log);
 		}
 		ranges.begin = ranges.count_sorted;
 		// head_p_log = push_swap_stack_b(&range, stack_a, stack_b, head_p_log);
@@ -472,20 +327,32 @@ t_list	*push_swap_over_6(int n, t_bidrect_circle_list *stack_a,
 		{
 			if (is_empty_stack_b(stack_b))
 			{
+				// output_stack(stack_a, stack_b);
+				// putstr_log(log);
 				break ;
 			}
 			set_ranges_stack_b(&ranges, stack_b);
-			// print_ranges_info(&ranges, 'b');
 			head_p_log = push_a_half(&ranges, stack_a, stack_b, head_p_log);
+			// print_ranges_info(&ranges, 'b');
+			// log = NULL;
+			// log = push_a_half(&ranges, stack_a, stack_b, log);
+			// output_stack(stack_a, stack_b);
+			// putstr_log(log);
+			// ft_lstadd_back(&head_p_log, log);
 		}
 		ranges.cycle += 1;
+		// if (ranges.cycle == 1)
+		// {
+		//	return (head_p_log);
+		// }
 	}
 	return (head_p_log);
 }
-		// 1: begin_idx ~ end_idx; (0 ~ 25)[25] stack_b_pivot; [12] -> push_a (12 ~ 24)[13]
-		// 2: begin_idx ~ end_idx; (0 ~ 12)[12] stack_b_pivot; [ 6] -> push_a ( 6 ~ 11)[ 6]
-		// 3: begin_idx ~ end_idx; (0 ~  6)[ 6] stack_b_pivot; [ 3] -> push_a ( 3 ~  5)[ 3]
-		// 4: begin_idx ~ end_idx; (0 ~  3)[ 3] stack_b_pivot; [ 0] -> push_a ( 0 ~  2)[ 3]
+
+// 1: begin_idx ~ end_idx; (0 ~ 25)[25] stack_b_pivot; [12] -> push_a (12 ~ 24)[13]
+// 2: begin_idx ~ end_idx; (0 ~ 12)[12] stack_b_pivot; [ 6] -> push_a ( 6 ~ 11)[ 6]
+// 3: begin_idx ~ end_idx; (0 ~  6)[ 6] stack_b_pivot; [ 3] -> push_a ( 3 ~  5)[ 3]
+// 4: begin_idx ~ end_idx; (0 ~  3)[ 3] stack_b_pivot; [ 0] -> push_a ( 0 ~  2)[ 3]
 
 t_list	*push_swap(int stack_size, t_bidrect_circle_list *head_p_stack_a)
 {
@@ -540,26 +407,33 @@ int	main(int argc, char **argv)
 void	output_stack(t_bidrect_circle_list *head_p_stack_a,
 			t_bidrect_circle_list *head_p_stack_b)
 {
+	// int	size_a;
+	// int	i;
+	// int	size_b;
 	t_bidrect_circle_list	*stack_a;
 	t_bidrect_circle_list	*stack_b;
 
+	// size_a = stack_len(stack_a);
+	// size_b = stack_len(stack_b);
+	// i = 0;
 	stack_a = head_p_stack_a->next;
 	stack_b = head_p_stack_b->next;
-	printf(" stack_a  | stack_b\n");
-	printf("----------------------\n");
+	printf(" stack_a   |  stack_b\n");
+	printf("------------------------------------------------------");
+	printf("------------------------------------------------------\n");
 	while (stack_a != head_p_stack_a || stack_b != head_p_stack_b)
 	{
 		if (stack_a == head_p_stack_a)
 		{
-			printf("         |   [%4d]\n", stack_b->index);
+			printf("         |   [%3d]\n", stack_b->index);
 		}
 		else if (stack_b == head_p_stack_b)
 		{
-			printf(" [%4d]   |\n", stack_a->index);
+			printf(" [%3d]   |\n", stack_a->index);
 		}
 		else
 		{
-			printf(" [%4d]   |   [%4d]\n", stack_a->index, stack_b->index);
+			printf(" [%3d]   |   [%3d]\n", stack_a->index, stack_b->index);
 		}
 		if (stack_a != head_p_stack_a)
 		{
@@ -570,7 +444,8 @@ void	output_stack(t_bidrect_circle_list *head_p_stack_a,
 			stack_b = stack_b->next;
 		}
 	}
-	printf("----------------------\n");
+	printf("------------------------------------------------------");
+	printf("------------------------------------------------------\n");
 }
 
 void	print_ranges_info(t_sort_range_index *ranges, char stack)

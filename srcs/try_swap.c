@@ -1,0 +1,159 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   try_swap.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
+/*   Updated: 2022/11/09 20:06:15 by hnoguchi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+#include "push_swap.h"
+/*
+bool	is_swap_a(int sorted, t_bidrect_circle_list *stack)
+{
+	if (stack->next->next->index == sorted)
+	{
+		return (false);
+	}
+	if (stack->next->index < stack->next->next->index)
+	{
+		return (false);
+	}
+	if (sorted != 0 && stack->next->next->index == 0)
+	{
+		return (false);
+	}
+	return (true);
+}
+*/
+
+bool	is_swap_a(int sorted, t_bidrect_circle_list *stack)
+{
+	if (stack->next->next->index == sorted)
+	{
+		return (false);
+	}
+	if (stack->next->index < stack->next->next->index)
+	{
+		return (false);
+	}
+	if (sorted != 0 && stack->next->next->index == 0)
+	{
+		return (false);
+	}
+	return (true);
+}
+
+bool	is_swap_b(int pushed, t_bidrect_circle_list *stack)
+{
+	if (1 < pushed)
+	{
+		if (stack->next->index < stack->next->next->index)
+		{
+			return (true);
+		}
+	}
+	return (false);
+}
+
+t_list	*try_swap(t_sort_range_index *ranges,
+		t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b,
+		t_list *head_p_log)
+{
+	bool	judge_swap_a;
+	bool	judge_swap_b;
+
+	judge_swap_a = is_swap_a(ranges->count_sorted, stack_a);
+	judge_swap_b = is_swap_b(ranges->count_pushed, stack_b);
+	if (judge_swap_a && judge_swap_b)
+	{
+		head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
+	}
+	else if (judge_swap_a)
+	{
+		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+	}
+	else if (judge_swap_b)
+	{
+		head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
+	}
+	return (head_p_log);
+}
+
+/*
+if (1 < ranges->count_pushed || stack_a->next->next->index < stack_a->next->index)
+{
+	if (stack_a->next->next->index < stack_a->next->index)
+	{
+		if (1 < ranges->count_pushed)
+		{
+			if (stack_b->next->index < stack_b->next->next->index)
+			{
+				head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
+			}
+		}
+		else
+		{
+			head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		}
+	}
+	else if (1 < ranges->count_pushed)
+	{
+		if (stack_b->next->index < stack_b->next->next->index)
+		{
+			head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
+		}
+	}
+}
+
+if (1 < ranges->count_pushed || stack_a->next->next->index < stack_a->next->index)
+{
+	if (stack_a->next->next->index != 0 && stack_a->next->next->index < stack_a->next->index)
+	{
+		if (1 < ranges->count_pushed)
+		{
+			if (stack_b->next->index < stack_b->next->next->index)
+			{
+				head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
+			}
+		}
+		else
+		{
+			head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		}
+	}
+	else if (1 < ranges->count_pushed)
+	{
+		if (stack_b->next->index < stack_b->next->next->index)
+		{
+			head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
+		}
+	}
+}
+
+if ((stack_b->next->index < stack_b->next->next->index) || (stack_a->next->next->index < stack_a->next->index))
+{
+	if ((stack_b->next->index < stack_b->next->next->index) && (stack_a->next->next->index < stack_a->next->index))
+	{
+		if (ranges->count_sorted == 0 || (0 < ranges->count_sorted && stack_a->next->next->index != 0))
+		{
+			head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);
+		}
+	}
+	else if (stack_a->next->next->index < stack_a->next->index)
+	{
+		if (ranges->count_sorted == 0 || (0 < ranges->count_sorted && stack_a->next->next->index != 0))
+		{
+			head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		}
+	}
+	else if (stack_b->next->index < stack_b->next->next->index)
+	{
+		head_p_log = execute_operation(Swap_b, stack_a, stack_b, head_p_log);
+	}
+}
+*/

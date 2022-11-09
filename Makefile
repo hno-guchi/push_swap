@@ -12,7 +12,8 @@ SRCS = main.c \
 	   execute_operation.c putstr_log.c \
 	   quick_sort.c \
 	   is_ascending_sorted.c is_descending_sorted.c compare_3_values.c \
-	   push_swap_under_7.c sort_n_under_4.c sort_n_under_4_descending.c sort_n_under_7.c
+	   push_swap_under_7.c sort_n_under_4.c sort_n_under_4_descending.c sort_n_under_7.c \
+	   try_swap.c try_rotate.c
 
 # search_sentinel.c
 # create_log_node.c add_back_list_log_node.c log_list_clear.c
