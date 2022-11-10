@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_clear.c                                      :+:      :+:    :+:   */
+/*   stack_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 15:15:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:46:55 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
-void	stack_clear(t_bidrect_circle_list **head_p)
+int	stack_len(t_bidrect_circle_list *head_p)
 {
+	int						len;
 	t_bidrect_circle_list	*node;
-	t_bidrect_circle_list	*next_node;
 
-	if (!head_p[0])
+	len = 0;
+	node = head_p->next;
+	while (node != head_p)
 	{
-		return ;
+		len += 1;
+		node = node->next;
 	}
-	node = head_p[0]->next;
-	while (node != head_p[0])
-	{
-		next_node = node->next;
-		free(node);
-		node = next_node;
-	}
-	free(node);
-	head_p = NULL;
+	return (len);
 }

@@ -6,58 +6,56 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/09 20:06:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:06:40 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
-/*
-bool	is_swap_a(int sorted, t_bidrect_circle_list *stack)
-{
-	if (stack->next->next->index == sorted)
-	{
-		return (false);
-	}
-	if (stack->next->index < stack->next->next->index)
-	{
-		return (false);
-	}
-	if (sorted != 0 && stack->next->next->index == 0)
-	{
-		return (false);
-	}
-	return (true);
-}
-*/
 
-bool	is_swap_a(int sorted, t_bidrect_circle_list *stack)
+bool	is_swap_a(t_sort_range_index *ranges, t_bidrect_circle_list *stack)
 {
-	if (stack->next->next->index == sorted)
+	if (is_sort(ranges->count_sorted, stack))
 	{
 		return (false);
 	}
-	if (stack->next->index < stack->next->next->index)
+	if (is_sort_n_node(ranges->count_sorted, stack, 2))
 	{
 		return (false);
 	}
-	if (sorted != 0 && stack->next->next->index == 0)
+	if (is_under_b_pivot(ranges->b_pivot, stack->next->index) && is_under_b_pivot(ranges->b_pivot, stack->next->index))
 	{
-		return (false);
-	}
-	return (true);
-}
-
-bool	is_swap_b(int pushed, t_bidrect_circle_list *stack)
-{
-	if (1 < pushed)
-	{
-		if (stack->next->index < stack->next->next->index)
+		if (is_head_less_than_second(stack))
 		{
-			return (true);
+			return (false);
 		}
 	}
-	return (false);
+	if (is_head_less_than_second(stack))
+	{
+		return (false);
+	}
+	if (is_sorted_head(ranges->count_sorted, stack->next->next->index))
+	{
+		return (false);
+	}
+	return (true);
+}
+
+// bool	is_swap_b(int pushed, t_bidrect_circle_list *stack)
+bool	is_swap_b(t_bidrect_circle_list *stack)
+{
+	int	elements;
+
+	elements = stack_len(stack);
+	if (elements < 2)
+	{
+		return (false);
+	}
+	if (!is_head_less_than_second(stack))
+	{
+		return (false);
+	}
+	return (true);
 }
 
 t_list	*try_swap(t_sort_range_index *ranges,
@@ -67,8 +65,9 @@ t_list	*try_swap(t_sort_range_index *ranges,
 	bool	judge_swap_a;
 	bool	judge_swap_b;
 
-	judge_swap_a = is_swap_a(ranges->count_sorted, stack_a);
-	judge_swap_b = is_swap_b(ranges->count_pushed, stack_b);
+	judge_swap_a = is_swap_a(ranges, stack_a);
+	// judge_swap_b = is_swap_b(ranges->count_pushed, stack_b);
+	judge_swap_b = is_swap_b(stack_b);
 	if (judge_swap_a && judge_swap_b)
 	{
 		head_p_log = execute_operation(Swap_s, stack_a, stack_b, head_p_log);

@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_clear.c                                      :+:      :+:    :+:   */
+/*   calculate_median.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 15:15:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:17:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
-void	stack_clear(t_bidrect_circle_list **head_p)
+int	calculate_median(int size)
 {
-	t_bidrect_circle_list	*node;
-	t_bidrect_circle_list	*next_node;
+	int	median;
 
-	if (!head_p[0])
+	median = 0;
+	if ((size % 2) == 0)
 	{
-		return ;
+		median = (size / 2);
 	}
-	node = head_p[0]->next;
-	while (node != head_p[0])
+	else
 	{
-		next_node = node->next;
-		free(node);
-		node = next_node;
+		median = (size - 1) / 2;
 	}
-	free(node);
-	head_p = NULL;
+	return (median);
 }

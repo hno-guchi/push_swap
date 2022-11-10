@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_clear.c                                      :+:      :+:    :+:   */
+/*   initialize_ranges.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 15:15:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:19:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
-void	stack_clear(t_bidrect_circle_list **head_p)
+void	initialize_ranges(t_sort_range_index *ranges, int stack_size)
 {
-	t_bidrect_circle_list	*node;
-	t_bidrect_circle_list	*next_node;
-
-	if (!head_p[0])
-	{
-		return ;
-	}
-	node = head_p[0]->next;
-	while (node != head_p[0])
-	{
-		next_node = node->next;
-		free(node);
-		node = next_node;
-	}
-	free(node);
-	head_p = NULL;
+	ranges->size = stack_size;
+	ranges->count_sorted = 0;
+	ranges->begin = 0;
+	ranges->end = stack_size;
+	ranges->a_pivot = calculate_median(ranges->begin + ranges->end);
+	ranges->b_pivot = 0;
+	ranges->median = ranges->a_pivot;
+	ranges->count_pushed = 0;
+	ranges->cycle = 0;
 }

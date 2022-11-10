@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/19 10:14:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:24:10 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ static bool	is_digits(const char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '\0')
+	{
+		return (false);
+	}
 	while (ft_isdigit(str[i]))
 	{
 		i += 1;
@@ -72,7 +76,7 @@ static int	proceed_until_space_ends(const char *str)
 	int	i;
 
 	i = 0;
-	while (ft_isspace(str[i]) == 1)
+	while (ft_isspace(str[i]))
 	{
 		i += 1;
 	}
@@ -94,6 +98,7 @@ bool	is_atoi(const char *str)
 		}
 		i += 1;
 	}
+	
 	return (is_change_format(&str[i], sign));
 }
 

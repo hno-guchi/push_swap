@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_clear.c                                      :+:      :+:    :+:   */
+/*   is_func.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 15:15:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:08:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
-#include <stdio.h>
 
-void	stack_clear(t_bidrect_circle_list **head_p)
+// both
+bool	is_head_less_than_second(t_bidrect_circle_list *stack)
 {
-	t_bidrect_circle_list	*node;
-	t_bidrect_circle_list	*next_node;
+	return (stack->next->index < stack->next->next->index);
+}
 
-	if (!head_p[0])
+bool	is_head_less_than_tail(t_bidrect_circle_list *stack)
+{
+	return (stack->next->index < stack->prev->index);
+}
+
+// stack_a
+bool	is_sorted_head(int sorted, int index)
+{
+	if (sorted != 0 && index != 0)
 	{
-		return ;
+		return (false);
 	}
-	node = head_p[0]->next;
-	while (node != head_p[0])
-	{
-		next_node = node->next;
-		free(node);
-		node = next_node;
-	}
-	free(node);
-	head_p = NULL;
+	return (true);
+}
+
+// stack_b
+bool	is_under_b_pivot(int b_pivot, int index)
+{
+	return (index < b_pivot);
 }

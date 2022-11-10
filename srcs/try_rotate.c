@@ -6,97 +6,69 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/09 20:16:07 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:39:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-bool	is_rotate_a(int pivot, int index)
+bool	is_rotate_a(t_sort_range_index *ranges, int index)
 {
-	if (pivot <= index)
+	if (ranges->count_sorted)
 	{
-		return (true);
+		return (false);
 	}
-	return (false);
-}
-
-bool	is_rotate_b(t_sort_range_index *ranges, int index)
-{
-	if (1 < ranges->count_pushed)
-	{
-		if (index < ranges->b_pivot)
-		{
-			return (true);
-		}
-	}
-	return (false);
-}
-
-t_list	*try_rotate(t_sort_range_index *ranges, t_bidrect_circle_list *stack_a,
-		t_bidrect_circle_list *stack_b, t_list *head_p_log)
-{
-	bool	judge_rotate_a;
-	bool	judge_rotate_b;
-
-	judge_rotate_a = is_rotate_a(ranges->a_pivot, stack_a->next->index);
-	judge_rotate_b = is_rotate_b(ranges, stack_b->next->index);
-	if (judge_rotate_a && judge_rotate_b)
-	{
-		head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
-	}
-	else if (judge_rotate_a)
-	{
-		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-	}
-	else if (judge_rotate_b)
-	{
-		head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
-	}
-	return (head_p_log);
-}
-
-bool	is_sort(int sorted, int index)
-{
-	if (index != sorted)
+	if (index < ranges->a_pivot)
 	{
 		return (false);
 	}
 	return (true);
 }
 
-t_list	*try_sort(t_sort_range_index *ranges,
-		t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b,
-		t_list *head_p_log)
+bool	is_rotate_b(t_sort_range_index *ranges, t_bidrect_circle_list *stack)
 {
-	bool	judge_rotate_b;
+	int	elements;
 
-	judge_rotate_b = is_rotate_b(ranges, stack_b->next->index);
-	if (is_sort(ranges->count_sorted, stack_a->next->index))
+	elements = stack_len(stack);
+	if (elements < 2)
 	{
-		if (judge_rotate_b)
-		{
-			head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
-		}
-		else
-		{
-			head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-		}
-		// ranges->count_sorted += 1;
+		return (false);
 	}
-	else if (is_sort(ranges->count_sorted, stack_a->next->next->index))
+	if (ranges->b_pivot <= stack->next->index)
 	{
-		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-		if (judge_rotate_b)
-		{
-			head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
-		}
-		else
-		{
-			head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-		}
-		// ranges->count_sorted += 1;
+		return (false);
+	}
+	return (true);
+}
+
+t_list	*try_rotate_b(t_sort_range_index *ranges, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b, t_list *head_p_log)
+{
+	if (is_rotate_b(ranges, stack_b))
+	{
+		head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
+	}
+	return (head_p_log);
+}
+
+t_list	*try_rotate(t_sort_range_index *ranges, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b, t_list *head_p_log)
+{
+	bool	judge_a;
+	bool	judge_b;
+
+	judge_a = is_rotate_a(ranges, stack_a->next->index);
+	judge_b = is_rotate_b(ranges, stack_b);
+	if (judge_a && judge_b)
+	{
+		head_p_log = execute_operation(Rotate_r, stack_a, stack_b, head_p_log);
+	}
+	else if (judge_a)
+	{
+		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
+	}
+	else if (judge_b)
+	{
+		head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
 	}
 	return (head_p_log);
 }

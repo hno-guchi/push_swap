@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/09 11:10:33 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:11:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_stack_info {
 */
 
 typedef struct	s_sort_range_index {
+	int	size;
 	int	count_sorted;
 	int	begin;
 	int	end;
@@ -98,6 +99,7 @@ t_bidrect_circle_list	*create_stack_a(int argc, char **argv);
 t_bidrect_circle_list	*prepare_sort(int size, char **elements,
 							t_bidrect_circle_list *head_p);
 void					stack_clear(t_bidrect_circle_list **head_p);
+int						stack_len(t_bidrect_circle_list *head_p);
 char					*swap_a(t_bidrect_circle_list *stack_a);
 char					*swap_b(t_bidrect_circle_list *stack_b);
 char					*swap_s(t_bidrect_circle_list *stack_a,
@@ -138,21 +140,47 @@ t_list					*sort_n_under_4_descending(int n,
 							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
-bool					is_swap_a(int sorted, t_bidrect_circle_list *stack);
-bool					is_swap_b(int pushed, t_bidrect_circle_list *stack);
+int						calculate_median(int size);
+void					initialize_ranges(t_sort_range_index *ranges,
+							int stack_size);
+bool					is_head_less_than_second(t_bidrect_circle_list *stack);
+bool					is_head_less_than_tail(t_bidrect_circle_list *stack);
+bool					is_sorted_head(int sorted, int index);
+bool					is_under_b_pivot(int b_pivot, int index);
+
+bool					is_swap_a(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack);
+bool					is_swap_b(t_bidrect_circle_list *stack);
 t_list					*try_swap(t_sort_range_index *ranges,
 							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
-bool					is_rotate_a(int pivot, int index);
-bool					is_rotate_b(t_sort_range_index *ranges, int index);
+bool					is_rotate_a(t_sort_range_index *ranges, int index);
+bool					is_rotate_b(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack);
+t_list					*try_rotate_b(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
 t_list					*try_rotate(t_sort_range_index *ranges,
 							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
-bool					is_sort(int sorted, int index);
+bool					is_sort(int sorted, t_bidrect_circle_list *stack);
+bool					is_sort_n_node(int sorted,
+							t_bidrect_circle_list *head_p, int n);
 t_list					*try_sort(t_sort_range_index *ranges,
 							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
+bool					is_reverse_rotate_b(t_bidrect_circle_list *stack);
+t_list					*try_reverse_rotate_b(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+t_list					*try_reverse_rotate(t_sort_range_index *ranges,
+							t_bidrect_circle_list *stack_a,
+							t_bidrect_circle_list *stack_b,
+							t_list *head_p_log);
+
 #endif
