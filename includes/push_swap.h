@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 18:11:25 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:37:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,7 @@ t_list					*try_reverse_rotate(t_sort_range_index *ranges,
 							t_bidrect_circle_list *stack_a,
 							t_bidrect_circle_list *stack_b,
 							t_list *head_p_log);
+bool					is_descending_sort_until_next_sort(int sorted,
+							t_bidrect_circle_list *stack);
 
 #endif

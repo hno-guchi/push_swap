@@ -1,4 +1,5 @@
 push_swap_tester
+push_swap_visualizer
 checker
 # Prerequisites
 *.d

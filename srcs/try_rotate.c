@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 16:39:26 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:05:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ bool	is_rotate_b(t_sort_range_index *ranges, t_bidrect_circle_list *stack)
 		return (false);
 	}
 	if (ranges->b_pivot <= stack->next->index)
+	{
+		return (false);
+	}
+	if (is_descending_sort_until_next_sort(ranges->count_sorted + 1, stack))
 	{
 		return (false);
 	}

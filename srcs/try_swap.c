@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 18:06:40 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/11 19:14:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_swap_a(t_sort_range_index *ranges, t_bidrect_circle_list *stack)
 	{
 		return (false);
 	}
-	if (is_under_b_pivot(ranges->b_pivot, stack->next->index) && is_under_b_pivot(ranges->b_pivot, stack->next->index))
+	if (is_under_b_pivot(ranges->b_pivot, stack->next->index) && is_under_b_pivot(ranges->b_pivot, stack->next->next->index))
 	{
 		if (is_head_less_than_second(stack))
 		{
@@ -31,6 +31,7 @@ bool	is_swap_a(t_sort_range_index *ranges, t_bidrect_circle_list *stack)
 		}
 	}
 	if (is_head_less_than_second(stack))
+	// if ((stack->next->index + 1) != stack->next->next->index)
 	{
 		return (false);
 	}
@@ -52,6 +53,7 @@ bool	is_swap_b(t_bidrect_circle_list *stack)
 		return (false);
 	}
 	if (!is_head_less_than_second(stack))
+	// if (stack->next->index != (stack->next->next->index + 1))
 	{
 		return (false);
 	}

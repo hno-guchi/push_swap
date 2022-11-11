@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 18:08:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/11 19:10:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ bool	is_head_less_than_tail(t_bidrect_circle_list *stack)
 {
 	return (stack->next->index < stack->prev->index);
 }
+
+/*
+bool	is_n_descending_sort(t_bidrect_circle_list *stack, int n)
+{
+	int	i;
+
+	i = 1;
+	while (i < n)
+	{
+		if (stack->index != (stack->next->index + 1))
+		{
+			return (false);
+		}
+		i += 1;
+		stack = stack->next;
+	}
+	return (stack->index == (stack->next->index + 1));
+}
+*/
 
 // stack_a
 bool	is_sorted_head(int sorted, int index)
