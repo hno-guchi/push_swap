@@ -1,59 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_stack_a.c                                   :+:      :+:    :+:   */
+/*   create_sentinel.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:32:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/25 15:19:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-static void	connect_node_in_last(t_dcl_list *head_p , t_dcl_list *new_node)
+t_bidrect_circle_list	*create_sentinel(void)
 {
-	new_node->next = head_p;
-	new_node->prev = head_p->prev;
-	head_p->prev->next = new_node;
-	head_p->prev = new_node;
-}
+	t_bidrect_circle_list	*sentinel;
 
-t_dcl_list	*create_stack_a(int argc, char **argv)
-{
-	int						i;
-	t_dcl_list	*head_p;
-	t_dcl_list	*new_node;
-
-	i = 1;
-	head_p = create_sentinel();
-	if (!head_p)
+	sentinel = (t_bidrect_circle_list *)malloc(sizeof(t_bidrect_circle_list));
+	if (!sentinel)
 	{
-		exit_write_message (Malloc_error);
+		return (NULL);
 	}
-	while (i < argc)
-	{
-		new_node = create_node(ft_atoi(argv[i]));
-		if (!new_node)
-		{
-			stack_clear(&head_p);
-			exit_write_message(Malloc_error);
-		}
-		connect_node_in_last(head_p, new_node);
-		i += 1;
-	}
-	return (head_p);
+	sentinel->num = 0;
+	sentinel->index = 0;
+	sentinel->prev = sentinel;
+	sentinel->next = sentinel;
+	return (sentinel);
 }
 
 /*
 #include <stdio.h>
 int	main(int argc, char **argv)
 {
-	int			i;
-	t_dcl_list	*head_p;
-	t_dcl_list	*stack_a;
+	int						i;
+	t_bidrect_circle_list	*head_p;
+	t_bidrect_circle_list	*stack_a;
 
 	i = 0;
 	head_p = create_stack_a(argc, argv);

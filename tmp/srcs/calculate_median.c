@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ascending_sorted.c                              :+:      :+:    :+:   */
+/*   calculate_median.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:17:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_ascending_sorted(t_dcl_list *head_p)
+int	calculate_median(int size)
 {
-	int						i;
-	t_dcl_list	*node;
+	int	median;
 
-	i = 0;
-	node = head_p->next;
-	while (node != head_p)
+	median = 0;
+	if ((size % 2) == 0)
 	{
-		if (node->index != i)
-		{
-			return (false);
-		}
-		node = node->next;
-		i += 1;
+		median = (size / 2);
 	}
-	return (true);
+	else
+	{
+		median = (size - 1) / 2;
+	}
+	return (median);
 }

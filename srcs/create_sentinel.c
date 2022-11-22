@@ -6,18 +6,18 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/25 15:19:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/22 11:29:36 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-t_bidrect_circle_list	*create_sentinel(void)
+t_dcl_list	*create_sentinel(void)
 {
-	t_bidrect_circle_list	*sentinel;
+	t_dcl_list	*sentinel;
 
-	sentinel = (t_bidrect_circle_list *)malloc(sizeof(t_bidrect_circle_list));
+	sentinel = (t_dcl_list *)malloc(sizeof(t_dcl_list));
 	if (!sentinel)
 	{
 		return (NULL);

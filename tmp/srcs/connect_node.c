@@ -1,32 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ascending_sorted.c                              :+:      :+:    :+:   */
+/*   connect_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:46:03 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_ascending_sorted(t_dcl_list *head_p)
+void	connect_node(t_bidrect_circle_list *head_p
+		, t_bidrect_circle_list *new_node)
+{
+	new_node->prev = head_p;
+	new_node->next = head_p->next;
+	head_p->next->prev = new_node;
+	head_p->next = new_node;
+}
+
+/*
+#include <stdio.h>
+int	main(int argc, char **argv)
 {
 	int						i;
-	t_dcl_list	*node;
+	t_bidrect_circle_list	*head_p;
+	t_bidrect_circle_list	*stack_a;
 
 	i = 0;
-	node = head_p->next;
-	while (node != head_p)
+	head_p = create_stack_a(argc, argv);
+	stack_a = head_p->next;
+	while (stack_a != head_p)
 	{
-		if (node->index != i)
-		{
-			return (false);
-		}
-		node = node->next;
+		printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
+		stack_a = stack_a->next;
 		i += 1;
+
 	}
-	return (true);
+	printf("[%2d] stack_a->num = [%d]\n", i, stack_a->num);
+	stack_clear(&head_p);
+	system("leaks -q push_swap");
+	return (0);
 }
+*/

@@ -6,16 +6,16 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:57:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:41:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list	*sort_n_2_descending(t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+static t_list	*sort_n_2_descending(t_bidrect_circle_list *stack_a
+		, t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
-	t_dcl_list	*node;
+	t_bidrect_circle_list	*node;
 
 	node = stack_b->next;
 	if (node->index < node->next->index)
@@ -25,10 +25,10 @@ static t_list	*sort_n_2_descending(t_dcl_list *stack_a
 	return (head_p_log);
 }
 
-static t_list	*sort_n_3_descending(t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+static t_list	*sort_n_3_descending(t_bidrect_circle_list *stack_a
+		, t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
-	t_dcl_list	*node;
+	t_bidrect_circle_list	*node;
 	t_order					order;
 
 	node = stack_b->next;
@@ -50,8 +50,8 @@ static t_list	*sort_n_3_descending(t_dcl_list *stack_a
 	return (head_p_log);
 }
 
-t_list	*sort_n_under_4_descending(int n, t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+t_list	*sort_n_under_4_descending(int n, t_bidrect_circle_list *stack_a
+		, t_bidrect_circle_list *stack_b, t_list *head_p_log)
 {
 	if (n == 2)
 	{

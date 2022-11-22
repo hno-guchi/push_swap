@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ascending_sorted.c                              :+:      :+:    :+:   */
+/*   compare_3_values.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:12:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_ascending_sorted(t_dcl_list *head_p)
+t_order	compare_3_values(int first, int second, int third)
 {
-	int						i;
-	t_dcl_list	*node;
-
-	i = 0;
-	node = head_p->next;
-	while (node != head_p)
+	if ((first < second) && (third < second) && (first < third))
 	{
-		if (node->index != i)
-		{
-			return (false);
-		}
-		node = node->next;
-		i += 1;
+		return (Min_max_mid);
 	}
-	return (true);
+	else if ((second < first) && (third < first) && (third < second))
+	{
+		return (Max_mid_min);
+	}
+	else if ((second < first) && (second < third) && (first < third))
+	{
+		return (Mid_min_max);
+	}
+	else if ((second < first) && (third < first) && (second < third))
+	{
+		return (Max_min_mid);
+	}
+	else if ((first < second) && (third < second) && (third < first))
+	{
+		return (Mid_max_min);
+	}
+	return (Min_mid_max);
 }

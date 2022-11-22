@@ -6,16 +6,16 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 10:46:55 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/22 11:36:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	stack_len(t_bidrect_circle_list *head_p)
+int	stack_len(t_dcl_list *head_p)
 {
 	int						len;
-	t_bidrect_circle_list	*node;
+	t_dcl_list	*node;
 
 	len = 0;
 	node = head_p->next;

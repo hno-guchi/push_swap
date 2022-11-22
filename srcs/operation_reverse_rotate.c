@@ -6,16 +6,16 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/28 12:21:46 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/22 11:39:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static bool	reverse_rotate(t_bidrect_circle_list *head_p)
+static bool	reverse_rotate(t_dcl_list *head_p)
 {
-	t_bidrect_circle_list	*last_node;
-	t_bidrect_circle_list	*last_prev_node;
+	t_dcl_list	*last_node;
+	t_dcl_list	*last_prev_node;
 
 	if (head_p == head_p->next || head_p == head_p->next->next)
 	{
@@ -29,7 +29,7 @@ static bool	reverse_rotate(t_bidrect_circle_list *head_p)
 	return (true);
 }
 
-char	*reverse_rotate_a(t_bidrect_circle_list *stack_a)
+char	*reverse_rotate_a(t_dcl_list *stack_a)
 {
 	if (!stack_a)
 	{
@@ -42,7 +42,7 @@ char	*reverse_rotate_a(t_bidrect_circle_list *stack_a)
 	return ("rra");
 }
 
-char	*reverse_rotate_b(t_bidrect_circle_list *stack_b)
+char	*reverse_rotate_b(t_dcl_list *stack_b)
 {
 	if (!stack_b)
 	{
@@ -55,8 +55,8 @@ char	*reverse_rotate_b(t_bidrect_circle_list *stack_b)
 	return ("rrb");
 }
 
-char	*reverse_rotate_r(t_bidrect_circle_list *stack_a,
-		t_bidrect_circle_list *stack_b)
+char	*reverse_rotate_r(t_dcl_list *stack_a,
+		t_dcl_list *stack_b)
 {
 	if (!stack_a || !stack_b)
 	{
@@ -76,11 +76,11 @@ char	*reverse_rotate_r(t_bidrect_circle_list *stack_a,
 }
 
 /*
-void	test_operation_reverse_rotate(t_bidrect_circle_list *head_p_stack_a)
+void	test_operation_reverse_rotate(t_dcl_list *head_p_stack_a)
 {
-	t_bidrect_circle_list	*stack_a;
-	t_bidrect_circle_list	*head_p_stack_b;
-	t_bidrect_circle_list	*stack_b;
+	t_dcl_list	*stack_a;
+	t_dcl_list	*head_p_stack_b;
+	t_dcl_list	*stack_b;
 
 	stack_a = head_p_stack_a;
 	head_p_stack_b = create_sentinel();
@@ -157,7 +157,7 @@ void	test_operation_reverse_rotate(t_bidrect_circle_list *head_p_stack_a)
 
 int	main(int argc, char **argv)
 {
-	t_bidrect_circle_list	*head_p_stack_a;
+	t_dcl_list	*head_p_stack_a;
 
 	if (argc <= 1)
 	{

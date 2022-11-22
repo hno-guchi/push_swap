@@ -6,17 +6,17 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:38:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:40:45 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static bool	push(t_dcl_list *from_stack
-		, t_dcl_list *to_stack)
+static bool	push(t_bidrect_circle_list *from_stack
+		, t_bidrect_circle_list *to_stack)
 {
-	t_dcl_list	*from_stack_node;
-	t_dcl_list	*from_stack_next_node;
+	t_bidrect_circle_list	*from_stack_node;
+	t_bidrect_circle_list	*from_stack_next_node;
 
 	if (from_stack->next == from_stack)
 	{
@@ -30,7 +30,7 @@ static bool	push(t_dcl_list *from_stack
 	return (true);
 }
 
-char	*push_a(t_dcl_list *stack_a, t_dcl_list *stack_b)
+char	*push_a(t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (!stack_a || !stack_b)
 	{
@@ -43,7 +43,7 @@ char	*push_a(t_dcl_list *stack_a, t_dcl_list *stack_b)
 	return ("pa");
 }
 
-char	*push_b(t_dcl_list *stack_a, t_dcl_list *stack_b)
+char	*push_b(t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (!stack_a || !stack_b)
 	{
@@ -57,11 +57,11 @@ char	*push_b(t_dcl_list *stack_a, t_dcl_list *stack_b)
 }
 
 /*
-void	test_operation_push(t_dcl_list *head_p_stack_a)
+void	test_operation_push(t_bidrect_circle_list *head_p_stack_a)
 {
-	t_dcl_list	*stack_a;
-	t_dcl_list	*head_p_stack_b;
-	t_dcl_list	*stack_b;
+	t_bidrect_circle_list	*stack_a;
+	t_bidrect_circle_list	*head_p_stack_b;
+	t_bidrect_circle_list	*stack_b;
 
 	stack_a = head_p_stack_a;
 	head_p_stack_b = create_sentinel();
@@ -111,7 +111,7 @@ void	test_operation_push(t_dcl_list *head_p_stack_a)
 
 int	main(int argc, char **argv)
 {
-	t_dcl_list	*head_p_stack_a;
+	t_bidrect_circle_list	*head_p_stack_a;
 
 	if (argc <= 1)
 	{

@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ascending_sorted.c                              :+:      :+:    :+:   */
+/*   stack_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:46:55 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_ascending_sorted(t_dcl_list *head_p)
+int	stack_len(t_bidrect_circle_list *head_p)
 {
-	int						i;
-	t_dcl_list	*node;
+	int						len;
+	t_bidrect_circle_list	*node;
 
-	i = 0;
+	len = 0;
 	node = head_p->next;
 	while (node != head_p)
 	{
-		if (node->index != i)
-		{
-			return (false);
-		}
+		len += 1;
 		node = node->next;
-		i += 1;
 	}
-	return (true);
+	return (len);
 }

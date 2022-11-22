@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:40:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/15 17:18:20 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "push_swap.h"
 
 static t_list	*execute_reverse_rotate(t_operation type
-		, t_dcl_list *stack_a, t_dcl_list *stack_b)
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Reverse_rotate_a)
 	{
@@ -32,7 +32,7 @@ static t_list	*execute_reverse_rotate(t_operation type
 }
 
 static t_list	*execute_rotate(t_operation type
-		, t_dcl_list *stack_a, t_dcl_list *stack_b)
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Rotate_a)
 	{
@@ -50,7 +50,7 @@ static t_list	*execute_rotate(t_operation type
 }
 
 static t_list	*execute_push(t_operation type
-		, t_dcl_list *stack_a, t_dcl_list *stack_b)
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Push_a)
 	{
@@ -64,7 +64,7 @@ static t_list	*execute_push(t_operation type
 }
 
 static t_list	*execute_swap(t_operation type
-		, t_dcl_list *stack_a, t_dcl_list *stack_b)
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b)
 {
 	if (type == Swap_a)
 	{
@@ -82,7 +82,7 @@ static t_list	*execute_swap(t_operation type
 }
 
 t_list	*execute_operation(t_operation type
-		, t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b
 		, t_list *head_p_log)
 {
 	t_list	*node;
@@ -114,10 +114,10 @@ t_list	*execute_operation(t_operation type
 /*
 int	main(int argc, char **argv)
 {
-	t_dcl_list	*head_p_stack_a;
-	t_dcl_list	*stack_a;
-	t_dcl_list	*head_p_stack_b;
-	t_dcl_list	*stack_b;
+	t_bidrect_circle_list	*head_p_stack_a;
+	t_bidrect_circle_list	*stack_a;
+	t_bidrect_circle_list	*head_p_stack_b;
+	t_bidrect_circle_list	*stack_b;
 	t_list					*head_p_log;
 	t_list					*node_log;
 

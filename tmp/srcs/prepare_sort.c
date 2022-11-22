@@ -6,13 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:34:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:14:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	add_index_stack_member(t_dcl_list *node , int *array, int size)
+static void	add_index_stack_member(t_bidrect_circle_list *node
+		, int *array, int size)
 {
 	int	i;
 
@@ -28,9 +29,9 @@ static void	add_index_stack_member(t_dcl_list *node , int *array, int size)
 	}
 }
 
-static void	compress(t_dcl_list *head_p, int *array, int array_size)
+static void	compress(t_bidrect_circle_list *head_p, int *array, int array_size)
 {
-	t_dcl_list	*stack_node;
+	t_bidrect_circle_list	*stack_node;
 
 	stack_node = head_p->next;
 	while (stack_node != head_p)
@@ -40,7 +41,8 @@ static void	compress(t_dcl_list *head_p, int *array, int array_size)
 	}
 }
 
-t_dcl_list	*prepare_sort(int size, char **elements , t_dcl_list *head_p)
+t_bidrect_circle_list	*prepare_sort(int size, char **elements
+		, t_bidrect_circle_list *head_p)
 {
 	int	*temp_array;
 
@@ -59,10 +61,10 @@ t_dcl_list	*prepare_sort(int size, char **elements , t_dcl_list *head_p)
 /*
 output_stack_num_index(head_p, temp_array, size);
 #include <stdio.h>
-void	output_stack_num_index(t_dcl_list *head_p, int *array, int size)
+void	output_stack_num_index(t_bidrect_circle_list *head_p, int *array, int size)
 {
 	int						i;
-	t_dcl_list	*node;
+	t_bidrect_circle_list	*node;
 	
 	i = 0;
 	node = head_p->next;
@@ -105,7 +107,7 @@ void	output_stack_num_index(t_dcl_list *head_p, int *array, int size)
 }
 int	main(int argc, char **argv)
 {
-	t_dcl_list	*head_p_stack_a;
+	t_bidrect_circle_list	*head_p_stack_a;
 
 	if (argc <= 1)
 	{

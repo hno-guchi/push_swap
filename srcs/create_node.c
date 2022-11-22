@@ -6,17 +6,17 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/10/27 19:41:26 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/22 11:28:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_bidrect_circle_list	*create_node(int num)
+t_dcl_list	*create_node(int num)
 {
-	t_bidrect_circle_list	*new_node;
+	t_dcl_list	*new_node;
 
-	new_node = (t_bidrect_circle_list *)malloc(sizeof(t_bidrect_circle_list));
+	new_node = (t_dcl_list *)malloc(sizeof(t_dcl_list));
 	if (!new_node)
 	{
 		return (NULL);

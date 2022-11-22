@@ -1,32 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ascending_sorted.c                              :+:      :+:    :+:   */
+/*   create_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/27 19:41:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_ascending_sorted(t_dcl_list *head_p)
+t_bidrect_circle_list	*create_node(int num)
 {
-	int						i;
-	t_dcl_list	*node;
+	t_bidrect_circle_list	*new_node;
 
-	i = 0;
-	node = head_p->next;
-	while (node != head_p)
+	new_node = (t_bidrect_circle_list *)malloc(sizeof(t_bidrect_circle_list));
+	if (!new_node)
 	{
-		if (node->index != i)
-		{
-			return (false);
-		}
-		node = node->next;
-		i += 1;
+		return (NULL);
 	}
-	return (true);
+	new_node->num = num;
+	new_node->index = 0;
+	new_node->prev = NULL;
+	new_node->next = NULL;
+	return (new_node);
 }
+
+/*
+#include <stdio.h>
+#include "../libft/includes/libft.h"
+int	main(int argc, char **argv)
+{
+	t_stack	*new_node;
+
+	new_node = create_node(ft_atoi(argv[argc - 1]));
+	printf("[%p]\n", new_node);
+	printf("[%d]\n", *new_node->num);
+	free(new_node);
+	system("leaks -q a.out");
+	return (0);
+}
+*/

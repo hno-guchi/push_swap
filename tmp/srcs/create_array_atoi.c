@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ascending_sorted.c                              :+:      :+:    :+:   */
+/*   create_array_atoi.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:20:06 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
 
-bool	is_ascending_sorted(t_dcl_list *head_p)
+int	*create_array_atoi(int size, char **elements)
 {
-	int						i;
-	t_dcl_list	*node;
+	int	i;
+	int	*array;
 
 	i = 0;
-	node = head_p->next;
-	while (node != head_p)
+	array = (int *)malloc(sizeof(int) * size);
+	if (!array)
 	{
-		if (node->index != i)
-		{
-			return (false);
-		}
-		node = node->next;
+		return (NULL);
+	}
+	while (i < size)
+	{
+		array[i] = ft_atoi(elements[i]);
 		i += 1;
 	}
-	return (true);
+	return (array);
 }

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 19:13:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/11 19:10:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "push_swap.h"
 
 // both
-bool	is_head_less_than_second(t_dcl_list *stack)
+bool	is_head_less_than_second(t_bidrect_circle_list *stack)
 {
 	return (stack->next->index < stack->next->next->index);
 }
 
-bool	is_head_less_than_tail(t_dcl_list *stack)
+bool	is_head_less_than_tail(t_bidrect_circle_list *stack)
 {
 	return (stack->next->index < stack->prev->index);
 }

@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/02 19:48:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/22 11:55:10 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*push_swap_under_7(int n, t_bidrect_circle_list *stack_a
-	, t_bidrect_circle_list *stack_b, t_list *head_p_log)
+t_list	*push_swap_under_7(int n, t_dcl_list *stack_a
+	, t_dcl_list *stack_b, t_list *head_p_log)
 {
 	/*
 	if (is_ascending_sorted(stack_a) || n == 1)

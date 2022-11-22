@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ascending_sorted.c                              :+:      :+:    :+:   */
+/*   stack_clear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:15:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
-bool	is_ascending_sorted(t_dcl_list *head_p)
+void	stack_clear(t_bidrect_circle_list **head_p)
 {
-	int						i;
-	t_dcl_list	*node;
+	t_bidrect_circle_list	*node;
+	t_bidrect_circle_list	*next_node;
 
-	i = 0;
-	node = head_p->next;
-	while (node != head_p)
+	if (!head_p[0])
 	{
-		if (node->index != i)
-		{
-			return (false);
-		}
-		node = node->next;
-		i += 1;
+		return ;
 	}
-	return (true);
+	node = head_p[0]->next;
+	while (node != head_p[0])
+	{
+		next_node = node->next;
+		free(node);
+		node = next_node;
+	}
+	free(node);
+	head_p = NULL;
 }

@@ -1,64 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operation_swap.c                                   :+:      :+:    :+:   */
+/*   operation_reverse_rotate.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:37:31 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:21:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static bool	swap(t_dcl_list *head_p)
+static bool	reverse_rotate(t_bidrect_circle_list *head_p)
 {
-	t_dcl_list	*first_node;
-	t_dcl_list	*second_node;
+	t_bidrect_circle_list	*last_node;
+	t_bidrect_circle_list	*last_prev_node;
 
 	if (head_p == head_p->next || head_p == head_p->next->next)
 	{
 		return (false);
 	}
-	first_node = head_p->next;
-	second_node = head_p->next->next;
-	first_node->prev = second_node;
-	first_node->next = second_node->next;
-	second_node->next->prev = first_node;
-	second_node->next = first_node;
-	second_node->prev = head_p;
-	head_p->next = second_node;
+	last_node = head_p->prev;
+	last_prev_node = head_p->prev->prev;
+	connect_node(head_p, last_node);
+	last_prev_node->next = head_p;
+	head_p->prev = last_prev_node;
 	return (true);
 }
 
-char	*swap_a(t_dcl_list *stack_a)
+char	*reverse_rotate_a(t_bidrect_circle_list *stack_a)
 {
 	if (!stack_a)
 	{
 		return (NULL);
 	}
-	if (!swap(stack_a))
+	if (!reverse_rotate(stack_a))
 	{
 		return (NULL);
 	}
-	return ("sa");
+	return ("rra");
 }
 
-char	*swap_b(t_dcl_list *stack_b)
+char	*reverse_rotate_b(t_bidrect_circle_list *stack_b)
 {
 	if (!stack_b)
 	{
 		return (NULL);
 	}
-	if (!swap(stack_b))
+	if (!reverse_rotate(stack_b))
 	{
 		return (NULL);
 	}
-	return ("sb");
+	return ("rrb");
 }
 
-char	*swap_s(t_dcl_list *stack_a, t_dcl_list *stack_b)
+char	*reverse_rotate_r(t_bidrect_circle_list *stack_a,
+		t_bidrect_circle_list *stack_b)
 {
 	if (!stack_a || !stack_b)
 	{
@@ -72,17 +70,17 @@ char	*swap_s(t_dcl_list *stack_a, t_dcl_list *stack_b)
 	{
 		return (NULL);
 	}
-	swap(stack_a);
-	swap(stack_b);
-	return ("ss");
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
+	return ("rrr");
 }
 
 /*
-void	test_operation_swap(t_dcl_list *head_p_stack_a)
+void	test_operation_reverse_rotate(t_bidrect_circle_list *head_p_stack_a)
 {
-	t_dcl_list	*stack_a;
-	t_dcl_list	*head_p_stack_b;
-	t_dcl_list	*stack_b;
+	t_bidrect_circle_list	*stack_a;
+	t_bidrect_circle_list	*head_p_stack_b;
+	t_bidrect_circle_list	*stack_b;
 
 	stack_a = head_p_stack_a;
 	head_p_stack_b = create_sentinel();
@@ -91,55 +89,66 @@ void	test_operation_swap(t_dcl_list *head_p_stack_a)
 	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
 	output_stack(stack_a, stack_b);
 
-	printf(RED_BACK"\n[TEST] swap();"END_BACK);
+	printf(RED_BACK"\n[TEST] reverse_rotate();"END_BACK);
 
-	printf(GREEN_BACK"\nswap_a(); return = [%s]"END_BACK, swap_a(stack_a));
+	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK
+	, reverse_rotate_a(stack_a));
 	printf("\n"); output_stack(stack_a, stack_b);
 	
-	printf(GREEN_BACK"\nswap_b(); return = [%s]"END_BACK, swap_b(stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK
+	, reverse_rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	(void)push_b(stack_a, stack_b);
-	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
-	output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nswap_b(); return = [%s]"END_BACK, swap_b(stack_b));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
 	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
 	output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nswap_b(); return = [%s]"END_BACK, swap_b(stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK
+	, reverse_rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	(void)push_b(stack_a, stack_b);
-	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
-	output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nswap_a(); return = [%s]"END_BACK, swap_a(stack_a));
-	printf("\n"); output_stack(stack_a, stack_b);
-
-	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	(void)push_b(stack_a, stack_b);
 	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
 	output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nswap_a(); return = [%s]"END_BACK, swap_a(stack_a));
+	printf(GREEN_BACK"\nreverse_rotate_b(); return = [%s]"END_BACK
+	, reverse_rotate_b(stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
-	printf(GREEN_BACK"\nswap_s(); return = [%s]"END_BACK, swap_s(stack_a, stack_b));
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK
+	, reverse_rotate_a(stack_a));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+	, reverse_rotate_r(stack_a, stack_b));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	(void)push_b(stack_a, stack_b);
+	printf(RED_BACK"\n[BEFORE]"END_BACK); printf("\n");
+	output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_a(); return = [%s]"END_BACK
+	, reverse_rotate_a(stack_a));
+	printf("\n"); output_stack(stack_a, stack_b);
+
+	printf(GREEN_BACK"\nreverse_rotate_r(); return = [%s]"END_BACK
+			, reverse_rotate_r(stack_a, stack_b));
 	printf("\n"); output_stack(stack_a, stack_b);
 
 	stack_clear(&head_p_stack_a);
@@ -148,7 +157,7 @@ void	test_operation_swap(t_dcl_list *head_p_stack_a)
 
 int	main(int argc, char **argv)
 {
-	t_dcl_list	*head_p_stack_a;
+	t_bidrect_circle_list	*head_p_stack_a;
 
 	if (argc <= 1)
 	{
@@ -156,7 +165,7 @@ int	main(int argc, char **argv)
 	}
 	validation_args(argc, argv);
 	head_p_stack_a = create_stack_a(argc, argv);
-	test_operation_swap(head_p_stack_a);
+	test_operation_reverse_rotate(head_p_stack_a);
 	system("leaks -q push_swap");
 	return (0);
 }
