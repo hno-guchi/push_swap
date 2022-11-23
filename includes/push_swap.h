@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 19:09:47 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:44:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef enum order {
 	Mid_max_min
 }	t_order;
 
+typedef enum position {
+	Not_position,
+	Next,
+	Next_next,
+	Prev,
+	Prev_prev
+}	t_position;
+
 typedef struct s_dcl_list {
 	int					num;
 	int					index;
@@ -67,30 +75,20 @@ typedef struct s_dcl_list {
 	struct s_dcl_list	*next;
 }	t_dcl_list;
 
-/*
-typedef struct	s_sort_range_index {
-	int	size;
-	int	count_sorted;
-	int	begin;
-	int	end;
-	int	a_pivot;
-	int	b_pivot;
-	int	median;
-	int	count_pushed;
-	int	cycle;
-}	t_sort_range_index;
-*/
-
 typedef struct	s_sort_info {
-	int	size;
-	int	sorted;
-	int	pushed;
-	int	begin_idxes[100];
-	int	end_idxes[100];
-	int	position_ary;
-	int	a_pivot;
-	int	b_pivot;
-	int	median;
+	int			size;
+	int			sorted;
+	int			pushed;
+	// int			begin_idx[100];
+	// int			end_idx[100];
+	// int			now_idx[2];
+	// int			present_idx;
+	int			a_pivot;
+	int			a_size;
+	int			b_pivot;
+	int			b_size;
+	int			median;
+	t_position	position_sort;
 	// int	cycle;
 }	t_sort_info;
 
@@ -133,13 +131,12 @@ t_list		*sort_n_under_4_descending(int n, t_dcl_list *stack_a, t_dcl_list *stack
 				t_list *head_p_log);
 int			calculate_median(int size);
 void		initialize_sort_info(t_sort_info *info, int stack_size);
+t_list		*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
+/*
 bool		is_finish(int value, int border);
 bool		is_under_b_pivot(int b_pivot, int index);
-t_list		*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 t_list		*sort_to_a_from_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
-/*
-// t_list					*sort_under_median(t_sort_range_index *ranges, t_bidrect_circle_list *stack_a, t_bidrect_circle_list *stack_b, t_list *head_p_log);
-t_list					*sort_under_median(t_sort_info *ranges, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
+t_list		*sort_first_half(t_sort_info *ranges, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 // bool					is_head_less_than_second(t_bidrect_circle_list *stack);
 bool					is_head_less_than_second(t_dcl_list *stack);
 // bool					is_head_less_than_tail(t_bidrect_circle_list *stack);

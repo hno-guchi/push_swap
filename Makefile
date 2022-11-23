@@ -14,10 +14,10 @@ SRCS = main.c \
 	   is_ascending_sorted.c is_descending_sorted.c compare_3_values.c \
 	   push_swap_under_7.c sort_n_under_4.c sort_n_under_4_descending.c sort_n_under_7.c \
 	   calculate_median.c initialize_sort_info.c \
-	   split_first_half.c sort_to_a_from_b.c \
-	   is_func.c
+	   split_first_half.c
 
-# sort_under_median.c \
+#sort_to_a_from_b.c sort_first_half.c \
+#	   is_func.c
 # try_swap.c try_rotate.c try_reverse_rotate.c try_sort.c
 # search_sentinel.c
 # create_log_node.c add_back_list_log_node.c log_list_clear.c

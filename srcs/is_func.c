@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 19:13:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:41:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,4 @@ bool	is_sorted_head(int sorted, int index)
 		return (false);
 	}
 	return (true);
-}
-
-// stack_b
-bool	is_under_b_pivot(int b_pivot, int index)
-{
-	return (index < b_pivot);
 }

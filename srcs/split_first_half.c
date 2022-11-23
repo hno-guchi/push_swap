@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 17:36:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:46:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
 	{
 		// print_ranges_info(info, 'a');
 		// output_stack(stack_a, stack_b);
-		if (is_finish(info->pushed, info->a_pivot))
+		// if (is_finish(info->pushed, info->a_pivot))
+		if (info->pushed == info->a_pivot)
 		{
 			break ;
 		}

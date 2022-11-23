@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 20:45:13 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:18:06 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b);
 void	print_sort_info(t_sort_info *info, char stack);
 t_list	*try_push_a(t_sort_info *ranges, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 bool	is_empty_stack_b(t_dcl_list *stack_b);
+
+bool	is_under_b_pivot(int b_pivot, int index)
+{
+	return (index < b_pivot);
+}
+
+bool	is_target_push_a(int pivot, int end, int index)
+{
+	return (pivot <= index && index < end);
+}
 
 static int	stack_len2(t_dcl_list *stack)
 {
@@ -74,8 +84,8 @@ void	set_ranges_stack_b(t_sort_info *info, t_dcl_list *stack_b)
 		info->b_pivot = calculate_median(begin_idx + end_idx);
 		info->pushed = info->b_pivot;
 	}
-	// info->begin_idxes[now_index] = info->b_pivot;
-	info->begin_idxes[now_index] = begin_idx;
+	info->begin_idxes[now_index] = info->b_pivot;
+	// info->begin_idxes[now_index] = begin_idx;
 	info->end_idxes[now_index] = end_idx;
 	info->position_ary += 1;
 }
@@ -113,145 +123,8 @@ static t_list	*try_swap2(t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_
 	return (head_p_log);
 }
 
-bool	is_exist_sort_index_until_n_th(int n, t_sort_info *info, t_dcl_list *stack)
+t_list	*sort_rotate_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
 {
-	int	i;
-	t_dcl_list *head;
-	t_dcl_list *tail;
-
-	i = 0;
-	head = stack->next;
-	tail = stack->prev;
-	if (head == stack || tail == stack || head == tail)
-	{
-		return (false);
-	}
-	if ((info->pushed - info->end_idxes[info->position_ary - 1]) < n)
-	{
-		n = info->pushed - info->end_idxes[info->position_ary - 1];
-	}
-	while (i < n && head != tail)
-	{
-		if (head->index == info->sorted || tail->index == info->sorted)
-		{
-			return (true);
-		}
-		i += 1;
-		head = head->next;
-		tail = tail->prev;
-	}
-	return (false);
-}
-
-static t_list	*try_sort2(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
-{
-	int	stack_size;
-
-	stack_size = stack_len2(stack_b);
-	if (5 < stack_size)
-	{
-		if (stack_b->prev->prev->index == info->sorted)
-		{
-			// if (stack_a->prev->index == (info->sorted + 1))
-			// {
-			// 	head_p_log = execute_operation(Reverse_rotate_r, stack_a, stack_b, head_p_log);
-			// }
-			// else
-			// {
-				head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-			// }
-			head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-			head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-			info->sorted += 1;
-		}
-	}
-	if (3 < stack_size)
-	{
-		if (stack_b->prev->prev->index == info->sorted)
-		{
-			// if (stack_a->prev->index == (info->sorted + 1))
-			// {
-			// 	head_p_log = execute_operation(Reverse_rotate_r, stack_a, stack_b, head_p_log);
-			// }
-			// else
-			// {
-				head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-			// }
-	 		head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-	 		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-	 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-			info->sorted += 1;
-		}
-	}
-	if (2 < stack_size)
-	{
-		if (stack_b->prev->index == info->sorted)
-		{
-			// if (stack_a->prev->index == (info->sorted + 1))
-			// {
-			// 	head_p_log = execute_operation(Reverse_rotate_r, stack_a, stack_b, head_p_log);
-			// }
-			// else
-			// {
-				head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-			// }
-	 		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-	 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-			info->sorted += 1;
-		}
-	}
-	if (1 < stack_size)
-	{
-		if (stack_b->next->next->index == info->sorted)
-		{
-			if (stack_b->next->index == (info->sorted + 1))
-			{
-	 			head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-				info->pushed += 1;
-			}
-			else
-			{
-				head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
-			}
-			if (stack_a->prev->index == (info->sorted + 1))
-			{
-				head_p_log = execute_operation(Reverse_rotate_a, stack_a, stack_b, head_p_log);
-			}
-			head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-			info->sorted += 1;
-		}
-	}
-	if (0 < stack_size)
-	{
-		if (stack_b->next->index == info->sorted)
-		{
-			if (stack_a->prev->index == (info->sorted + 1))
-			{
-				head_p_log = execute_operation(Reverse_rotate_a, stack_a, stack_b, head_p_log);
-			}
-	 		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-	 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-			info->sorted += 1;
-		}
-	}
-	if (stack_a->next->next->index == info->sorted)
-	{
- 		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-		if (stack_a->prev->index == (info->sorted + 1))
-		{
-			head_p_log = execute_operation(Reverse_rotate_a, stack_a, stack_b, head_p_log);
- 			head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
-		}
- 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-		info->sorted += 1;
-	}
 	if (stack_a->next->index == info->sorted)
 	{
 		if (stack_a->prev->index == (info->sorted + 1))
@@ -262,84 +135,115 @@ static t_list	*try_sort2(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
  		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
 		info->sorted += 1;
 	}
+	else if (stack_a->next->next->index == info->sorted)
+	{
+ 		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		if (stack_a->prev->index == (info->sorted + 1))
+		{
+			head_p_log = execute_operation(Reverse_rotate_a, stack_a, stack_b, head_p_log);
+ 			head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		}
+ 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
+		info->sorted += 1;
+	}
 	return (head_p_log);
 }
 
+/*
 static t_list	*try_prepare_sort2(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
 {
-	int	stack_size;
-
-	stack_size = stack_len2(stack_b);
-	if (5 < stack_size)
+	if (stack_a->next->index == (info->sorted + 1))
 	{
-		if (stack_b->prev->prev->index == (info->sorted + 1))
-		{
-			head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-			head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-			head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-			head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-		}
-	}
-	// if (3 < stack_size)
-	// {
-	// 	if (stack_b->prev->prev->index == (info->sorted + 1))
-	// 	{
-	//  		head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-	//  		head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-	//  		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-	//  		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-	// 		info->pushed += 1;
-	// 		info->sorted += 1;
-	// 	}
-	// }
-	if (2 < stack_size)
-	{
-		if (stack_b->prev->index == (info->sorted + 1))
-		{
-	 		head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
-	 		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-	 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-		}
-	}
-	if (1 < stack_size)
-	{
-		if (stack_b->next->next->index == (info->sorted + 1))
-		{
-			// if (stack_b->next->index == (info->sorted + 1))
-			// {
-	 		// 	head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			// 	info->pushed += 1;
-			// }
-			// else
-			// {
-			// 	head_p_log = execute_operation(Rotate_b, stack_a, stack_b, head_p_log);
-			// }
-			head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-			head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-		}
-	}
-	if (0 < stack_size)
-	{
-		if (stack_b->next->index == (info->sorted + 1))
-		{
-	 		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
-	 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
-		}
+ 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
 	}
 	if (stack_a->next->next->index == (info->sorted + 1) && stack_a->next->index != info->sorted)
 	{
  		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
  		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
 	}
-	if (stack_a->next->index == (info->sorted + 1))
+	return (head_p_log);
+}
+*/
+
+static t_list	*prepare_sort_next_value(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
+{
+	if (info->position_sort == Next)
 	{
- 		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
+		if (is_target_push_a(info->b_pivot, info->end_idxes[info->position_ary - 1], stack_b->next->index))
+		{
+			info->pushed += 1;
+		}
+		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+	 	head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
+	}
+	else if (info->position_sort == Prev)
+	{
+		if (is_target_push_a(info->b_pivot, info->end_idxes[info->position_ary - 1], stack_b->prev->index))
+		{
+			info->pushed += 1;
+		}
+	 	head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
+	 	head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+	 	head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
 	}
 	return (head_p_log);
+}
+
+static t_list	*sort_push_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
+{
+	if (info->position_sort == Next)
+	{
+		if (is_target_push_a(info->b_pivot, info->end_idxes[info->position_ary - 1], stack_b->next->index))
+		{
+			info->pushed += 1;
+		}
+	 	head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+	}
+	else if (info->position_sort == Prev)
+	{
+		if (is_target_push_a(info->b_pivot, info->end_idxes[info->position_ary - 1], stack_b->next->index))
+		{
+			info->pushed += 1;
+		}
+		head_p_log = execute_operation(Reverse_rotate_b, stack_a, stack_b, head_p_log);
+ 		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+	}
+	return (head_p_log);
+}
+
+t_position	search_target_stack_b(int target, t_dcl_list *stack)
+{
+	int	stack_size;
+
+	stack_size = stack_len2(stack);
+	if (0 < stack_size)
+	{
+		if (stack->next->index == target)
+		{
+			return (Next);
+		}
+	}
+	else if (2 < stack_size)
+	{
+		if (stack->prev->index == target)
+		{
+			return (Prev);
+		}
+	}
+	return (Not_position);
+}
+
+bool	is_sort_stack_a(int target, t_dcl_list *stack)
+{
+	if (stack->next->index == target)
+	{
+		return (true);
+	}
+	else if (stack->next->next->index == target)
+	{
+		return (true);
+	}
+	return (false);
 }
 
 t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
@@ -354,12 +258,28 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 		{
 			break;
 		}
-		// print_info_info(info, 'b');
+		// print_sort_info(info, 'b');
 		// output_stack(stack_a, stack_b);
-		head_p_log = try_prepare_sort2(info, stack_a, stack_b, head_p_log);
-		head_p_log = try_sort2(info, stack_a, stack_b, head_p_log);
+		// head_p_log = try_prepare_sort2(info, stack_a, stack_b, head_p_log);
+		if (is_sort_stack_a(info->sorted, stack_a))
+		{
+			head_p_log = sort_rotate_a(info, stack_a, stack_b, head_p_log);
+			continue ;
+		}
+		info->position_sort = search_target_stack_b(info->sorted + 1, stack_b);
+		if (info->position_sort != Not_position)
+		{
+			head_p_log = prepare_sort_next_value(info, stack_a, stack_b, head_p_log);
+			continue ;
+		}
+		info->position_sort = search_target_stack_b(info->sorted, stack_b);
+		if (info->position_sort != Not_position)
+		{
+			head_p_log = sort_push_a(info, stack_a, stack_b, head_p_log);
+			continue ;
+		}
 		head_p_log = try_swap2(stack_a, stack_b, head_p_log);
-		if (!is_under_b_pivot(info->b_pivot, stack_b->next->index))
+		if (is_target_push_a(info->b_pivot, end_idx, stack_b->next->index))
 		{
 		 	head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
 		 	info->pushed += 1;
@@ -389,8 +309,13 @@ t_list	*sort_to_a_from_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
 			break ;
 		}
 		set_ranges_stack_b(info, stack_b);
-		print_sort_info(info, 'b');
+		// print_sort_info(info, 'b');
 		head_p_log = push_a_half(info, stack_a, stack_b, head_p_log);
 	}
+	if (is_sort_stack_a(info->sorted, stack_a))
+	{
+		head_p_log = sort_rotate_a(info, stack_a, stack_b, head_p_log);
+	}
+	// print_sort_info(info, 'b');
 	return (head_p_log);
 }
