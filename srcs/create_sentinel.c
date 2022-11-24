@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:29:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/24 19:10:33 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_dcl_list	*create_sentinel(void)
 	{
 		return (NULL);
 	}
-	sentinel->num = 0;
-	sentinel->index = 0;
+	sentinel->num = -1;
+	sentinel->index = -1;
 	sentinel->prev = sentinel;
 	sentinel->next = sentinel;
 	return (sentinel);

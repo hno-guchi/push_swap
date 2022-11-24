@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/23 20:44:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:38:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ typedef enum operation {
 }	t_operation;
 
 typedef enum order {
+	Bad_order,
 	Min_mid_max,
 	Min_max_mid,
-	Max_mid_min,
 	Mid_min_max,
+	Mid_max_min,
 	Max_min_mid,
-	Mid_max_min
+	Max_mid_min
 }	t_order;
 
 typedef enum position {
@@ -80,9 +81,11 @@ typedef struct	s_sort_info {
 	int			sorted;
 	int			pushed;
 	// int			begin_idx[100];
-	// int			end_idx[100];
+	int			limits[100];
 	// int			now_idx[2];
-	// int			present_idx;
+	int			limits_idx;
+	int			limit;
+	int			section_size;
 	int			a_pivot;
 	int			a_size;
 	int			b_pivot;
@@ -124,18 +127,19 @@ t_order		compare_3_values(int first, int second, int third);
 t_list		*push_swap_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				t_list *head_p_log);
 t_list		*sort_n_under_4(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
-				t_list *head_p_log);
+				t_list *log);
 t_list		*sort_n_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				t_list *head_p_log);
 t_list		*sort_n_under_4_descending(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
-				t_list *head_p_log);
+				t_list *log);
 int			calculate_median(int size);
 void		initialize_sort_info(t_sort_info *info, int stack_size);
+bool		is_empty_stack_b(t_dcl_list *stack_b);
 t_list		*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
+t_list		*sort_to_a_from_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 /*
 bool		is_finish(int value, int border);
 bool		is_under_b_pivot(int b_pivot, int index);
-t_list		*sort_to_a_from_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 t_list		*sort_first_half(t_sort_info *ranges, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 // bool					is_head_less_than_second(t_bidrect_circle_list *stack);
 bool					is_head_less_than_second(t_dcl_list *stack);

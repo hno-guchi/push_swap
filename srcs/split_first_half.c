@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/23 20:46:32 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:56:49 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,16 @@ t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
 
 	info->a_pivot = calculate_median(info->size);
 	info->b_pivot = calculate_median(info->a_pivot);
-	while (1)
+	// while (1)
+	while (info->pushed != info->a_pivot)
 	{
 		// print_ranges_info(info, 'a');
 		// output_stack(stack_a, stack_b);
 		// if (is_finish(info->pushed, info->a_pivot))
-		if (info->pushed == info->a_pivot)
-		{
-			break ;
-		}
+		// if (info->pushed == info->a_pivot)
+		// {
+		// 	break ;
+		// }
 		if (stack_a->next->index < info->a_pivot)
 		{
 			head_p_log = execute_operation(Push_b, stack_a, stack_b, head_p_log);

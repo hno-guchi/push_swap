@@ -6,48 +6,54 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:55:48 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:19:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static t_list	*sort_n_2_ascending(t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+		, t_dcl_list *stack_b, t_list *log)
 {
 	t_dcl_list	*node;
 
 	node = stack_a->next;
 	if (node->next->index < node->index)
 	{
-		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		log = execute_operation(Swap_a, stack_a, stack_b, log);
 	}
-	return (head_p_log);
+	return (log);
 }
 
 static t_list	*sort_n_3_ascending(t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+		, t_dcl_list *stack_b, t_list *log)
 {
-	t_dcl_list	*node;
-	t_order					order;
+	t_order		order;
 
-	node = stack_a->next;
-	order = compare_3_values(node->index, node->next->index,
-			node->next->next->index);
-	if (order == Min_max_mid || order == Max_mid_min || order == Mid_min_max)
+	order = compare_3_values(stack_a->next->index, stack_a->next->next->index, stack_a->next->next->next->index);
+	if (order == Min_max_mid)
 	{
-		head_p_log = execute_operation(Swap_a, stack_a, stack_b, head_p_log);
+		log = execute_operation(Swap_a, stack_a, stack_b, log);
+		log = execute_operation(Rotate_a, stack_a, stack_b, log);
 	}
-	if (order == Min_max_mid || order == Max_min_mid)
+	else if (order == Mid_min_max)
 	{
-		head_p_log = execute_operation(Rotate_a, stack_a, stack_b, head_p_log);
+		log = execute_operation(Swap_a, stack_a, stack_b, log);
 	}
-	if (order == Max_mid_min || order == Mid_max_min)
+	else if (order == Mid_max_min)
 	{
-		head_p_log = execute_operation(Reverse_rotate_a, stack_a, stack_b,
-				head_p_log);
+		log = execute_operation(Reverse_rotate_a, stack_a, stack_b, log);
 	}
-	return (head_p_log);
+	else if (order == Max_min_mid)
+	{
+		log = execute_operation(Rotate_a, stack_a, stack_b, log);
+	}
+	else if (order == Max_mid_min)
+	{
+		log = execute_operation(Swap_a, stack_a, stack_b, log);
+		log = execute_operation(Reverse_rotate_a, stack_a, stack_b, log);
+	}
+	return (log);
 }
 
 t_list	*sort_n_under_4(int n, t_dcl_list *stack_a
