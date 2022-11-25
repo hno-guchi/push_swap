@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/24 13:38:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/25 16:42:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_list		*execute_operation(t_operation type, t_dcl_list *stack_a,
 			t_dcl_list *stack_b, t_list *head_p_log);
 void		putstr_log(t_list *head_p);
 bool		is_ascending_sorted(t_dcl_list *head_p);
-bool		is_descending_sorted(t_dcl_list *head_p);
+bool		is_descending_sorted(t_dcl_list *head_p, int begin);
 t_order		compare_3_values(int first, int second, int third);
 t_list		*push_swap_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				t_list *head_p_log);

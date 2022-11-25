@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/24 20:22:31 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:19:38 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,15 @@ t_list	*try_sort_check_exist_next(t_sort_info *info, t_dcl_list *stack_a, t_dcl_
 	return (log);
 }
 
-t_list	*try_swap_next_sort(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+/*
+t_list	*try_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	t_dcl_list	*node;
 	int			stack_size;
 
 	node = stack_b->next;
 	stack_size = stack_len(stack_b);
-	if (0 < stack_size)
+	if (1 < stack_size)
 	{
 		if ((info->sorted + 1) == node->next->index)
 		{
@@ -134,6 +135,7 @@ t_list	*try_swap_next_sort(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *s
 	log = execute_operation(Swap_a, stack_a, stack_b, log);
 	return (log);
 }
+*/
 t_list	*sort_section_size_2(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	int		i;
@@ -247,11 +249,6 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 				log = try_sort_check_exist_next(info, stack_a, stack_b, log);
 				continue ;
 			}
-			if (stack_a->next->next->index == info->sorted)
-			{
-				log = try_swap_next_sort(info, stack_a, stack_b, log);
-				continue ;
-			}
 			if (0 < stack_size)
 			{
 				if (stack_b->next->index == info->sorted)
@@ -272,6 +269,38 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 			{
 				log = execute_operation(Rotate_a, stack_a, stack_b, log);
 				continue ;
+			}
+			if ((stack_a->next->index - stack_a->next->next->index) == 1)
+			{
+				if (1 < stack_size)
+				{
+					if ((stack_b->next->index - stack_b->next->next->index) == -1)
+					{
+						log = execute_operation(Swap_s, stack_a, stack_b, log);
+						continue ;
+					}
+				}
+				else
+				{
+					log = execute_operation(Swap_a, stack_a, stack_b, log);
+					continue ;
+				}
+			}
+			if (1 < stack_size)
+			{
+				if ((stack_b->next->index - stack_b->next->next->index) == -1)
+				{
+					if ((stack_a->next->index - stack_a->next->next->index) == 1)
+					{
+						log = execute_operation(Swap_s, stack_a, stack_b, log);
+						continue ;
+					}
+					else
+					{
+						log = execute_operation(Swap_b, stack_a, stack_b, log);
+						continue ;
+					}
+				}
 			}
 			log = execute_operation(Push_b, stack_a, stack_b, log);
 			if (1 < stack_size)
@@ -339,9 +368,10 @@ t_list	*push_swap_over_6(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list
 	set_section_info(&info, stack_a);
 	while(info.sorted != info.a_pivot)
 	{
-		print_sort_info(&info,'a');
+		print_sort_info(&info,'b');
 		log = push_swap_stack_a(&info, stack_a, stack_b, log);
-		log = push_swap_stack_b(&info, stack_a, stack_b, log);
+		// log = push_swap_stack_b(&info, stack_a, stack_b, log);
+		log = sort_to_a_from_b(&info, stack_a, stack_b, log);
 		if (is_complete_sort_section(&info, stack_a))
 		{
 			set_section_info(&info, stack_a);
@@ -350,8 +380,8 @@ t_list	*push_swap_over_6(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list
 		// 	break ;
 		// i += 1;
 	}
-	print_sort_info(&info,'a');
-	output_stack(stack_a, stack_b);
+	// print_sort_info(&info,'a');
+	// output_stack(stack_a, stack_b);
 	return (log);
 }
 
