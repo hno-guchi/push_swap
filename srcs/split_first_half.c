@@ -6,110 +6,172 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/24 15:56:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:25:24 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list	*try_2(t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
+#define HEAD_SORTED 0
+
+// main.c
+t_list	*try_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
+t_list	*try_sort_check_exist_next(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
+bool	is_sort_stack_b(t_sort_info *info, t_dcl_list *stack_b);
+
+bool	is_swap_b(t_sort_info *info, t_dcl_list *stack)
+{
+	if (1 < info->stack_b_size)
+	{
+		if ((stack->next->index - stack->next->next->index) == -1)
+		{
+			return (true);
+		}
+	}
+	return (false);
+}
+
+bool	is_swap_a(t_sort_info *info, t_dcl_list *stack)
+{
+	if ((stack->next->index - stack->next->next->index) == 1)
+	{
+		if (info->b_pivot <= stack->next->index && info->b_pivot <= stack->next->next->index)
+		{
+			return (true);
+		}
+	}
+	return (false);
+}
+
+t_operation	judge_operation_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b)
+{
+	if (is_swap_a(info, stack_a) && is_swap_b(info, stack_b))
+	{
+		return (Swap_s);
+	}
+	else if (is_swap_a(info, stack_a) && !is_swap_b(info, stack_b))
+	{
+		return (Swap_a);
+	}
+	else if (!is_swap_a(info, stack_a) && is_swap_b(info, stack_b))
+	{
+		return (Swap_b);
+	}
+	return (Not);
+}
+
+t_list	*try_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
 {
 	t_operation	operation;
-	t_operation	a;
-	t_operation	b;
 
-	operation = Not;
-	a = Not;
-	b = Not;
-	if ((stack_a->next->index - stack_a->next->next->index) == 1)
-	{
-		a = Swap_a;
-	}
-	if ((stack_b->next->index - stack_b->next->next->index) == -1)
-	{
-		b = Swap_b;
-	}
-	if (a == Swap_a && b == Swap_b)
-	{
-		operation = Swap_s;
-	}
-	else if (a == Swap_a && b != Swap_b)
-	{
-		operation = a;
-	}
-	else if (a != Swap_a && b == Swap_b)
-	{
-		operation = b;
-	}
+	operation = judge_operation_swap(info, stack_a, stack_b);
 	head_p_log = execute_operation(operation, stack_a, stack_b, head_p_log);
 	return (head_p_log);
 }
 
-t_list	*try(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
+static t_list	*try_rotate_under_b_pivot(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	t_operation	operation;
-	t_operation	a;
-	t_operation	b;
 
-	operation = Not;
-	a = Not;
-	b = Not;
+	operation = Rotate_b;
 	if (info->a_pivot <= stack_a->next->index)
-	{
-		a = Rotate_a;
-	}
-	if (1 < info->pushed && stack_b->next->index < info->b_pivot)
-	{
-		b = Rotate_b;
-	}
-	if (a == Rotate_a && b == Rotate_b)
 	{
 		operation = Rotate_r;
 	}
-	else if (a == Rotate_a && b != Rotate_b)
-	{
-		operation = a;
-	}
-	else if (a != Rotate_a && b == Rotate_b)
-	{
-		operation = b;
-	}
-	head_p_log = execute_operation(operation, stack_a, stack_b, head_p_log);
-	return (head_p_log);
+	log = execute_operation(operation, stack_a, stack_b, log);
+	return (log);
 }
 
-t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
+bool	is_under_pivot_b(t_sort_info *info, t_dcl_list *stack)
 {
-	// int	cycle = 0;
+	if (1 < info->stack_b_size)
+	{
+		if (stack->next->index < info->b_pivot)
+		{
+			return (true);
+		}
+	}
+	return (false);
+}
 
-	info->a_pivot = calculate_median(info->size);
-	info->b_pivot = calculate_median(info->a_pivot);
-	// while (1)
-	while (info->pushed != info->a_pivot)
+t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+{
+	int	pushed;
+
+	pushed = 0;
+	// int	i = 0;
+	while (pushed != info->a_pivot)
 	{
 		// print_ranges_info(info, 'a');
 		// output_stack(stack_a, stack_b);
-		// if (is_finish(info->pushed, info->a_pivot))
-		// if (info->pushed == info->a_pivot)
-		// {
-		// 	break ;
-		// }
+		info->stack_b_size = stack_len(stack_b);
+		if (is_swap_a(info, stack_a) || is_swap_b(info, stack_b))
+		{
+			log = try_swap(info, stack_a, stack_b, log);
+			continue ;
+		}
 		if (stack_a->next->index < info->a_pivot)
 		{
-			head_p_log = execute_operation(Push_b, stack_a, stack_b, head_p_log);
-			info->pushed += 1;
+			log = execute_operation(Push_b, stack_a, stack_b, log);
+			pushed += 1;
+			if (is_under_pivot_b(info, stack_b))
+			{
+				log = try_rotate_under_b_pivot(info, stack_a, stack_b, log);
+			}
+			continue ;
 		}
-		head_p_log = try(info, stack_a, stack_b, head_p_log);
-		head_p_log = try_2(stack_a, stack_b, head_p_log);
-		// putstr_log(head_p_log);
+		log = execute_operation(Rotate_a, stack_a, stack_b, log);
+		// putstr_log(log);
 		// output_stack(stack_a, stack_b);
+	}
+	// i += 1;
+	// if (i == 1000)
+	// 	exit(1);
+	return (log);
+}
 
+t_list	*split_second_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+{
+	// int	cycle = 0;
+	info->b_pivot = calculate_median(info->sorted + info->a_pivot);
+	while (stack_a->next->index != HEAD_SORTED)
+	{
+		// print_ranges_info(info, 'a');
+		// output_stack(stack_a, stack_b);
+		info->stack_b_size = stack_len(stack_b);
+		if (stack_a->next->index == info->sorted)
+		{
+			log = try_sort_check_exist_next(info, stack_a, stack_b, log);
+			continue ;
+		}
+		if (is_sort_stack_b(info, stack_b))
+		{
+			log = try_sort_stack_b(info, stack_a, stack_b, log);
+			continue ;
+		}
+		if (stack_a->next->index == (info->sorted + 1))
+		{
+			log = execute_operation(Rotate_a, stack_a, stack_b, log);
+			continue ;
+		}
+		if (is_swap_a(info, stack_a) || is_swap_b(info, stack_b))
+		{
+			log = try_swap(info, stack_a, stack_b, log);
+			continue ;
+		}
+		log = execute_operation(Push_b, stack_a, stack_b, log);
+		if (is_under_pivot_b(info, stack_b))
+		{
+			log = execute_operation(Rotate_b, stack_a, stack_b, log);
+		}
+		// putstr_log(log);
+		// output_stack(stack_a, stack_b);
 	}
 	// cycle += 1;
 	// if (cycle == 1000)
 	// {
 	// 	exit(1);
-		// return (head_p_log);
+		// return (log);
 	// }
-	return (head_p_log);
+	return (log);
 }

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/25 16:42:42 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:10:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_dcl_list {
 typedef struct	s_sort_info {
 	int			size;
 	int			sorted;
-	int			pushed;
+	// int			pushed;
 	// int			begin_idx[100];
 	int			limits[100];
 	// int			now_idx[2];
@@ -89,8 +89,8 @@ typedef struct	s_sort_info {
 	int			a_pivot;
 	int			a_size;
 	int			b_pivot;
-	int			b_size;
-	int			median;
+	int			stack_b_size;
+	// int			median;
 	t_position	position_sort;
 	// int	cycle;
 }	t_sort_info;

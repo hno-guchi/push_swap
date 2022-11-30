@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/25 17:25:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/11/30 20:25:19 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,13 @@ bool	is_target_push_a(t_sort_info *info, int index)
 	return (false);
 }
 
-void	set_ranges_stack_b(t_sort_info *info, t_dcl_list *stack)
+int	search_begin_idx(t_dcl_list *stack)
 {
 	t_dcl_list	*node;
 	int			begin_idx;
-	int			end_idx;
 
 	node = stack->next;
-	begin_idx = node->index;
-	end_idx = node->index;
+	begin_idx = 0;
 	while (node != stack)
 	{
 		if (node->next != stack)
@@ -51,6 +49,23 @@ void	set_ranges_stack_b(t_sort_info *info, t_dcl_list *stack)
 			{
 				begin_idx = node->next->index;
 			}
+		}
+		node = node->next;
+	}
+	return (begin_idx);
+}
+
+int	search_end_idx(t_dcl_list *stack)
+{
+	t_dcl_list	*node;
+	int			end_idx;
+
+	node = stack->next;
+	end_idx = 0;
+	while (node != stack)
+	{
+		if (node->next != stack)
+		{
 			if (end_idx < node->next->index)
 			{
 				end_idx = node->next->index;
@@ -59,9 +74,18 @@ void	set_ranges_stack_b(t_sort_info *info, t_dcl_list *stack)
 		node = node->next;
 	}
 	end_idx += 1;
+	return (end_idx);
+}
+
+void	set_sort_info_stack_b(t_sort_info *info, t_dcl_list *stack)
+{
+	int			begin_idx;
+	int			end_idx;
+
+	begin_idx = search_begin_idx(stack);
+	end_idx = search_end_idx(stack);
 	if (end_idx - begin_idx < 4)
 	{
-		// info->b_pivot = 0;
 		info->b_pivot = info->sorted;
 	}
 	else
@@ -75,11 +99,9 @@ void	set_ranges_stack_b(t_sort_info *info, t_dcl_list *stack)
 t_list	*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	t_dcl_list	*node;
-	int			stack_size;
 
 	node = stack_b->next;
-	stack_size = stack_len(stack_b);
-	if (0 < stack_size)
+	if (0 < info->stack_b_size)
 	{
 		if ((info->sorted + 1) == node->next->index)
 		{
@@ -93,7 +115,7 @@ t_list	*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl
 
 t_list	*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
-	while (stack_a->next->index == info->sorted ||stack_a->next->next->index == info->sorted)
+	while (stack_a->next->index == info->sorted || stack_a->next->next->index == info->sorted)
 	{
 		if (stack_a->next->index == info->sorted)
 		{
@@ -144,12 +166,10 @@ static t_list	*try_swap2(t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 
 bool	is_exist_over_pivot(t_sort_info *info, t_dcl_list *stack)
 {
-	int			stack_size;
 	t_dcl_list	*node;
 
-	stack_size = stack_len(stack);
 	node = stack->next;
-	if (stack_size == 0)
+	if (info->stack_b_size == 0)
 	{
 		return (false);
 	}
@@ -210,21 +230,13 @@ t_list	*all_push_a(t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	// int	i = 0;
-	int	stack_size;
-
-	stack_size = 0;
 	while (is_exist_over_pivot(info, stack_b) && !is_empty_stack_b(stack_b))
 	{
 		// i += 1;
 		// if (i == 1000)
-		// {
-		// 	print_sort_info(info, 'b');
-		// 	output_stack(stack_a, stack_b);
-		// 	putstr_log(log);
 		// 	exit(1);
-		// }
-		stack_size = stack_len(stack_b);
-		if (1 < stack_size)
+		info->stack_b_size = stack_len(stack_b);
+		if (1 < info->stack_b_size)
 		{
 			if (is_descending_sorted(stack_b, info->sorted))
 			{
@@ -242,7 +254,7 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 			log = try_swap_next_sort_stack_b(info, stack_a, stack_b, log);
 			continue ;
 		}
-		if (0 < stack_size)
+		if (0 < info->stack_b_size)
 		{
 			if (stack_b->next->index == info->sorted)
 			{
@@ -250,15 +262,12 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				continue ;
 			}
 		}
-		if (1 < stack_size)
+		if (1 < info->stack_b_size)
 		{
 			if (stack_b->prev->index == info->sorted)
 			{
-				// if (!is_descending_sorted(stack_b, info->sorted))
-				// {
-					log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
-					continue ;
-				// }
+				log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
+				continue ;
 			}
 		}
 		if (stack_a->next->index == (info->sorted + 1))
@@ -269,7 +278,7 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				continue ;
 			}
 		}
-		if (1 < stack_size)
+		if (1 < info->stack_b_size)
 		{
 			if (stack_b->next->index == (info->sorted + 1))
 			{
@@ -277,7 +286,7 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				continue ;
 			}
 		}
-		if (2 < stack_size)
+		if (2 < info->stack_b_size)
 		{
 			if (stack_b->prev->index == (info->sorted + 1))
 			{
@@ -295,7 +304,7 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 		}
 		if (is_target_push_a(info, stack_b->next->index))
 		{
-			if (2 < stack_size)
+			if (2 < info->stack_b_size)
 			{
 				if (is_target_push_a(info, stack_b->prev->index))
 				{
@@ -324,7 +333,9 @@ t_list	*sort_to_a_from_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
 {
 	while (!is_empty_stack_b(stack_b))
 	{
-		set_ranges_stack_b(info, stack_b);
+		set_sort_info_stack_b(info, stack_b);
+		// print_sort_info(info,'b');
+		// output_stack(stack_a, stack_b);
 		log = push_a_half(info, stack_a, stack_b, log);
 	}
 	log = try_sort_until_possible(info, stack_a, stack_b, log);
