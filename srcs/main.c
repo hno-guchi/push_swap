@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/30 20:27:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:40:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ t_list	*split_second_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 
 // initialize_sort_info.c
 void	initialize_sort_info_second(t_sort_info *info);
+
+// sort_to_a_from_b.c
+t_list	*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
 
 bool	is_empty_stack_b(t_dcl_list *stack_b)
 {
@@ -59,6 +62,26 @@ int	get_limit(t_sort_info *info)
 	return (limit);
 }
 
+int	get_next_limit(t_sort_info *info)
+{
+	int	limit;
+
+	limit = get_limit(info);
+	if (limit == -1)
+	{
+		return (-1);
+	}
+	while (limit <= info->sorted)
+	{
+		limit = get_limit(info);
+		if (limit == -1)
+		{
+			return (-1);
+		}
+	}
+	return (limit);
+}
+
 int	calculate_section_size(t_sort_info *info, t_dcl_list *stack)
 {
 	int			section_size;
@@ -68,7 +91,7 @@ int	calculate_section_size(t_sort_info *info, t_dcl_list *stack)
 	node = stack->next;
 	if (node == stack)
 	{
-		return (section_size);
+		return (0);
 	}
 	while (info->sorted <= node->index && node->index < info->limit)
 	{
@@ -82,9 +105,9 @@ int	calculate_section_size(t_sort_info *info, t_dcl_list *stack)
 	return (section_size);
 }
 
-void	set_section_info(t_sort_info *info, t_dcl_list *stack)
+void	set_sort_info_stack_a(t_sort_info *info, t_dcl_list *stack)
 {
-	info->limit = get_limit(info);
+	info->limit = get_next_limit(info);
 	if (info->limit == -1)
 	{
 		return ;
@@ -274,7 +297,8 @@ t_list	*try_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
 
 t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
-	// printf("[0]\n");
+	// int	i = 0;
+	info->section_size = calculate_section_size(info, stack_a);
 	if (info->section_size < SORT_MINIMAM_SIZE)
 	{
 		log = sort_section_size_under_4(info, stack_a, stack_b, log);
@@ -282,8 +306,11 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 	// this_section_push_swap
 	else
 	{
-		while (0 < stack_a->next->index && stack_a->next->index < info->limit)
+		while (info->sorted <= stack_a->next->index && stack_a->next->index < info->limit)
 		{
+			// if (i == 1000)
+			// 	exit(1) ;
+			// i += 1;
 			info->stack_b_size = stack_len(stack_b);
 			if (stack_a->next->index == info->sorted)
 			{
@@ -311,7 +338,6 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 				log = execute_operation(Rotate_b, stack_a, stack_b, log);
 			}
 		}
-	// finish_sort
 	}
 	return (log);
 }
@@ -346,56 +372,51 @@ bool	is_complete_sort_section(t_sort_info *info, t_dcl_list *stack)
 t_list	*push_swap_over_6(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	// int	i = 0;
+	int			pivot;
 	t_sort_info	info;
 
+	pivot = 0;
 	initialize_sort_info(&info, n);
 	log = split_first_half(&info, stack_a, stack_b, log);
-	log = sort_to_a_from_b(&info, stack_a, stack_b, log);
-	set_section_info(&info, stack_a);
-	while(info.sorted != info.a_pivot)
-	{
-	print_sort_info(&info,'a');
-	output_stack(stack_a, stack_b);
-	printf("\n-------------------------------------------------------------------------\n");
-		log = push_swap_stack_a(&info, stack_a, stack_b, log);
-	print_sort_info(&info,'a');
-	output_stack(stack_a, stack_b);
-	printf("\n-------------------------------------------------------------------------\n");
-		log = sort_to_a_from_b(&info, stack_a, stack_b, log);
-	print_sort_info(&info,'b');
-	output_stack(stack_a, stack_b);
-	printf("\n-------------------------------------------------------------------------\n");
-		if (is_complete_sort_section(&info, stack_a))
-		{
-			set_section_info(&info, stack_a);
-		}
-		// if (i == 1000)
-		 // 	break ;
-		// i += 1;
-	}
-	set_section_info(&info, stack_a);
-	print_sort_info(&info,'a');
-	output_stack(stack_a, stack_b);
-	printf("\n-------------------------------------------------------------------------\n");
-	// i = 0;
-	initialize_sort_info_second(&info);
-	log = split_second_half(&info, stack_a, stack_b, log);
-	log = sort_to_a_from_b(&info, stack_a, stack_b, log);
-	set_section_info(&info, stack_a);
+	pivot = info.a_pivot;
+	// print_sort_info(&info,'0');
+	// output_stack(stack_a, stack_b);
 	while(info.sorted != info.size)
 	{
-		log = push_swap_stack_a(&info, stack_a, stack_b, log);
-		log = sort_to_a_from_b(&info, stack_a, stack_b, log);
-		if (is_complete_sort_section(&info, stack_a))
+		if (info.a_pivot <= info.sorted)
 		{
-			set_section_info(&info, stack_a);
+			initialize_sort_info_second(&info);
+			log = split_second_half(&info, stack_a, stack_b, log);
+			pivot = info.size;
 		}
-		// if (i == 1000)
-		// 	break ;
-		// i += 1;
+		while(info.sorted < pivot)
+		{
+			// i += 1;
+			// if (i == 1000)
+			// {
+			// 	print_sort_info(&info,'1');
+			// 	output_stack(stack_a, stack_b);
+			// 	putstr_log(log);
+			// 	exit(1);
+			// }
+			log = push_swap_stack_b(&info, stack_a, stack_b, log);
+		// print_sort_info(&info,'1');
+		// output_stack(stack_a, stack_b);
+			log = try_sort_until_possible(&info, stack_a, stack_b, log);
+		// print_sort_info(&info,'2');
+			if (is_complete_sort_section(&info, stack_a))
+			{
+				set_sort_info_stack_a(&info, stack_a);
+				// print_sort_info(&info,'@');
+				// output_stack(stack_a, stack_b);
+			}
+		// print_sort_info(&info,'3');
+		// output_stack(stack_a, stack_b);
+			log = push_swap_stack_a(&info, stack_a, stack_b, log);
+		// print_sort_info(&info,'4');
+		// output_stack(stack_a, stack_b);
+		}
 	}
-	// print_sort_info(&info,'a');
-	// output_stack(stack_a, stack_b);
 	return (log);
 }
 
@@ -456,7 +477,6 @@ void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b)
 	stack_a = head_p_stack_a->next;
 	stack_b = head_p_stack_b->next;
 	printf(" stack_a    |  stack_b\n");
-	printf("------------------------------------------------------");
 	printf("------------------------------------------------------\n");
 	while (stack_a != head_p_stack_a || stack_b != head_p_stack_b)
 	{
@@ -481,7 +501,6 @@ void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b)
 			stack_b = stack_b->next;
 		}
 	}
-	printf("------------------------------------------------------");
 	printf("------------------------------------------------------\n");
 }
 
@@ -495,6 +514,18 @@ void	print_sort_info(t_sort_info *info, char stack)
 	printf("info->size         : [%4d]\n", info->size);
 	printf("info->sorted       : [%4d]\n", info->sorted);
 	// printf("info->pushed       : [%4d]\n", info->pushed);
+	// printf("info->begin_idxes[]   : ");
+	// i = 0;
+	// while (i < info->position_ary)
+	// {
+	// 	printf("[%d]", info->end_idxes[i]);
+	// 	i += 1;
+	// 	if (i < info->position_ary)
+	// 	{
+	// 		printf("-> ");
+	// 	}
+	// }
+	// printf("\n");
 	printf("info->limits_idx   : [%4d]\n", info->limits_idx);
 	printf("info->limits[]     : ");
 	while (info->limits[i] != 0)
@@ -507,22 +538,9 @@ void	print_sort_info(t_sort_info *info, char stack)
 		}
 	}
 	printf("\n");
-	// printf("info->end_idxes[]   : ");
-	// i = 0;
-	// while (i < info->position_ary)
-	// {
-	// 	printf("[%d]", info->end_idxes[i]);
-	// 	i += 1;
-	// 	if (i < info->position_ary)
-	// 	{
-	// 		printf("-> ");
-	// 	}
-	// }
-	// printf("\n");
 	printf("info->limit        : [%4d]\n", info->limit);
 	printf("info->section_size : [%4d]\n", info->section_size);
 	printf("info->a_pivot      : [%4d]\n", info->a_pivot);
-	printf("info->a_size       : [%4d]\n", info->a_size);
 	printf("info->b_pivot      : [%4d]\n", info->b_pivot);
 	printf("info->stack_b_size : [%4d]\n", info->stack_b_size);
 	// printf("info->median       : [%4d]\n", info->median);

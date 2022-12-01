@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/30 19:25:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:31:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ t_operation	judge_operation_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_l
 	return (Not);
 }
 
-t_list	*try_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log)
+t_list	*try_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	t_operation	operation;
 
 	operation = judge_operation_swap(info, stack_a, stack_b);
-	head_p_log = execute_operation(operation, stack_a, stack_b, head_p_log);
-	return (head_p_log);
+	log = execute_operation(operation, stack_a, stack_b, log);
+	return (log);
 }
 
 static t_list	*try_rotate_under_b_pivot(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
@@ -96,12 +96,15 @@ bool	is_under_pivot_b(t_sort_info *info, t_dcl_list *stack)
 
 t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
+	// int	i = 0;
 	int	pushed;
 
 	pushed = 0;
-	// int	i = 0;
 	while (pushed != info->a_pivot)
 	{
+		// i += 1;
+		// if (i == 1000)
+		// 	exit(1);
 		// print_ranges_info(info, 'a');
 		// output_stack(stack_a, stack_b);
 		info->stack_b_size = stack_len(stack_b);
@@ -124,18 +127,18 @@ t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
 		// putstr_log(log);
 		// output_stack(stack_a, stack_b);
 	}
-	// i += 1;
-	// if (i == 1000)
-	// 	exit(1);
 	return (log);
 }
 
 t_list	*split_second_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
-	// int	cycle = 0;
+	// int	i = 0;
 	info->b_pivot = calculate_median(info->sorted + info->a_pivot);
 	while (stack_a->next->index != HEAD_SORTED)
 	{
+		// i += 1;
+		// if (i == 1000)
+		// 	exit(1);
 		// print_ranges_info(info, 'a');
 		// output_stack(stack_a, stack_b);
 		info->stack_b_size = stack_len(stack_b);
@@ -167,11 +170,5 @@ t_list	*split_second_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 		// putstr_log(log);
 		// output_stack(stack_a, stack_b);
 	}
-	// cycle += 1;
-	// if (cycle == 1000)
-	// {
-	// 	exit(1);
-		// return (log);
-	// }
 	return (log);
 }

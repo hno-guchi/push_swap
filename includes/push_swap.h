@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/30 19:10:22 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:36:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ typedef struct	s_sort_info {
 	int			size;
 	int			sorted;
 	// int			pushed;
-	// int			begin_idx[100];
+	// int			begin_idxes[100];
+	// int			begin_idx;
 	int			limits[100];
+	int			limit;
 	// int			now_idx[2];
 	int			limits_idx;
-	int			limit;
 	int			section_size;
 	int			a_pivot;
-	int			a_size;
 	int			b_pivot;
 	int			stack_b_size;
 	// int			median;
@@ -136,7 +136,7 @@ int			calculate_median(int size);
 void		initialize_sort_info(t_sort_info *info, int stack_size);
 bool		is_empty_stack_b(t_dcl_list *stack_b);
 t_list		*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
-t_list		*sort_to_a_from_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
+t_list		*push_swap_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 /*
 bool		is_finish(int value, int border);
 bool		is_under_b_pivot(int b_pivot, int index);
