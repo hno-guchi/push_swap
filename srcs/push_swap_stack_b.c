@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/01 18:45:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:29:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,7 @@
 
 #include <stdio.h>
 
-// main.c
-void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b);
-void	print_sort_info(t_sort_info *info, char stack);
-bool	is_empty_stack_b(t_dcl_list *stack_b);
-t_list	*try_sort_check_exist_next(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
 t_list	*try_swap_next_sort(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list	*try_sort(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-bool	is_sort_stack_b(t_sort_info *info, t_dcl_list *stack_b);
-t_list	*try_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-
-// split_first_half.c
-bool	is_swap_a(t_dcl_list *stack);
-bool	is_swap_b(t_dcl_list *stack);
-t_list	*try_swap(t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *head_p_log);
 
 bool	is_push_a_next(t_sort_info *info, int index)
 {
@@ -130,24 +117,6 @@ t_list	*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl
 		}
 	}
 	log = execute_operation(Swap_a, stack_a, stack_b, log);
-	return (log);
-}
-
-t_list	*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
-{
-	while (stack_a->next->index == info->sorted || stack_a->next->next->index == info->sorted)
-	{
-		if (stack_a->next->index == info->sorted)
-		{
-			log = try_sort_check_exist_next(info, stack_a, stack_b, log);
-			continue ;
-		}
-		if (stack_a->next->next->index == info->sorted)
-		{
-			log = try_swap_next_sort_stack_b(info, stack_a, stack_b, log);
-			continue ;
-		}
-	}
 	return (log);
 }
 
@@ -336,7 +305,7 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 			log = try_swap_next_sort_stack_b(info, stack_a, stack_b, log);
 			continue ;
 		}
-		if (is_sort_stack_b(info, stack_b))
+		if (is_sort_stack_b_next(info, stack_b->next) || is_sort_stack_b_prev(info, stack_b->prev))
 		{
 			log = try_sort_stack_b(info, stack_a, stack_b, log);
 			continue ;
@@ -346,9 +315,9 @@ t_list	*push_a_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b,
 			log = try_next_sort(info, stack_a, stack_b, log);
 			continue ;
 		}
-		if (is_swap_a(stack_a) || is_swap_b(stack_b))
+		if (is_swap_a(info, stack_a->next) || is_swap_b(info, stack_b->next))
 		{
-			log = try_swap(stack_a, stack_b, log);
+			log = try_swap(info, stack_a, stack_b, log);
 			continue ;
 		}
 		if (is_push_a_next(info, stack_b->next->index) || is_push_a_prev(info, stack_b->prev->index))

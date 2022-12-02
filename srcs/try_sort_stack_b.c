@@ -1,54 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_func.c                                          :+:      :+:    :+:   */
+/*   try_sort_stack_b.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/23 13:41:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:11:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-// both
-bool	is_head_less_than_second(t_dcl_list *stack)
+t_list	*try_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a,
+		t_dcl_list *stack_b, t_list *log)
 {
-	return (stack->next->index < stack->next->next->index);
-}
-
-bool	is_head_less_than_tail(t_dcl_list *stack)
-{
-	return (stack->next->index < stack->prev->index);
-}
-
-/*
-bool	is_n_descending_sort(t_bidrect_circle_list *stack, int n)
-{
-	int	i;
-
-	i = 1;
-	while (i < n)
+	if (0 < info->stack_b_size)
 	{
-		if (stack->index != (stack->next->index + 1))
+		if (stack_b->next->index == info->sorted)
 		{
-			return (false);
+			log = execute_operation(Push_a, stack_a, stack_b, log);
+			return (log);
 		}
-		i += 1;
-		stack = stack->next;
 	}
-	return (stack->index == (stack->next->index + 1));
-}
-*/
-
-// stack_a
-bool	is_sorted_head(int sorted, int index)
-{
-	if (sorted != 0 && index != 0)
+	if (1 < info->stack_b_size)
 	{
-		return (false);
+		if (stack_b->prev->index == info->sorted)
+		{
+			log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
+			return (log);
+		}
 	}
-	return (true);
+	return (log);
 }

@@ -13,15 +13,14 @@ SRCS = main.c \
 	   quick_sort.c \
 	   is_ascending_sorted.c is_descending_sorted.c compare_3_values.c \
 	   push_swap_under_7.c sort_n_under_4.c sort_n_under_4_descending.c sort_n_under_7.c \
-	   calculate_median.c initialize_sort_info.c \
-	   split_first_half.c push_swap_stack_b.c 
-
-#sort_first_half.c \
-#	   is_func.c
-# try_swap.c try_rotate.c try_reverse_rotate.c try_sort.c
-# search_sentinel.c
-# create_log_node.c add_back_list_log_node.c log_list_clear.c
-# quick_sort_utils_1.c quick_sort_utils_2.c
+	   calculate_median.c calculate_section_size.c \
+	   initialize_array.c initialize_sort_info_first_half.c initialize_sort_info_second_half.c \
+	   is_under_b_pivot.c \
+	   is_sort_stack_b_prev.c is_sort_stack_b_next.c \
+	   split_first_half.c split_second_half.c push_swap_stack_b.c push_swap_stack_a.c \
+	   sort_section_size_under_4.c \
+	   try_swap.c \
+	   try_sort.c try_sort_until_possible.c try_sort_stack_b.c try_sort_check_exist_next.c
 
 INCLUDES_DIR = ./includes
 SRCS_DIR = ./srcs

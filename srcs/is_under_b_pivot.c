@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_sort.c                                         :+:      :+:    :+:   */
+/*   is_under_b_pivot.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 12:21:16 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:04:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "push_swap.h"
 
-t_list	*try_sort(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+bool	is_under_b_pivot(t_sort_info *info, t_dcl_list *node)
 {
-	t_dcl_list *node;
-
-	node = stack_a->next;
-	if (info->sorted == node->index)
+	if (1 < info->stack_b_size)
 	{
-		log = execute_operation(Rotate_a, stack_a, stack_b, log);
-		info->sorted += 1;
+		if (node->index < info->b_pivot)
+		{
+			return (true);
+		}
 	}
-	return (log);
+	return (false);
 }
