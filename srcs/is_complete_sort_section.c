@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_sort_info_second_half.c                 :+:      :+:    :+:   */
+/*   is_complete_sort_section.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 14:00:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:14:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	initialize_sort_info_second_half(t_sort_info *info)
+bool	is_complete_sort_section(t_sort_info *info, t_dcl_list *stack)
 {
-	initialize_array(ARRAY_SIZE, info->limits);
-	info->limits_idx = 0;
-	info->limit = 0;
-	info->section_size = 0;
-	info->b_pivot = 0;
-	info->stack_b_size = 0;
-	// info->position_sort = Not_position;
+	int			count;
+	t_dcl_list	*node;
+
+	count = 0;
+	node = stack->next;
+	if (stack == node)
+	{
+		return (true);
+	}
+	while (node->index < info->limit)
+	{
+		if (node->index == 0)
+		{
+			break ;
+		}
+		count += 1;
+		node = node->next;
+	}
+	if (count == 0)
+	{
+		return (true);
+	}
+	return (false);
 }

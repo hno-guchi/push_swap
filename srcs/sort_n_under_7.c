@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/25 16:39:51 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:55:49 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static t_list	*push_b_n_times(int n, t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+		, t_dcl_list *stack_b, t_list *log)
 {
 	int						i;
 	t_dcl_list	*node;
@@ -24,21 +24,21 @@ static t_list	*push_b_n_times(int n, t_dcl_list *stack_a
 		node = stack_a->next;
 		if (node->index < n)
 		{
-			head_p_log = execute_operation(Push_b, stack_a, stack_b,
-					head_p_log);
+			log = execute_operation(Push_b, stack_a, stack_b,
+					log);
 			i += 1;
 		}
 		else
 		{
-			head_p_log = execute_operation(Rotate_a, stack_a, stack_b,
-					head_p_log);
+			log = execute_operation(Rotate_a, stack_a, stack_b,
+					log);
 		}
 	}
-	return (head_p_log);
+	return (log);
 }
 
 static t_list	*push_a_and_swap_a(t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+		, t_dcl_list *stack_b, t_list *log)
 {
 	t_dcl_list	*node_a;
 	t_dcl_list	*node_b;
@@ -47,16 +47,16 @@ static t_list	*push_a_and_swap_a(t_dcl_list *stack_a
 	node_b = stack_b->next;
 	while (node_b != stack_b)
 	{
-		head_p_log = execute_operation(Push_a, stack_a, stack_b, head_p_log);
+		log = execute_operation(Push_a, stack_a, stack_b, log);
 		node_a = stack_a->next;
 		if (node_a->next->index < node_a->index)
 		{
-			head_p_log = execute_operation(Swap_a, stack_a, stack_b,
-					head_p_log);
+			log = execute_operation(Swap_a, stack_a, stack_b,
+					log);
 		}
 		node_b = stack_b->next;
 	}
-	return (head_p_log);
+	return (log);
 }
 
 t_list	*sort_n_under_7(int n, t_dcl_list *stack_a

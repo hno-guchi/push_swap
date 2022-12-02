@@ -6,13 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 12:06:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:01:54 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list	*try_rotate_under_b_pivot(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+static t_list	*try_rotate_under_b_pivot(t_sort_info *info
+		, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	t_operation	operation;
 
@@ -25,19 +26,14 @@ static t_list	*try_rotate_under_b_pivot(t_sort_info *info, t_dcl_list *stack_a, 
 	return (log);
 }
 
-t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
 {
-	// int	i = 0;
 	int	pushed;
 
 	pushed = 0;
 	while (pushed != info->a_pivot)
 	{
-		// i += 1;
-		// if (i == 1000)
-		// 	exit(1);
-		// print_ranges_info(info, 'a');
-		// output_stack(stack_a, stack_b);
 		info->stack_b_size = stack_len(stack_b);
 		if (is_swap_a(info, stack_a->next) || is_swap_b(info, stack_b->next))
 		{
@@ -55,8 +51,6 @@ t_list	*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *sta
 			continue ;
 		}
 		log = execute_operation(Rotate_a, stack_a, stack_b, log);
-		// putstr_log(log);
-		// output_stack(stack_a, stack_b);
 	}
 	return (log);
 }

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 11:59:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:46:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,94 +14,17 @@
 #include "ft_printf.h"
 #include "push_swap.h"
 
-#include <stdio.h>
-
-void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b);
-void	print_sort_info(t_sort_info *info, char stack);
-
-bool	is_empty_stack_b(t_dcl_list *stack_b)
+t_list	*push_swap_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
-	t_dcl_list	*node;
-
-	node = stack_b->next;
-	if (node == stack_b)
+	if (n < 4)
 	{
-		return (true);
+		log = sort_n_under_4(n, stack_a, stack_b, log);
 	}
-	return (false);
-}
-
-int	get_limit(t_sort_info *info)
-{
-	int	limit;
-
-	limit = 0;
-	if (info->limits_idx <= 0)
+	else
 	{
-		return (-1);
+		log = sort_n_under_7(n, stack_a, stack_b, log);
 	}
-	info->limits_idx -= 1;
-	limit = info->limits[info->limits_idx];
-	info->limits[info->limits_idx] = 0;
-	return (limit);
-}
-
-int	get_next_limit(t_sort_info *info)
-{
-	int	limit;
-
-	limit = get_limit(info);
-	if (limit == -1)
-	{
-		return (-1);
-	}
-	while (limit <= info->sorted)
-	{
-		limit = get_limit(info);
-		if (limit == -1)
-		{
-			return (-1);
-		}
-	}
-	return (limit);
-}
-
-void	set_sort_info_next_section(t_sort_info *info, t_dcl_list *stack)
-{
-	info->limit = get_next_limit(info);
-	if (info->limit == -1)
-	{
-		return ;
-	}
-	info->section_size = calculate_section_size(info, stack);
-	info->b_pivot = calculate_median(info->sorted + info->limit);
-}
-
-bool	is_complete_sort_section(t_sort_info *info, t_dcl_list *stack)
-{
-	int			count;
-	t_dcl_list	*node;
-
-	count = 0;
-	node = stack->next;
-	if (stack == node)
-	{
-		return (true);
-	}
-	while (node->index < info->limit)
-	{
-		if (node->index == 0)
-		{
-			break ;
-		}
-		count += 1;
-		node = node->next;
-	}
-	if (count == 0)
-	{
-		return (true);
-	}
-	return (false);
+	return (log);
 }
 
 t_list	*push_swap_over_6(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
@@ -197,88 +120,3 @@ int	main(int argc, char **argv)
 	// system("leaks -q push_swap");
 	return (0);
 }
-
-void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b)
-{
-	// int	size_a;
-	// int	i;
-	// int	size_b;
-	t_dcl_list	*stack_a;
-	t_dcl_list	*stack_b;
-
-	// size_a = stack_len(stack_a);
-	// size_b = stack_len(stack_b);
-	// i = 0;
-	stack_a = head_p_stack_a->next;
-	stack_b = head_p_stack_b->next;
-	printf(" stack_a    |  stack_b\n");
-	printf("------------------------------------------------------\n");
-	while (stack_a != head_p_stack_a || stack_b != head_p_stack_b)
-	{
-		if (stack_a == head_p_stack_a)
-		{
-			printf("         |   [%3d]\n", stack_b->index);
-		}
-		else if (stack_b == head_p_stack_b)
-		{
-			printf(" [%3d]   |\n", stack_a->index);
-		}
-		else
-		{
-			printf(" [%3d]   |   [%3d]\n", stack_a->index, stack_b->index);
-		}
-		if (stack_a != head_p_stack_a)
-		{
-			stack_a = stack_a->next;
-		}
-		if (stack_b != head_p_stack_b)
-		{
-			stack_b = stack_b->next;
-		}
-	}
-	printf("------------------------------------------------------\n");
-}
-
-void	print_sort_info(t_sort_info *info, char stack)
-{
-	int	i = 0;
-
-	// printf("Cycle [%d] : stack [%c] info\n", info->cycle, stack);
-	printf("stack [%c] info\n", stack);
-	printf("-----------------------------------\n");
-	printf("info->size         : [%4d]\n", info->size);
-	printf("info->sorted       : [%4d]\n", info->sorted);
-	// printf("info->pushed       : [%4d]\n", info->pushed);
-	// printf("info->begin_idxes[]   : ");
-	// i = 0;
-	// while (i < info->position_ary)
-	// {
-	// 	printf("[%d]", info->end_idxes[i]);
-	// 	i += 1;
-	// 	if (i < info->position_ary)
-	// 	{
-	// 		printf("-> ");
-	// 	}
-	// }
-	// printf("\n");
-	printf("info->limits_idx   : [%4d]\n", info->limits_idx);
-	printf("info->limits[]     : ");
-	while (info->limits[i] != 0)
-	{
-		printf("[%d]", info->limits[i]);
-		i += 1;
-		if (i < info->limits[i] != 0)
-		{
-			printf("-> ");
-		}
-	}
-	printf("\n");
-	printf("info->limit        : [%4d]\n", info->limit);
-	printf("info->section_size : [%4d]\n", info->section_size);
-	printf("info->a_pivot      : [%4d]\n", info->a_pivot);
-	printf("info->b_pivot      : [%4d]\n", info->b_pivot);
-	printf("info->stack_b_size : [%4d]\n", info->stack_b_size);
-	// printf("info->median       : [%4d]\n", info->median);
-	printf("-----------------------------------\n");
-}
-

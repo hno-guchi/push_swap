@@ -6,12 +6,49 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 12:24:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:27:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
+
+bool	is_descending_sorted_until_x(t_dcl_list *head_p)
+{
+	int			count;
+	t_dcl_list	*node;
+
+	count = 0;
+	node = head_p->next;
+	while (node->next != head_p)
+	{
+		if ((node->index - node->next->index) != 1)
+		{
+			break ;
+		}
+		count += 1;
+		node = node->next;
+	}
+	if (0 < count)
+	{
+		return (true);
+	}
+	return (false);
+}
+
+static t_list	*try_rotate_b_check_descending_sorted(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+{
+	if (info->stack_b_size < 1)
+	{
+		return (log);
+	}
+	if (is_descending_sorted_until_x(stack_b))
+	{
+		return (log);
+	}
+	log = execute_operation(Rotate_b, stack_a, stack_b, log);
+	return (log);
+}
 
 static t_list	*try_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
@@ -84,7 +121,7 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 			log = execute_operation(Push_b, stack_a, stack_b, log);
 			if (is_under_b_pivot(info, stack_b->next))
 			{
-				log = execute_operation(Rotate_b, stack_a, stack_b, log);
+				log = try_rotate_b_check_descending_sorted(info, stack_a, stack_b, log);
 			}
 		}
 	}

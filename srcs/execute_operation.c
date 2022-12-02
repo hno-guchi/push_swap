@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:40:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:54:05 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,14 @@ static t_list	*execute_swap(t_operation type
 	return (NULL);
 }
 
-t_list	*execute_operation(t_operation type
-		, t_dcl_list *stack_a, t_dcl_list *stack_b
-		, t_list *head_p_log)
+t_list	*execute_operation(t_operation type, t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
 {
 	t_list	*node;
 
 	node = NULL;
 	if (type == Not)
-		return (head_p_log);
+		return (log);
 	else if (type == Swap_a || type == Swap_b || type == Swap_s)
 	{
 		node = execute_swap(type, stack_a, stack_b);
@@ -107,8 +106,8 @@ t_list	*execute_operation(t_operation type
 	{
 		node = execute_reverse_rotate(type, stack_a, stack_b);
 	}
-	ft_lstadd_back(&head_p_log, node);
-	return (head_p_log);
+	ft_lstadd_back(&log, node);
+	return (log);
 }
 
 /*

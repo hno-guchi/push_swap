@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_under_7.c                                :+:      :+:    :+:   */
+/*   try_swap_next_sort_stack_b.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/25 16:36:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:50:38 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
 
-t_list	*push_swap_under_7(int n, t_dcl_list *stack_a
-	, t_dcl_list *stack_b, t_list *head_p_log)
+t_list	*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
-	if (n < 4)
+	t_dcl_list	*node;
+
+	node = stack_b->next;
+	if (0 < info->stack_b_size)
 	{
-		head_p_log = sort_n_under_4(n, stack_a, stack_b, head_p_log);
+		if ((info->sorted + 1) == node->next->index)
+		{
+			log = execute_operation(Swap_s, stack_a, stack_b, log);
+			return (log);
+		}
 	}
-	else
-	{
-		head_p_log = sort_n_under_7(n, stack_a, stack_b, head_p_log);
-	}
-	return (head_p_log);
+	log = execute_operation(Swap_a, stack_a, stack_b, log);
+	return (log);
 }

@@ -6,17 +6,24 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 12:29:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/02 17:18:17 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_printf.h"
 #include "push_swap.h"
 
-#include <stdio.h>
+static bool	is_empty_stack_b(t_dcl_list *stack_b)
+{
+	t_dcl_list	*node;
 
-t_list	*try_swap_next_sort(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
+	node = stack_b->next;
+	if (node == stack_b)
+	{
+		return (true);
+	}
+	return (false);
+}
 
 bool	is_push_a_next(t_sort_info *info, int index)
 {
@@ -103,23 +110,6 @@ void	set_sort_info_stack_b(t_sort_info *info, t_dcl_list *stack)
 	info->stack_b_size = stack_len(stack);
 }
 
-t_list	*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
-{
-	t_dcl_list	*node;
-
-	node = stack_b->next;
-	if (0 < info->stack_b_size)
-	{
-		if ((info->sorted + 1) == node->next->index)
-		{
-			log = execute_operation(Swap_s, stack_a, stack_b, log);
-			return (log);
-		}
-	}
-	log = execute_operation(Swap_a, stack_a, stack_b, log);
-	return (log);
-}
-
 bool	is_exist_push_a(t_sort_info *info, t_dcl_list *stack)
 {
 	t_dcl_list	*node;
@@ -176,12 +166,8 @@ bool	is_exist_sort(int sorted, t_dcl_list *stack)
 
 t_list	*all_push_a(t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
-	int	i = 0;
 	while (!is_empty_stack_b(stack_b))
 	{
-		i += 1;
-		if (i == 1000)
-			exit(1);
 		log = execute_operation(Push_a, stack_a, stack_b, log);
 	}
 	return (log);
@@ -268,6 +254,7 @@ t_list	*try_push_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, 
 			if (stack_b->next->index < stack_b->prev->index)
 			{
 	 			log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
+				return (log);
 			}
 		}
 		log = execute_operation(Push_a, stack_a, stack_b, log);
