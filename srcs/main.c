@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 14:46:46 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 09:33:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "ft_printf.h"
 #include "push_swap.h"
 
-t_list	*push_swap_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+t_list	*push_swap_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
 {
 	if (n < 4)
 	{
@@ -27,52 +28,30 @@ t_list	*push_swap_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_lis
 	return (log);
 }
 
-t_list	*push_swap_over_6(int n, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+t_list	*push_swap_over_6(int n, t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
 {
-	// int	i = 0;
-	int			pivot;
 	t_sort_info	info;
 
-	pivot = 0;
 	initialize_sort_info_first_half(&info, n);
 	log = split_first_half(&info, stack_a, stack_b, log);
-	pivot = info.a_pivot;
-	// print_sort_info(&info,'0');
-	// output_stack(stack_a, stack_b);
-	while(info.sorted != info.size)
+	while (info.sorted != info.size)
 	{
 		if (info.a_pivot <= info.sorted)
 		{
 			initialize_sort_info_second_half(&info);
 			log = split_second_half(&info, stack_a, stack_b, log);
-			pivot = info.size;
+			info.a_pivot = info.size;
 		}
-		while(info.sorted < pivot)
+		while (info.sorted < info.a_pivot)
 		{
-			// i += 1;
-			// if (i == 1000)
-			// {
-			// 	print_sort_info(&info,'1');
-			// 	output_stack(stack_a, stack_b);
-			// 	putstr_log(log);
-			// 	exit(1);
-			// }
 			log = push_swap_stack_b(&info, stack_a, stack_b, log);
-		// print_sort_info(&info,'1');
-		// output_stack(stack_a, stack_b);
 			log = try_sort_until_possible(&info, stack_a, stack_b, log);
-		// print_sort_info(&info,'2');
 			if (is_complete_sort_section(&info, stack_a))
 			{
 				set_sort_info_next_section(&info, stack_a);
-				// print_sort_info(&info,'@');
-				// output_stack(stack_a, stack_b);
 			}
-		// print_sort_info(&info,'3');
-		// output_stack(stack_a, stack_b);
 			log = push_swap_stack_a(&info, stack_a, stack_b, log);
-		// print_sort_info(&info,'4');
-		// output_stack(stack_a, stack_b);
 		}
 	}
 	return (log);

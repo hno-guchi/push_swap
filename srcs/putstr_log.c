@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/11 18:14:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:18:57 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,55 +107,3 @@ int	main(void)
 	return (0);
 }
 */
-/*
-		if (list_log->next != NULL)
-		{
-			if (!ft_strncmp((char *)list_log->content, "sa", 2) && !ft_strncmp((char *)list_log->next->content, "sb", 2))
-			{
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-				list_log = list_log->next;
-				count += 1;
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-			}
-			else if (!ft_strncmp((char *)list_log->content, "sb", 2) && !ft_strncmp((char *)list_log->next->content, "sa", 2))
-			{
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-				list_log = list_log->next;
-				count += 1;
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-			}
-			else if (!ft_strncmp((char *)list_log->content, "ra", 2) && !ft_strncmp((char *)list_log->next->content, "rb", 2))
-			{
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-				list_log = list_log->next;
-				count += 1;
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-			}
-			else if (!ft_strncmp((char *)list_log->content, "rb", 2) && !ft_strncmp((char *)list_log->next->content, "ra", 2))
-			{
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-				list_log = list_log->next;
-				count += 1;
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-			}
-			else if (!ft_strncmp((char *)list_log->content, "rra", 3) && !ft_strncmp((char *)list_log->next->content, "rrb", 3))
-			{
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-				list_log = list_log->next;
-				count += 1;
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-			}
-			else if (!ft_strncmp((char *)list_log->content, "rrb", 3) && !ft_strncmp((char *)list_log->next->content, "rra", 3))
-			{
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-				list_log = list_log->next;
-				count += 1;
-				ft_printf(RED"%3s "END, (char *)list_log->content);
-			}
-			else
-			{
-				ft_printf("%3s ", (char *)list_log->content);
-			}
-		}
-		*/
-

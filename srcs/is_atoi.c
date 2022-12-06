@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/10 15:24:10 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 09:33:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ bool	is_atoi(const char *str)
 		}
 		i += 1;
 	}
-	
 	return (is_change_format(&str[i], sign));
 }
 

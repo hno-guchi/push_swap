@@ -6,14 +6,15 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 13:48:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 09:22:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-static t_list	*try_reverse_rotate_check_exist_next(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+static t_list	*try_reverse_rotate_check_exist_next(t_sort_info *info
+		, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	t_dcl_list	*node;
 	int			stack_size;
@@ -32,7 +33,8 @@ static t_list	*try_reverse_rotate_check_exist_next(t_sort_info *info, t_dcl_list
 	return (log);
 }
 
-t_list	*try_sort_check_exist_next(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+t_list	*try_sort_check_exist_next(t_sort_info *info, t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
 {
 	t_dcl_list	*node;
 

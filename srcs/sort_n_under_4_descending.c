@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/24 12:28:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:14:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,32 @@ static t_list	*sort_n_2_descending(t_dcl_list *stack_a
 	return (log);
 }
 
+static t_list	*sort_descending_min_mid_max(t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
+{
+	log = execute_operation(Swap_b, stack_a, stack_b, log);
+	log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
+	return (log);
+}
+
+static t_list	*sort_descending_max_min_mid(t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
+{
+	log = execute_operation(Swap_b, stack_a, stack_b, log);
+	log = execute_operation(Rotate_b, stack_a, stack_b, log);
+	return (log);
+}
+
 static t_list	*sort_n_3_descending(t_dcl_list *stack_a
 		, t_dcl_list *stack_b, t_list *log)
 {
-	t_dcl_list	*node;
 	t_order		order;
 
-	node = stack_b->next;
-	order = compare_3_values(node->index, node->next->index,
-			node->next->next->index);
+	order = compare_3_values(stack_b->next->index, stack_b->next->next->index,
+			stack_b->next->next->next->index);
 	if (order == Min_mid_max)
 	{
-		log = execute_operation(Swap_b, stack_a, stack_b, log);
-		log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
+		log = sort_descending_min_mid_max(stack_a, stack_b, log);
 	}
 	else if (order == Min_max_mid)
 	{
@@ -53,8 +66,7 @@ static t_list	*sort_n_3_descending(t_dcl_list *stack_a
 	}
 	else if (order == Max_min_mid)
 	{
-		log = execute_operation(Swap_b, stack_a, stack_b, log);
-		log = execute_operation(Rotate_b, stack_a, stack_b, log);
+		log = sort_descending_max_min_mid(stack_a, stack_b, log);
 	}
 	return (log);
 }

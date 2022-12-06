@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 16:27:25 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:55:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ static bool	is_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_l
 
 t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
-	// int	i = 0;
 	info->section_size = calculate_section_size(info, stack_a);
 	if (info->section_size < SORT_MINIMAM_SIZE)
 	{
@@ -110,9 +109,6 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 	{
 		while (info->sorted <= stack_a->next->index && stack_a->next->index < info->limit)
 		{
-			// if (i == 1000)
-			// 	exit(1) ;
-			// i += 1;
 			if (is_prepare_push_swap(info, stack_a, stack_b))
 			{
 				log = try_prepare_push_swap(info, stack_a, stack_b, log);

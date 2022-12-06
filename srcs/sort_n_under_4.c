@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/24 12:19:46 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:18:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list	*sort_n_2_ascending(t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *log)
+static t_list	*sort_n_2_ascending(t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
 {
 	t_dcl_list	*node;
 
@@ -25,16 +25,32 @@ static t_list	*sort_n_2_ascending(t_dcl_list *stack_a
 	return (log);
 }
 
-static t_list	*sort_n_3_ascending(t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *log)
+static t_list	*sort_max_mid_min(t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
+{
+	log = execute_operation(Swap_a, stack_a, stack_b, log);
+	log = execute_operation(Reverse_rotate_a, stack_a, stack_b, log);
+	return (log);
+}
+
+static t_list	*sort_min_max_mid(t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
+{
+	log = execute_operation(Swap_a, stack_a, stack_b, log);
+	log = execute_operation(Rotate_a, stack_a, stack_b, log);
+	return (log);
+}
+
+static t_list	*sort_n_3_ascending(t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
 {
 	t_order		order;
 
-	order = compare_3_values(stack_a->next->index, stack_a->next->next->index, stack_a->next->next->next->index);
+	order = compare_3_values(stack_a->next->index, stack_a->next->next->index,
+			stack_a->next->next->next->index);
 	if (order == Min_max_mid)
 	{
-		log = execute_operation(Swap_a, stack_a, stack_b, log);
-		log = execute_operation(Rotate_a, stack_a, stack_b, log);
+		log = sort_min_max_mid(stack_a, stack_b, log);
 	}
 	else if (order == Mid_min_max)
 	{
@@ -50,24 +66,23 @@ static t_list	*sort_n_3_ascending(t_dcl_list *stack_a
 	}
 	else if (order == Max_mid_min)
 	{
-		log = execute_operation(Swap_a, stack_a, stack_b, log);
-		log = execute_operation(Reverse_rotate_a, stack_a, stack_b, log);
+		log = sort_max_mid_min(stack_a, stack_b, log);
 	}
 	return (log);
 }
 
-t_list	*sort_n_under_4(int n, t_dcl_list *stack_a
-		, t_dcl_list *stack_b, t_list *head_p_log)
+t_list	*sort_n_under_4(int n, t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
 {
 	if (n == 2)
 	{
-		head_p_log = sort_n_2_ascending(stack_a, stack_b, head_p_log);
+		log = sort_n_2_ascending(stack_a, stack_b, log);
 	}
 	else if (n == 3)
 	{
-		head_p_log = sort_n_3_ascending(stack_a, stack_b, head_p_log);
+		log = sort_n_3_ascending(stack_a, stack_b, log);
 	}
-	return (head_p_log);
+	return (log);
 }
 
 /*

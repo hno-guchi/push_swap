@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 17:48:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:16:35 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ bool	is_exist_sorted_over_2(t_sort_info *info, t_dcl_list *stack)
 	return (false);
 }
 
-static t_list	*try_sort_check_over_2(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+static t_list	*try_sort_check_over_2(t_sort_info *info, t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
 {
 	if (is_exist_sorted_over_2(info, stack_a->next))
 	{
@@ -54,9 +55,11 @@ static t_list	*try_sort_check_over_2(t_sort_info *info, t_dcl_list *stack_a, t_d
 	return (log);
 }
 
-t_list	*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+t_list	*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
 {
-	while (stack_a->next->index == info->sorted || stack_a->next->next->index == info->sorted)
+	while (stack_a->next->index == info->sorted
+		|| stack_a->next->next->index == info->sorted)
 	{
 		if (stack_a->next->index == info->sorted)
 		{
@@ -66,7 +69,6 @@ t_list	*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a, t_dcl_li
 		if (stack_a->next->next->index == info->sorted)
 		{
 			log = try_sort_check_over_2(info, stack_a, stack_b, log);
-			// log = try_swap_next_sort_stack_b(info, stack_a, stack_b, log);
 			continue ;
 		}
 	}

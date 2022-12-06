@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 14:55:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 09:20:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_list	*push_b_n_times(int n, t_dcl_list *stack_a
 		, t_dcl_list *stack_b, t_list *log)
 {
-	int						i;
+	int			i;
 	t_dcl_list	*node;
 
 	i = 0;
