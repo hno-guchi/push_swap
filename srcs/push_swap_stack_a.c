@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/06 14:31:50 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:58:34 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ bool	is_descending_sorted_until_x(t_dcl_list *head_p)
 	return (false);
 }
 
-static t_list	*try_rotate_b_check_descending_sorted(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+static t_list	*try_rotate_b_check_descending_sorted(t_sort_info *info
+		, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
 {
 	if (info->stack_b_size < 1)
 	{
@@ -50,7 +51,8 @@ static t_list	*try_rotate_b_check_descending_sorted(t_sort_info *info, t_dcl_lis
 	return (log);
 }
 
-static t_list	*try_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+static t_list	*try_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
 {
 	info->stack_b_size = stack_len(stack_b);
 	if (stack_a->next->index == info->sorted)
@@ -76,7 +78,8 @@ static t_list	*try_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a, t_d
 	return (log);
 }
 
-static bool	is_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b)
+static bool	is_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a
+		, t_dcl_list *stack_b)
 {
 	info->stack_b_size = stack_len(stack_b);
 	if (stack_a->next->index == info->sorted)
@@ -98,7 +101,8 @@ static bool	is_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_l
 	return (false);
 }
 
-t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log)
+t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a
+		, t_dcl_list *stack_b, t_list *log)
 {
 	info->section_size = calculate_section_size(info, stack_a);
 	if (info->section_size < SORT_MINIMAM_SIZE)
@@ -107,7 +111,8 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 	}
 	else
 	{
-		while (info->sorted <= stack_a->next->index && stack_a->next->index < info->limit)
+		while (info->sorted <= stack_a->next->index
+			&& stack_a->next->index < info->limit)
 		{
 			if (is_prepare_push_swap(info, stack_a, stack_b))
 			{
@@ -117,7 +122,8 @@ t_list	*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *st
 			log = execute_operation(Push_b, stack_a, stack_b, log);
 			if (is_under_b_pivot(info, stack_b->next))
 			{
-				log = try_rotate_b_check_descending_sorted(info, stack_a, stack_b, log);
+				log = try_rotate_b_check_descending_sorted(info, stack_a,
+						stack_b, log);
 			}
 		}
 	}

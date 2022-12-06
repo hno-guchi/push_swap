@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/06 14:57:45 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 18:11:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_dcl_list {
 	struct s_dcl_list	*next;
 }	t_dcl_list;
 
-typedef struct	s_sort_info {
+typedef struct s_sort_info {
 	int			size;
 	int			sorted;
 	int			limits[ARRAY_SIZE];
@@ -106,7 +106,7 @@ char		*reverse_rotate_a(t_dcl_list *stack_a);
 char		*reverse_rotate_b(t_dcl_list *stack_b);
 char		*reverse_rotate_r(t_dcl_list *stack_a, t_dcl_list *stack_b);
 t_list		*execute_operation(t_operation type, t_dcl_list *stack_a,
-			t_dcl_list *stack_b, t_list *log);
+				t_dcl_list *stack_b, t_list *log);
 void		putstr_log(t_list *head_p);
 bool		is_ascending_sorted(t_dcl_list *head_p);
 bool		is_descending_sorted(t_dcl_list *head_p, int begin);
@@ -115,8 +115,8 @@ t_list		*sort_n_under_4(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				t_list *log);
 t_list		*sort_n_under_7(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
 				t_list *log);
-t_list		*sort_n_under_4_descending(int n, t_dcl_list *stack_a, t_dcl_list *stack_b,
-				t_list *log);
+t_list		*sort_n_under_4_descending(int n, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
 int			calculate_median(int size);
 int			calculate_section_size(t_sort_info *info, t_dcl_list *stack);
 void		initialize_array(int array_size, int *array);
@@ -127,31 +127,59 @@ void		set_sort_info_stack_b(t_sort_info *info, t_dcl_list *stack);
 bool		is_empty_stack_b(t_dcl_list *stack_b);
 bool		is_sort_stack_b(t_sort_info *info, t_dcl_list *stack);
 bool		is_exist_sort(int sorted, t_dcl_list *stack);
+bool		is_exist_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack);
 bool		is_exist_next_sort(t_sort_info *info, t_dcl_list *stack_a,
 				t_dcl_list *stack_b);
-bool		is_exist_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack);
-t_list		*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*split_second_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*push_swap_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_min_max_mid(t_sort_info *info, t_dcl_list *stack_a,t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_mid_min_max(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_mid_max_min(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_max_min_mid(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_max_mid_min(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*sort_section_size_under_4(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
+t_list		*split_first_half(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*split_second_half(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*push_swap_stack_b(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_min_max_mid(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_mid_min_max(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_mid_max_min(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_max_min_mid(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_max_mid_min(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*sort_section_size_under_4(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
 bool		is_under_b_pivot(t_sort_info *info, t_dcl_list *node);
 bool		is_swap_a(t_sort_info *info, t_dcl_list *node);
 bool		is_swap_b(t_sort_info *info, t_dcl_list *node);
 bool		is_complete_sort_section(t_sort_info *info, t_dcl_list *stack);
-t_list		*try_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-t_list		*try_sort_check_exist_next(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
-// debug_output
-void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b);
-void	print_sort_info(t_sort_info *info, char stack);
+bool		is_complete_descending_sort(t_sort_info *info, t_dcl_list *stack);
+bool		is_push_a_next(t_sort_info *info, int index);
+bool		is_push_a_prev(t_sort_info *info, int index);
+bool		is_push_a(t_sort_info *info, t_dcl_list *stack);
+t_list		*try_swap(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_push_a(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_all_push_a(t_dcl_list *stack_a, t_dcl_list *stack_b,
+				t_list *log);
+t_list		*try_sort(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_until_possible(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_stack_a(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_sort_check_exist_next(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+t_list		*try_next_sort(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b, t_list *log);
+void		output_stack(t_dcl_list *head_p_stack_a,
+				t_dcl_list *head_p_stack_b);
+void		print_sort_info(t_sort_info *info, char stack);
 
 #endif

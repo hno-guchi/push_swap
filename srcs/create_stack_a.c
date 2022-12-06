@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:32:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 18:00:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-static void	connect_node_in_last(t_dcl_list *head_p , t_dcl_list *new_node)
+static void	connect_node_in_last(t_dcl_list *head_p, t_dcl_list *new_node)
 {
 	new_node->next = head_p;
 	new_node->prev = head_p->prev;
@@ -23,7 +23,7 @@ static void	connect_node_in_last(t_dcl_list *head_p , t_dcl_list *new_node)
 
 t_dcl_list	*create_stack_a(int argc, char **argv)
 {
-	int						i;
+	int			i;
 	t_dcl_list	*head_p;
 	t_dcl_list	*new_node;
 

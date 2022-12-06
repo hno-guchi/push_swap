@@ -16,12 +16,15 @@ SRCS = main.c \
 	   calculate_median.c calculate_section_size.c \
 	   initialize_array.c initialize_sort_info_first_half.c initialize_sort_info_second_half.c \
 	   set_sort_info_next_section.c set_sort_info_stack_b.c \
-	   is_under_b_pivot.c \
-	   is_sort_stack_b.c is_complete_sort_section.c is_empty_stack_b.c is_exist_next_sort.c \
+	   is_push_a.c \
+	   is_under_b_pivot.c is_sort_stack_b.c is_complete_sort_section.c is_complete_descending_sort.c is_empty_stack_b.c \
+	   is_exist_sort.c is_exist_next_sort_stack_b.c is_exist_next_sort.c \
 	   split_first_half.c split_second_half.c push_swap_stack_b.c push_swap_stack_a.c \
 	   sort_section_size_under_4.c sort_section_size_3_util.c \
 	   try_swap.c try_swap_next_sort_stack_b.c \
-	   try_sort.c try_sort_until_possible.c try_sort_stack_b.c try_sort_check_exist_next.c \
+	   try_push_a.c try_all_push_a.c \
+	   try_sort.c try_sort_until_possible.c try_sort_stack_a.c try_sort_stack_b.c try_sort_check_exist_next.c \
+	   try_next_sort.c
 	   #debug_output.c
 
 INCLUDES_DIR = ./includes
@@ -65,18 +68,8 @@ fclean:
 re: fclean all
 
 norm:
-	@norminette -v
-	@norminette ./libft ./srcs/ ./includes
+	norminette -v
+	norminette ./libft ./srcs/ ./includes | grep 'Error'
 
 test_overflow: $(OBJS)
 	$(CC) -g -fsanitize=address -o $(NAME) $^ -L$(LIBFT_DIR) $(LIBFT_LIB)
-
-test: execute_operation
-
-TESTS_DIR = ./tests
-TEST_SRCS = execute_operation.c
-TEST_OBJS = $(addprefix $(OBJS_DIR)/, $(TEST_SRCS:%.c=%.o))
-
-execute_operation:
-	$(CC) $(CFLAGS) -c $(INCLUDE) $(LIBFT_INCLUDE) $(TESTS_DIR)/$@.c -o $(OBJS_DIR)/$@.o
-	$(CC) $(CFLAGS) -o $(TESTS_DIR)/$@ $(TESTS_DIR)/$@.c -L$(LIBFT_DIR) $(LIBFT_LIB) $(INCLUDE) $(LIBFT_INCLUDE)

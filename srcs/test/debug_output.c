@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/02 14:17:47 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 18:13:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,51 +25,28 @@ void	output_stack(t_dcl_list *head_p_stack_a, t_dcl_list *head_p_stack_b)
 	while (stack_a != head_p_stack_a || stack_b != head_p_stack_b)
 	{
 		if (stack_a == head_p_stack_a)
-		{
 			printf("         |   [%3d]\n", stack_b->index);
-		}
 		else if (stack_b == head_p_stack_b)
-		{
 			printf(" [%3d]   |\n", stack_a->index);
-		}
 		else
-		{
 			printf(" [%3d]   |   [%3d]\n", stack_a->index, stack_b->index);
-		}
 		if (stack_a != head_p_stack_a)
-		{
 			stack_a = stack_a->next;
-		}
 		if (stack_b != head_p_stack_b)
-		{
 			stack_b = stack_b->next;
-		}
 	}
 	printf("------------------------------------------------------\n");
 }
 
 void	print_sort_info(t_sort_info *info, char stack)
 {
-	int	i = 0;
+	int	i;
 
-	// printf("Cycle [%d] : stack [%c] info\n", info->cycle, stack);
+	i = 0;
 	printf("stack [%c] info\n", stack);
 	printf("-----------------------------------\n");
 	printf("info->size         : [%4d]\n", info->size);
 	printf("info->sorted       : [%4d]\n", info->sorted);
-	// printf("info->pushed       : [%4d]\n", info->pushed);
-	// printf("info->begin_idxes[]   : ");
-	// i = 0;
-	// while (i < info->position_ary)
-	// {
-	// 	printf("[%d]", info->end_idxes[i]);
-	// 	i += 1;
-	// 	if (i < info->position_ary)
-	// 	{
-	// 		printf("-> ");
-	// 	}
-	// }
-	// printf("\n");
 	printf("info->limits_idx   : [%4d]\n", info->limits_idx);
 	printf("info->limits[]     : ");
 	while (info->limits[i] != 0)
@@ -87,7 +64,5 @@ void	print_sort_info(t_sort_info *info, char stack)
 	printf("info->a_pivot      : [%4d]\n", info->a_pivot);
 	printf("info->b_pivot      : [%4d]\n", info->b_pivot);
 	printf("info->stack_b_size : [%4d]\n", info->stack_b_size);
-	// printf("info->median       : [%4d]\n", info->median);
 	printf("-----------------------------------\n");
 }
-

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cd ./push_swap_tester
-# python3 push_swap_tester.py -l 100 -c 2000
-python3 push_swap_tester.py -l 500 -c 2000
+python3 push_swap_tester.py -l 100 -c 2000
+# python3 push_swap_tester.py -l 500 -c 2000
 << COMMENT_OUT
 python3 push_swap_tester.py -l 0
 python3 push_swap_tester.py -l 1

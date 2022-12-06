@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_exist_next_sort.c                               :+:      :+:    :+:   */
+/*   try_push_a.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/06 16:42:38 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:47:55 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
 
-static bool	is_exist_next_sort_stack_a(t_sort_info *info, t_dcl_list *stack)
+t_list	*try_push_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b
+		, t_list *log)
 {
-	if (stack->next->index == (info->sorted + 1))
+	if (is_push_a_next(info, stack_b->next->index))
 	{
-		return (true);
+		if (is_push_a_prev(info, stack_b->prev->index))
+		{
+			if (stack_b->next->index < stack_b->prev->index)
+			{
+				log = execute_operation(Reverse_rotate_b, stack_a, stack_b,
+						log);
+				return (log);
+			}
+		}
+		log = execute_operation(Push_a, stack_a, stack_b, log);
+		return (log);
 	}
-	return (false);
-}
-
-bool	is_exist_next_sort(t_sort_info *info, t_dcl_list *stack_a
-		, t_dcl_list *stack_b)
-{
-	if (is_exist_next_sort_stack_a(info, stack_a))
+	if (is_push_a_prev(info, stack_b->prev->index))
 	{
-		return (true);
+		log = execute_operation(Reverse_rotate_b, stack_a, stack_b, log);
+		return (log);
 	}
-	if (is_exist_next_sort_stack_b(info, stack_b))
-	{
-		return (true);
-	}
-	return (false);
+	return (log);
 }

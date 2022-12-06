@@ -6,13 +6,13 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:32:30 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 18:01:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	connect_node(t_dcl_list *head_p , t_dcl_list *new_node)
+void	connect_node(t_dcl_list *head_p, t_dcl_list *new_node)
 {
 	new_node->prev = head_p;
 	new_node->next = head_p->next;

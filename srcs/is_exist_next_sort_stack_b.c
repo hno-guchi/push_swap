@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_exist_next_sort.c                               :+:      :+:    :+:   */
+/*   is_exist_next_sort_stack_b.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/06 16:42:38 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 16:41:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static bool	is_exist_next_sort_stack_a(t_sort_info *info, t_dcl_list *stack)
+bool	is_exist_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack)
 {
-	if (stack->next->index == (info->sorted + 1))
+	if (1 < info->stack_b_size)
 	{
-		return (true);
+		if (stack->next->index == (info->sorted + 1))
+		{
+			return (true);
+		}
 	}
-	return (false);
-}
-
-bool	is_exist_next_sort(t_sort_info *info, t_dcl_list *stack_a
-		, t_dcl_list *stack_b)
-{
-	if (is_exist_next_sort_stack_a(info, stack_a))
+	if (2 < info->stack_b_size)
 	{
-		return (true);
-	}
-	if (is_exist_next_sort_stack_b(info, stack_b))
-	{
-		return (true);
+		if (stack->prev->index == (info->sorted + 1))
+		{
+			if (!is_exist_sort(info->sorted, stack))
+			{
+				return (true);
+			}
+		}
 	}
 	return (false);
 }

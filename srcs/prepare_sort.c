@@ -6,13 +6,13 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:34:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:59:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	add_index_stack_member(t_dcl_list *node , int *array, int size)
+static void	add_index_stack_member(t_dcl_list *node, int *array, int size)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ static void	compress(t_dcl_list *head_p, int *array, int array_size)
 	}
 }
 
-t_dcl_list	*prepare_sort(int size, char **elements , t_dcl_list *head_p)
+t_dcl_list	*prepare_sort(int size, char **elements, t_dcl_list *head_p)
 {
 	int	*temp_array;
 

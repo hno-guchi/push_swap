@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/11/22 11:53:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 18:00:00 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_ascending_sorted(t_dcl_list *head_p)
 {
-	int						i;
+	int			i;
 	t_dcl_list	*node;
 
 	i = 0;
