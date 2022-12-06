@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:37:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/06 10:26:31 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:31:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static t_list	*try_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a
 		log = try_sort_check_exist_next(info, stack_a, stack_b, log);
 		return (log);
 	}
-	if (is_sort_stack_b_next(info, stack_b->next)
-		|| is_sort_stack_b_prev(info, stack_b->prev))
+	if (is_sort_stack_b(info, stack_b))
 	{
 		log = try_sort_stack_b(info, stack_a, stack_b, log);
 		return (log);
@@ -48,8 +47,7 @@ static bool	is_prepare_push_swap(t_sort_info *info, t_dcl_list *stack_a
 	{
 		return (true);
 	}
-	if (is_sort_stack_b_next(info, stack_b->next)
-		|| is_sort_stack_b_prev(info, stack_b->prev))
+	if (is_sort_stack_b(info, stack_b))
 	{
 		return (true);
 	}

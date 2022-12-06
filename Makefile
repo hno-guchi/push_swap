@@ -15,9 +15,9 @@ SRCS = main.c \
 	   sort_n_under_4.c sort_n_under_4_descending.c sort_n_under_7.c \
 	   calculate_median.c calculate_section_size.c \
 	   initialize_array.c initialize_sort_info_first_half.c initialize_sort_info_second_half.c \
-	   set_sort_info_next_section.c \
+	   set_sort_info_next_section.c set_sort_info_stack_b.c \
 	   is_under_b_pivot.c \
-	   is_sort_stack_b_prev.c is_sort_stack_b_next.c is_complete_sort_section.c \
+	   is_sort_stack_b.c is_complete_sort_section.c is_empty_stack_b.c is_exist_next_sort.c \
 	   split_first_half.c split_second_half.c push_swap_stack_b.c push_swap_stack_a.c \
 	   sort_section_size_under_4.c sort_section_size_3_util.c \
 	   try_swap.c try_swap_next_sort_stack_b.c \

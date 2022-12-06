@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:12:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/12/06 10:49:33 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:57:45 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,13 @@ void		initialize_array(int array_size, int *array);
 void		initialize_sort_info_first_half(t_sort_info *info, int stack_size);
 void		initialize_sort_info_second_half(t_sort_info *info);
 void		set_sort_info_next_section(t_sort_info *info, t_dcl_list *stack);
+void		set_sort_info_stack_b(t_sort_info *info, t_dcl_list *stack);
+bool		is_empty_stack_b(t_dcl_list *stack_b);
+bool		is_sort_stack_b(t_sort_info *info, t_dcl_list *stack);
+bool		is_exist_sort(int sorted, t_dcl_list *stack);
+bool		is_exist_next_sort(t_sort_info *info, t_dcl_list *stack_a,
+				t_dcl_list *stack_b);
+bool		is_exist_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack);
 t_list		*split_first_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
 t_list		*split_second_half(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
 t_list		*push_swap_stack_a(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
@@ -136,8 +143,6 @@ t_list		*sort_section_size_under_4(t_sort_info *info, t_dcl_list *stack_a, t_dcl
 bool		is_under_b_pivot(t_sort_info *info, t_dcl_list *node);
 bool		is_swap_a(t_sort_info *info, t_dcl_list *node);
 bool		is_swap_b(t_sort_info *info, t_dcl_list *node);
-bool		is_sort_stack_b_prev(t_sort_info *info, t_dcl_list *prev_node);
-bool		is_sort_stack_b_next(t_sort_info *info, t_dcl_list *prev_node);
 bool		is_complete_sort_section(t_sort_info *info, t_dcl_list *stack);
 t_list		*try_swap(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
 t_list		*try_swap_next_sort_stack_b(t_sort_info *info, t_dcl_list *stack_a, t_dcl_list *stack_b, t_list *log);
